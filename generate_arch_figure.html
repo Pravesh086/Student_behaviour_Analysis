@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>System Architecture 17 Domains</title>
+<style>
+  body {
+    margin: 0;
+    padding: 20px;
+    background: #ffffff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    width: 1350px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-size: 22px;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+    font-weight: 700;
+  }
+  .header p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+  }
+  .pipeline {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+    position: relative;
+  }
+  .stage-card {
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .stage-card.highlight {
+    background: #eff6ff;
+    border-color: #3b82f6;
+  }
+  .stage-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .stage-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stage-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+  }
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+    color: #334155;
+  }
+  .item-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .item-box strong {
+    color: #0f172a;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .badge-blue { background: #dbeafe; color: #1d4ed8; }
+  .badge-purple { background: #f3e8ff; color: #7e22ce; }
+  .badge-emerald { background: #d1fae5; color: #047857; }
+  .badge-amber { background: #fef3c7; color: #b45309; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>AcuLearn AI: End-to-End System Architecture (17-Domain Standard)</h1>
+    <p>Operational dataflow from 255-item Likert psychometric intake to MT-DNN inference, counterfactual recourse, and real-time dashboard</p>
+  </div>
+
+  <div class="pipeline">
+    <!-- Stage 1 -->
+    <div class="stage-card">
+      <div class="stage-header">
+        <div class="stage-num">1</div>
+        <div class="stage-title">Intake & Psychometrics</div>
+      </div>
+      <div class="item-list">
+        <div class="item-box">
+          <strong>255-Item Standardized Scale</strong>
+          15 Items per Domain &bull; 5-Point Likert Scale (1 = Strongly Disagree to 5 = Strongly Agree)
+          <span class="badge badge-blue">N = 2,525 Cohort</span>
+        </div>
+        <div class="item-box">
+          <strong>17 Validated Domains</strong>
+          AM, LB, TM, EI, PAW, CS, LT, CTDM, CR, DLR, CI, RA, FIN, BEL, NEU, SCR, LMS
+          <span class="badge badge-blue">Cronbach α = 0.88 - 0.94</span>
+        </div>
+        <div class="item-box">
+          <strong>Confirmatory Factor Analysis</strong>
+          4 Latent Clusters loading on Higher-Order General Academic Persistence ($\xi_1$)
+          <span class="badge badge-blue">CFI = 0.961, RMSEA = 0.038</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div class="stage-card">
+      <div class="stage-header">
+        <div class="stage-num">2</div>
+        <div class="stage-title">Feature Representation</div>
+      </div>
+      <div class="item-list">
+        <div class="item-box">
+          <strong>17-D Input Vector $\mathbf{x} \in \mathbb{R}^{17}$</strong>
+          Domain Means computed with Reverse-Item Coding & Non-Linear Power Transformations
+          <span class="badge badge-purple">VIF &lt; 4.00 (No Multicollinearity)</span>
+        </div>
+        <div class="item-box">
+          <strong>Demographic Conditioning</strong>
+          13 Demographic Indicators: Gender, Department, Housing, Socioeconomic, Job Hours
+          <span class="badge badge-purple">Standardized $\mathcal{N}(0,1)$</span>
+        </div>
+        <div class="item-box">
+          <strong>Fairness Pre-Processing</strong>
+          Demographic Parity & Equalized Odds Constraints ($0.92 \le \text{DIR} \le 1.08$)
+          <span class="badge badge-purple">SAIF Compliant</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div class="stage-card highlight">
+      <div class="stage-header">
+        <div class="stage-num">3</div>
+        <div class="stage-title">Deep MT-DNN & Stacking</div>
+      </div>
+      <div class="item-list">
+        <div class="item-box">
+          <strong>Shared Latent Encoder</strong>
+          FC(17 &rarr; 256 &rarr; 128 &rarr; 64) with GELU, LayerNorm, MC Dropout ($p=0.20$)
+          <span class="badge badge-emerald">Bayesian Uncertainty</span>
+        </div>
+        <div class="item-box">
+          <strong>Multi-Task Task Heads</strong>
+          &bull; Task 1: Academic Success Tier (5-Class, F1: 0.943)<br>
+          &bull; Task 2: Dropout Hazard Risk (3-Class, F1: 0.956)<br>
+          &bull; Task 3: Employability Readiness (4-Class, F1: 0.967)
+          <span class="badge badge-emerald">Stacking Ensemble</span>
+        </div>
+        <div class="item-box">
+          <strong>Explainable AI (XAI) Engine</strong>
+          Unified TreeSHAP, KernelSHAP, Local LIME, and Gradient Saliency maps
+          <span class="badge badge-emerald">Latency &lt; 35ms</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 4 -->
+    <div class="stage-card">
+      <div class="stage-header">
+        <div class="stage-num">4</div>
+        <div class="stage-title">Dashboard & Recourse</div>
+      </div>
+      <div class="item-list">
+        <div class="item-box">
+          <strong>17-Domain Radar Analytics</strong>
+          Personalized Behavioral Archetypes & 7 Real-Time Diagnostic Early-Warning Flags
+          <span class="badge badge-amber">Instant Client Visuals</span>
+        </div>
+        <div class="item-box">
+          <strong>Counterfactual Trajectory</strong>
+          Constrained optimization finding minimal action distance to reduce dropout hazard from 88% &rarr; 18%
+          <span class="badge badge-amber">Actionable Recourse</span>
+        </div>
+        <div class="item-box">
+          <strong>Longitudinal Intervention</strong>
+          Automated referral routing to Tutoring, Counseling, Health Wellness, & Career Services
+          <span class="badge badge-amber">Closed-Loop Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
