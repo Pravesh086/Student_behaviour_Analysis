@@ -1,0 +1,77 @@
+% =========================================================================
+% DASHBOARD EMPIRICAL DATA SNAPSHOT: 17 DOMAINS & 255 ITEMS (N = 2,525)
+% Ready for inclusion in LaTeX Dissertations and Research Papers
+% =========================================================================
+
+\section{Real-Time Dashboard Analytics and Empirical Data Snapshot}
+\label{sec:dashboard_empirical_snapshot}
+
+To validate the scalability and real-time decision support capabilities of the proposed architecture, an enterprise-grade analytics dashboard was deployed on the complete empirical cohort ($N = 2,525$ students). The system processes $17$ psychometric, behavioral, and digital domains across $255$ standardized Likert items, representing $643,875$ empirical data points alongside $13$ demographic dimensions.
+
+\subsection{Empirical Cohort Overview and Descriptive Statistics}
+Table \ref{tab:17_domains_descriptive_stats} presents the descriptive statistical parameters across all 17 dimensions evaluated by the real-time analytics engine.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Empirical Descriptive Statistics Across 17 Psychometric and Behavioral Domains ($N = 2,525$, $k = 15$ Items per Domain, 643,875 Total Data Points)}
+\label{tab:17_domains_descriptive_stats}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Idx} & \textbf{Domain Name} & \textbf{Code} & \textbf{Mean ($\mu$)} & \textbf{Std ($\sigma$)} & \textbf{Median} & \textbf{Min} & \textbf{Max} \\
+\midrule
+1  & Academic Motivation                     & \texttt{AM}   & 3.010 & 0.572 & 2.949 & 2.018 & 4.321 \\
+2  & Learning Behaviour                     & \texttt{LB}   & 2.963 & 0.605 & 2.918 & 1.934 & 4.304 \\
+3  & Time Management                        & \texttt{TM}   & 3.003 & 0.563 & 2.949 & 1.857 & 4.325 \\
+4  & Emotional Intelligence                 & \texttt{EI}   & 2.993 & 0.603 & 2.939 & 1.954 & 4.348 \\
+5  & Physical Activity \& Wellness          & \texttt{PAW}  & 2.968 & 0.594 & 2.899 & 1.949 & 4.222 \\
+6  & Communication Skills                   & \texttt{CS}   & 3.020 & 0.561 & 2.949 & 1.898 & 4.366 \\
+7  & Leadership \& Teamwork                 & \texttt{LT}   & 3.038 & 0.544 & 2.969 & 1.882 & 4.331 \\
+8  & Critical Thinking \& Decision Making   & \texttt{CTDM} & 3.012 & 0.578 & 2.968 & 1.872 & 4.302 \\
+9  & Career Readiness                       & \texttt{CR}   & 2.986 & 0.603 & 2.882 & 1.858 & 4.332 \\
+10 & Digital Literacy \& AI Readiness       & \texttt{DLR}  & 3.010 & 0.550 & 2.944 & 1.982 & 4.288 \\
+11 & Creativity \& Innovation               & \texttt{CI}   & 2.982 & 0.576 & 2.961 & 1.887 & 4.303 \\
+12 & Resilience \& Adaptability             & \texttt{RA}   & 2.999 & 0.560 & 2.939 & 1.969 & 4.285 \\
+\midrule
+\multicolumn{8}{l}{\textit{Extended Diagnostic Dimensions:}} \\
+13 & Financial \& Socioeconomic Well-Being  & \texttt{FIN}  & 2.998 & 0.486 & 3.000 & 1.733 & 4.400 \\
+14 & Campus Belonging \& Peer Support       & \texttt{BEL}  & 3.080 & 0.592 & 3.000 & 1.667 & 4.667 \\
+15 & Neurodiversity, ADHD \& Exec. Functioning & \texttt{NEU} & 2.997 & 0.591 & 2.933 & 1.667 & 4.600 \\
+16 & Screen Time, Blue Light \& Digital Health & \texttt{SCR} & 2.988 & 0.595 & 2.867 & 1.733 & 4.667 \\
+17 & LMS Usability \& Hybrid Learning       & \texttt{LMS}  & 2.995 & 0.589 & 2.933 & 1.733 & 4.400 \\
+\midrule
+\textbf{--} & \textbf{Cohort Overall Aggregate} & \textbf{ALL} & \textbf{3.002} & \textbf{0.540} & \textbf{2.950} & \textbf{2.111} & \textbf{4.184} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Seven Behavioral Diagnostics Incidence and Intervention Flags}
+The dashboard's automated inference engine continuously evaluates student profiles against 7 critical diagnostic criteria to alert academic advisors prior to failure. Table \ref{tab:behavioral_diagnostics_prevalence} summarizes the prevalence and trigger conditions observed across the cohort.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Seven Behavioral Diagnostics Incidence and Primary Algorithmic Triggers ($N = 2,525$)}
+\label{tab:behavioral_diagnostics_prevalence}
+\begin{tabular}{llccl}
+\toprule
+\textbf{Diagnostic Flag} & \textbf{Clinical / Pedagogical Title} & \textbf{Count ($n$)} & \textbf{Prevalence} & \textbf{Algorithmic Trigger Condition} \\
+\midrule
+\texttt{disinterested}   & Lack of Academic Interest             & 1,143 & 45.27\% & $\text{Score}_{\text{AM}} < 2.80 \land \text{Coursework Engagement} < 2.50$ \\
+\texttt{procrastinating} & Chronic Procrastination               & 1,153 & 45.66\% & $\text{Score}_{\text{TM}} < 2.70 \land \text{Deadline Pacing} < 2.50$ \\
+\texttt{mental\_burnout} & Mental Burnout Risk                   & 1,131 & 44.79\% & $\text{Score}_{\text{EI}} < 2.80 \land \text{Sleep} \le 5\text{h} \land \text{Stress} > 3.80$ \\
+\texttt{collab\_deficit} & Collaboration Deficit                 & 1,013 & 40.12\% & $\text{Score}_{\text{LT}} < 2.80 \land \text{Peer Isolation Score} > 3.50$ \\
+\texttt{course\_failure} & Imminent Course Failure               & 880   & 34.85\% & $\text{Overall Mean} < 2.40 \land \text{Daily Study} \le 1.5\text{h}$ \\
+\texttt{screen\_fatigue} & Screen Fatigue \& Digital Strain      & 1,223 & 48.44\% & $\text{Score}_{\text{SCR}} < 2.75 \land \text{Daily Screen Time} \ge 6\text{h}$ \\
+\texttt{chronic\_skipping}& Chronic Skipping Risk                & 129   & 5.11\%  & $\text{Institutional Attendance} < 60\% \land \text{Disengagement} > 4.0$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Multi-Target Categorical Classification Breakdown}
+The dashboard monitors three synchronized predictive endpoints:
+\begin{enumerate}
+    \item \textbf{Academic Standing (5-Tier Scale):} Exactly balanced across the 5 performance tiers with $n = 505$ students ($20.0\%$) in each category: \textit{Excellent}, \textit{Good}, \textit{Average}, \textit{Poor}, and \textit{Bad}.
+    \item \textbf{Longitudinal Dropout Hazard:} Identifies $1,180$ students ($46.73\%$) in High Risk, $669$ students ($26.50\%$) in Medium Risk, and $676$ students ($26.77\%$) in Low Risk.
+    \item \textbf{Career Readiness Index:} Classifies $505$ students ($20.00\%$) as \textit{Highly Ready}, $500$ ($19.80\%$) as \textit{Ready}, $506$ ($20.04\%$) as \textit{Moderately Ready}, and $1,014$ ($40.16\%$) as \textit{Not Ready}.
+\end{enumerate}
