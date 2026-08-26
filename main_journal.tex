@@ -22,15 +22,16 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{balance}
+\usepackage[section]{placeins}
 
-% --- Tight Float Control & Zero Uneven Spacing ---
+% --- Strict Float Placement Control: Zero Leakage into References ---
 \raggedbottom
 \renewcommand{\topfraction}{0.95}
 \renewcommand{\bottomfraction}{0.95}
 \renewcommand{\textfraction}{0.05}
-\renewcommand{\floatpagefraction}{0.85}
+\renewcommand{\floatpagefraction}{0.80}
 \renewcommand{\dbltopfraction}{0.95}
-\renewcommand{\dblfloatpagefraction}{0.85}
+\renewcommand{\dblfloatpagefraction}{0.80}
 
 \setlength{\floatsep}{6pt plus 2pt minus 2pt}
 \setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
@@ -87,6 +88,8 @@ To address these limitations, we developed AcuLearn AI (Fig.~\ref{fig:system_arc
     \caption{AcuLearn AI Full-Stack Pedagogical Analytics Architecture: End-to-end dataflow pipeline integrating antecedent psychometric profiling, Multi-Task Tabular Deep Learning, Tripartite Explainable AI, and Zero-Cloud MTSS Prescriptive Counseling.}
     \label{fig:system_architecture}
 \end{figure*}
+
+\FloatBarrier
 
 % =========================================================================
 \section{Theoretical Grounding and Related Work}
@@ -166,13 +169,7 @@ LMS Usability (\texttt{LMS}) & $2.9950$ & $0.5890$ & $1.7333$ & $4.4000$ & $+0.2
 \end{adjustbox}
 \end{table}
 
-% --- FIGURE 4: DEEP LEARNING ARCHITECTURE (FULL WIDTH TOP OF PAGE 4) ---
-\begin{figure*}[!t]
-    \centering
-    \includegraphics[width=0.96\textwidth]{figures/fig_deep_learning_arch.png}
-    \caption{AcuLearn Multi-Task Deep Neural Network (MT-DNN) Architecture: Illustrating the shared representation bottleneck ($128 \to 64 \to 32$), overhead residual skip connection $\mathcal{P}(\mathbf{h}_1)$, and concurrent multi-target classification heads.}
-    \label{fig:deep_learning_arch}
-\end{figure*}
+\FloatBarrier
 
 % =========================================================================
 \section{Multi-Task Tabular Neural Architecture}
@@ -194,6 +191,14 @@ As illustrated in Fig.~\ref{fig:deep_learning_arch}, the input vector is process
 \end{align}
 where $\mathcal{P}(\mathbf{h}_1) = \mathbf{W}_{\text{skip}}\mathbf{h}_1$ represents a linear projection aligning the 128-dimensional initial activation with the 32-dimensional bottleneck latent state $\mathbf{z}$. This residual highway facilitates gradient propagation during joint backpropagation and stabilizes representations across diverse target distributions \cite{caruana1997multitask, chen2025multimodal, wang2025deep}.
 
+% --- FIGURE 4: DEEP LEARNING ARCHITECTURE (FULL WIDTH) ---
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=0.96\textwidth]{figures/fig_deep_learning_arch.png}
+    \caption{AcuLearn Multi-Task Deep Neural Network (MT-DNN) Architecture: Illustrating the shared representation bottleneck ($128 \to 64 \to 32$), overhead residual skip connection $\mathcal{P}(\mathbf{h}_1)$, and concurrent multi-target classification heads.}
+    \label{fig:deep_learning_arch}
+\end{figure*}
+
 \subsection{Joint Optimization Objective}
 Each prediction head branches from the shared latent manifold $\mathbf{z}$:
 \begin{equation}
@@ -207,6 +212,8 @@ The global loss function minimizes the weighted cross-entropy sum across all thr
 \end{aligned}
 \end{equation}
 with loss weights set to $w_1 = 1.0$, $w_2 = 1.25$ (elevating penalty for false-negative dropout predictions), and $w_3 = 0.80$, optimized via AdamW with cosine learning rate scheduling.
+
+\FloatBarrier
 
 % =========================================================================
 \section{Explainability and Prescriptive Recourse}
@@ -286,6 +293,8 @@ subject to feasibility bounds $x'_j \in [1.0, 5.0]$ and immutable domain constra
     \label{fig:recourse_and_calibration}
 \end{figure*}
 
+\FloatBarrier
+
 % =========================================================================
 \section{Empirical Evaluation and Discussion}
 \label{sec:results}
@@ -294,7 +303,7 @@ subject to feasibility bounds $x'_j \in [1.0, 5.0]$ and immutable domain constra
 \subsection{Cross-Validation Benchmarking}
 We evaluated model performance through 5-fold stratified cross-validation on the full $N = 2,525$ student cohort. Table~\ref{tab:benchmarks} presents comparative metrics across baseline classifiers, gradient boosting models, our multi-task neural network, and a stacking meta-ensemble.
 
-% --- TABLE 2: BENCHMARKS (FULL WIDTH TOP OF PAGE 6) ---
+% --- TABLE 2: BENCHMARKS (FULL WIDTH) ---
 \begin{table*}[!t]
 \centering
 \caption{Comprehensive 5-Fold Stratified Cross-Validation Performance Benchmarks ($N=2,525$).}
@@ -329,22 +338,26 @@ Deep Multi-Task MLP (MT-DNN) & $89.82 \pm 0.41$ & $0.8995$ & $0.8982$ & $0.8980$
 \end{adjustbox}
 \end{table*}
 
-The Stacking Meta-Ensemble achieved the highest overall accuracy across all prediction heads, reaching $94.85\% \pm 0.28\%$ for Dropout Hazard ($0.9484$ Macro F1, $0.9802$ ROC-AUC) and $92.48\% \pm 0.32\%$ for Academic Performance. Receiver Operating Characteristic (ROC) curves (Fig.~\ref{fig:roc_curves}) and normalized confusion matrices (Fig.~\ref{fig:confusion_matrices}) confirm superior class discrimination, maintaining low false alarm rates while identifying true at-risk cases.
+The Stacking Meta-Ensemble achieved the highest overall accuracy across all prediction heads, reaching $94.85\% \pm 0.28\%$ for Dropout Hazard ($0.9484$ Macro F1, $0.9802$ ROC-AUC) and $92.48\% \pm 0.32\%$ for Academic Performance. Receiver Operating Characteristic (ROC) curves and normalized confusion matrices (Fig.~\ref{fig:model_evaluation}) confirm superior class discrimination, maintaining low false alarm rates while identifying true at-risk cases.
 
-% --- FIGURE 8: ROC CURVES (FULL WIDTH) ---
+% --- FIGURE 8: COMBINED ROC CURVES & CONFUSION MATRICES (FULL WIDTH) ---
 \begin{figure*}[!t]
     \centering
-    \includegraphics[width=0.96\textwidth]{figures/fig_roc_curves.png}
-    \caption{5-Fold Cross-Validation Multi-Class ROC Characteristics across all three prediction heads for baseline and ensemble models ($N=2,525$).}
-    \label{fig:roc_curves}
-\end{figure*}
-
-% --- FIGURE 9: CONFUSION MATRICES (FULL WIDTH) ---
-\begin{figure*}[!t]
-    \centering
-    \includegraphics[width=0.96\textwidth]{figures/fig_confusion_matrices.png}
-    \caption{Normalized Multi-Class Confusion Matrices for the Stacking Meta-Ensemble illustrating strong diagonal concentration ($N=2,525$).}
-    \label{fig:confusion_matrices}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig_roc_curves.png}
+        \caption{5-Fold Cross-Validation Multi-Class ROC Curves across Heads.}
+        \label{fig:roc_curves}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig_confusion_matrices.png}
+        \caption{Normalized Multi-Class Confusion Matrices for Stacking Ensemble.}
+        \label{fig:confusion_matrices}
+    \end{subfigure}
+    \caption{Empirical Multi-Task Classifier Performance: (a) Cross-validation ROC characteristics across tasks; (b) Confusion matrices demonstrating strong diagonal concentration ($N=2,525$).}
+    \label{fig:model_evaluation}
 \end{figure*}
 
 \subsection{Probability Calibration and Reliability}
@@ -360,6 +373,8 @@ We audited model outputs across gender, first-generation status, and socioeconom
 \end{equation}
 These results confirm compliance with the standard four-fifths fairness rule ($\text{DIR} \ge 0.80$), verifying that predictions reflect psychometric behaviors rather than demographic bias.
 
+\FloatBarrier
+
 % =========================================================================
 \section{Implementation and Advisor Study}
 \label{sec:system}
@@ -368,7 +383,7 @@ These results confirm compliance with the standard four-fifths fairness rule ($\
 \subsection{Client-Side Architecture and Privacy}
 AcuLearn AI is implemented as a client-side web application using HTML5, Vanilla CSS, and TensorFlow.js (Fig.~\ref{fig:dashboard_overview}). Inference executes entirely in the user's web browser, ensuring student survey data remains confidential without external network transmission. Profiling on standard workstation hardware yielded an average end-to-end inference latency of $14.06\text{ ms}$, enabling immediate feedback upon questionnaire completion.
 
-% --- FIGURE 10: DASHBOARD OVERVIEW (FULL WIDTH) ---
+% --- FIGURE 9: DASHBOARD OVERVIEW (FULL WIDTH) ---
 \begin{figure*}[!t]
     \centering
     \includegraphics[width=0.96\textwidth]{figures/fig_dashboard_overview.png}
@@ -379,6 +394,7 @@ AcuLearn AI is implemented as a client-side web application using HTML5, Vanilla
 \subsection{Advisor Usability Evaluation}
 We conducted an empirical evaluation with $N = 35$ university academic advisors to assess the operational efficacy of the prescriptive dashboard. Usability was measured using the System Usability Scale (SUS) \cite{brooke1996sus}, Task Load Index (NASA-TLX) \cite{hart1988development}, and Organizational Trust scales \cite{mcknight2002developing}. Advisors reported an average SUS score of $88.4 / 100$ (Grade A+), a $41.8\%$ reduction in consultation preparation time, and a $94.3\%$ agreement that counterfactual recourse roadmaps improved the specificity of counseling interventions.
 
+\clearpage
 % =========================================================================
 \section{Conclusion and Future Work}
 \label{sec:conclusion}
@@ -386,7 +402,7 @@ We conducted an empirical evaluation with $N = 35$ university academic advisors 
 This paper introduced AcuLearn AI, an explainable machine learning architecture for proactive student retention in higher education. By combining a 17-domain psychometric diagnostic instrument with shared-bottleneck multi-task neural networks and constrained counterfactual optimization, our system shifts educational analytics from reactive warning flags to actionable behavioral prescriptions. Cross-validation on 2,525 undergraduate engineering students demonstrated high predictive accuracy ($94.85\%$ macro-F1 on dropout hazard) alongside verified demographic fairness ($\text{DIR} \ge 0.978$) and privacy-preserving client-side execution. Future work will investigate longitudinal tracking across multi-semester degree trajectories and explore integration with adaptive digital tutoring systems.
 
 % =========================================================================
-% REFERENCES
+% REFERENCES (FINAL SECTION OF MANUSCRIPT - ZERO FIGURES AFTER THIS)
 % =========================================================================
 \balance
 \bibliographystyle{IEEEtran}

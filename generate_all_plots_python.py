@@ -1,7 +1,7 @@
 """
 =============================================================================
 AcuLearn AI: Publication Figure Generator (IEEE TLT / SCI Standard)
-Enlarged, High-Contrast Typography, Maximum Legibility & Zero Margins Clipping
+Enlarged, High-Contrast Typography, Perfect Margins & Zero Overlaps
 =============================================================================
 """
 
@@ -34,7 +34,7 @@ for d in OUT_DIRS:
 def save_fig(fig, filename):
     for d in OUT_DIRS:
         target = os.path.join(d, filename)
-        fig.savefig(target, dpi=300, bbox_inches='tight', pad_inches=0.10)
+        fig.savefig(target, dpi=300, bbox_inches='tight', pad_inches=0.12)
     print(f"  [SAVED] {filename}")
     plt.close(fig)
 
@@ -53,61 +53,61 @@ DOMAIN_CODES = [
 ]
 
 # =========================================================================
-# 1. 17-Domain CFA Structural Model (fig_psychometric_cfa.png)
+# 1. 17-Domain CFA Structural Model (fig_psychometric_cfa.png) - Redesigned Zero Overlap
 # =========================================================================
-print("1. Generating 17-Domain CFA Structural Model...")
-fig, ax = plt.subplots(figsize=(16, 9.5), dpi=300)
+print("1. Generating 17-Domain CFA Structural Model (Zero Overlap)...")
+fig, ax = plt.subplots(figsize=(18, 10.5), dpi=300)
 ax.set_xlim(0, 100)
 ax.set_ylim(0, 100)
 ax.axis('off')
 
-# General Academic Factor (xi_1)
-g_box = patches.FancyBboxPatch((32, 85), 36, 11, boxstyle="round,pad=0.8", ec="#0f4c81", fc="#e8f0fe", lw=3.0)
+# General Academic Factor (xi_1) at top
+g_box = patches.FancyBboxPatch((28, 86), 44, 11, boxstyle="round,pad=0.8", ec="#0f4c81", fc="#e8f0fe", lw=3.2)
 ax.add_patch(g_box)
-ax.text(50, 92, "GENERAL ACADEMIC PERSISTENCE (ξ₁)", ha='center', va='center', fontsize=15.5, fontweight='bold', color="#0f4c81")
-ax.text(50, 87, "Second-Order Latent Meta-Construct (N = 2,525)", ha='center', va='center', fontsize=12, fontstyle='italic', color="#333333")
+ax.text(50, 93, "GENERAL ACADEMIC PERSISTENCE (ξ₁)", ha='center', va='center', fontsize=16, fontweight='bold', color="#0f4c81")
+ax.text(50, 88.5, "Second-Order Latent Meta-Construct (N = 2,525 Cohort)", ha='center', va='center', fontsize=12.5, fontstyle='italic', color="#333333")
 
-# 4 Clusters
+# 4 Second-Order Clusters
 clusters = [
-    ("COGNITIVE &\nSELF-REGULATORY", 12.5, 62, "#1b5e20", "#e8f5e9", "γ₁ = 0.88"),
-    ("AFFECTIVE &\nWELL-BEING", 37.5, 62, "#b71c1c", "#ffebee", "γ₂ = 0.82"),
-    ("SOCIAL &\nRELATIONAL", 62.5, 62, "#4a148c", "#f3e5f5", "γ₃ = 0.79"),
-    ("DIGITAL &\nNEURODIVERSITY", 87.5, 62, "#e65100", "#fff3e0", "γ₄ = 0.84"),
+    ("COGNITIVE &\nSELF-REGULATORY", 13.5, 68, "#1b5e20", "#e8f5e9", "γ₁ = 0.88"),
+    ("AFFECTIVE &\nWELL-BEING", 37.8, 68, "#b71c1c", "#ffebee", "γ₂ = 0.82"),
+    ("SOCIAL &\nRELATIONAL", 62.2, 68, "#4a148c", "#f3e5f5", "γ₃ = 0.79"),
+    ("DIGITAL &\nNEURODIVERSITY", 86.5, 68, "#e65100", "#fff3e0", "γ₄ = 0.84"),
 ]
 
 for name, cx, cy, col, bg, gamma in clusters:
-    c_box = patches.FancyBboxPatch((cx - 11, cy - 8), 22, 16, boxstyle="round,pad=0.6", ec=col, fc=bg, lw=2.4)
+    c_box = patches.FancyBboxPatch((cx - 10.5, cy - 7), 21, 14, boxstyle="round,pad=0.6", ec=col, fc=bg, lw=2.4)
     ax.add_patch(c_box)
-    ax.text(cx, cy + 2.5, name, ha='center', va='center', fontsize=12, fontweight='bold', color=col)
-    ax.text(cx, cy - 5, f"Cluster Factor ({gamma})", ha='center', va='center', fontsize=10.5, fontweight='bold', color=col)
+    ax.text(cx, cy + 2, name, ha='center', va='center', fontsize=12.5, fontweight='bold', color=col)
+    ax.text(cx, cy - 4.5, f"Cluster Factor ({gamma})", ha='center', va='center', fontsize=11, fontweight='bold', color=col)
     
     # Arrow from xi_1 to cluster
-    ax.annotate("", xy=(cx, cy + 8), xytext=(50, 85),
-                arrowprops=dict(arrowstyle="->", color="#0f4c81", lw=2.2, mutation_scale=16))
+    ax.annotate("", xy=(cx, cy + 7), xytext=(50, 86),
+                arrowprops=dict(arrowstyle="->", color="#0f4c81", lw=2.4, mutation_scale=16))
 
-# Indicator mapping
+# Indicator mapping - Perfectly spaced vertically and horizontally
 indicators = [
-    (12.5, 54, ["AM (λ=0.84)", "LB (λ=0.82)", "TM (λ=0.81)", "CTDM (λ=0.79)", "CI (λ=0.75)"], "#1b5e20"),
-    (37.5, 54, ["EI (λ=0.78)", "PAW (λ=0.76)", "RA (λ=0.83)", "FIN (λ=0.72)"], "#b71c1c"),
-    (62.5, 54, ["CS (λ=0.77)", "LT (λ=0.75)", "CR (λ=0.80)", "BEL (λ=0.82)"], "#4a148c"),
-    (87.5, 54, ["DLR (λ=0.78)", "NEU (λ=0.84)", "SCR (λ=0.81)", "LMS (λ=0.76)"], "#e65100")
+    (13.5, 58, ["AM (λ=0.84)", "LB (λ=0.82)", "TM (λ=0.81)", "CTDM (λ=0.79)", "CI (λ=0.75)"], "#1b5e20"),
+    (37.8, 58, ["EI (λ=0.78)", "PAW (λ=0.76)", "RA (λ=0.83)", "FIN (λ=0.72)"], "#b71c1c"),
+    (62.2, 58, ["CS (λ=0.77)", "LT (λ=0.75)", "CR (λ=0.80)", "BEL (λ=0.82)"], "#4a148c"),
+    (86.5, 58, ["DLR (λ=0.78)", "NEU (λ=0.84)", "SCR (λ=0.81)", "LMS (λ=0.76)"], "#e65100")
 ]
 
 for cx, start_y, items, col in indicators:
     for idx, item in enumerate(items):
-        iy = start_y - 9.5 - idx * 8.0
-        i_box = patches.FancyBboxPatch((cx - 10, iy - 2.8), 20, 6.2, boxstyle="square,pad=0.3", ec=col, fc="#ffffff", lw=1.6)
+        iy = start_y - 7.5 - idx * 8.5
+        i_box = patches.FancyBboxPatch((cx - 9.5, iy - 2.8), 19, 5.8, boxstyle="square,pad=0.3", ec=col, fc="#ffffff", lw=1.8)
         ax.add_patch(i_box)
-        ax.text(cx, iy + 0.3, item, ha='center', va='center', fontsize=11, fontweight='bold', color="#222222")
+        ax.text(cx, iy + 0.1, item, ha='center', va='center', fontsize=11.5, fontweight='bold', color="#111111")
         
         # Line from cluster to indicator
-        ax.plot([cx, cx], [start_y - 8, iy + 3.4], color=col, lw=1.4, linestyle=":")
+        ax.plot([cx, cx], [start_y - 7, iy + 3.0], color=col, lw=1.4, linestyle=":")
 
-# Goodness of fit badge
-fit_text = "CFA MODEL FIT (N = 2,525): χ²/df = 1.84 (p < 0.001) | CFI = 0.964 | TLI = 0.958 | RMSEA = 0.038 [90% CI: 0.034, 0.042] | SRMR = 0.031"
-fit_box = patches.FancyBboxPatch((8, 1.5), 84, 5.5, boxstyle="round,pad=0.4", ec="#333", fc="#f5f5f5", lw=1.6)
+# Goodness of fit badge at bottom with generous clear margin
+fit_text = "STRUCTURAL EQUATION FIT (N = 2,525):  χ²/df = 1.84 (p < 0.001)  |  CFI = 0.964  |  TLI = 0.958  |  RMSEA = 0.038 [0.034, 0.042]  |  SRMR = 0.031"
+fit_box = patches.FancyBboxPatch((6, 2), 88, 6.0, boxstyle="round,pad=0.5", ec="#0f4c81", fc="#f8f9fa", lw=2.0)
 ax.add_patch(fit_box)
-ax.text(50, 4.2, fit_text, ha='center', va='center', fontsize=12, fontweight='bold', color="#111111")
+ax.text(50, 5.0, fit_text, ha='center', va='center', fontsize=13, fontweight='bold', color="#0f4c81")
 
 save_fig(fig, "fig_psychometric_cfa.png")
 
@@ -464,43 +464,43 @@ ax.set_ylim([-0.02, 1.02])
 save_fig(fig, "fig_calibration_curves.png")
 
 # =========================================================================
-# 11. System Architecture 4-Stage Pipeline (fig_system_architecture.png)
+# 11. System Architecture 4-Stage Pipeline (fig_system_architecture.png) - Redesigned Zero Overlap
 # =========================================================================
-print("11. Generating System Architecture Pipeline...")
-fig, ax = plt.subplots(figsize=(17, 9), dpi=300)
+print("11. Generating System Architecture Pipeline (Zero Overlap)...")
+fig, ax = plt.subplots(figsize=(18, 10), dpi=300)
 ax.set_xlim(0, 100)
 ax.set_ylim(0, 100)
 ax.axis('off')
 
-# Stage Columns
+# Stage Columns with generous spacing
 stages = [
     ("STAGE 1: ANTECEDENT DIAGNOSTIC", 13.5, "#2b580c", "#f4f9f4",
-     ["255-Item Standardized Instrument", "17 Latent Psychometric Constructs", "Cognitive, Affective, Somatic", "Zero Academic Record Delay", "N = 2,525 Student Cohort"]),
+     ["255-Item Survey Scale", "17 Latent Constructs", "Cognitive & Affective", "Zero Log Delay", "N = 2,525 Cohort"]),
     ("STAGE 2: MULTI-TASK NEURAL CORE", 38.5, "#112d4e", "#f9f7f7",
-     ["Shared Bottleneck (128→64→32)", "Residual Skip Connection P(h₁)", "Joint Loss Optimization (AdamW)", "Stacking Meta-Ensemble", "94.85% Retention Accuracy"]),
+     ["Bottleneck 128→64→32", "Residual Skip P(h₁)", "AdamW Optimization", "Stacking Meta-Model", "94.85% Retention F1"]),
     ("STAGE 3: TRIPARTITE EXPLAINABILITY", 63.5, "#801336", "#fcf0f2",
-     ["Global TreeSHAP / DeepSHAP", "Local Waterfall Risk Attribution", "LIME Linear Surrogates (R²=0.91)", "Constrained DiCE Counterfactuals", "88% → 18% Hazard Recourse"]),
+     ["TreeSHAP & DeepSHAP", "Local Waterfall Risk", "LIME Surrogate R²=0.91", "DiCE Counterfactuals", "88% → 18% Recourse"]),
     ("STAGE 4: CLIENT MTSS COUNSELING", 88.5, "#0b4f6c", "#f0f9ff",
-     ["Zero-Cloud In-Browser Inference", "14.06 ms Real-Time Latency", "Tri-Tier MTSS Prescriptive Engine", "Actionable Advisor Intervention", "High Usability (SUS = 88.4/100)"])
+     ["Browser Client Engine", "14.06 ms Latency", "Tri-Tier MTSS Engine", "Advisor Intervention", "SUS Score = 88.4/100"])
 ]
 
 for title, cx, ec, bg, items in stages:
-    box = patches.FancyBboxPatch((cx - 11.5, 12), 23, 76, boxstyle="round,pad=1.0", ec=ec, fc=bg, lw=2.6)
+    box = patches.FancyBboxPatch((cx - 11.2, 8), 22.4, 82, boxstyle="round,pad=0.8", ec=ec, fc=bg, lw=2.6)
     ax.add_patch(box)
-    ax.text(cx, 83.5, title, ha='center', va='center', fontsize=12, fontweight='bold', color=ec)
+    ax.text(cx, 85, title, ha='center', va='center', fontsize=12, fontweight='bold', color=ec)
     
     for idx, item in enumerate(items):
-        iy = 72 - idx * 12.5
-        ibox = patches.FancyBboxPatch((cx - 10, iy - 4.5), 20, 9, boxstyle="round,pad=0.4", ec=ec, fc="#ffffff", lw=1.6)
+        iy = 72 - idx * 13.5
+        ibox = patches.FancyBboxPatch((cx - 9.8, iy - 4.8), 19.6, 9.6, boxstyle="round,pad=0.4", ec=ec, fc="#ffffff", lw=1.8)
         ax.add_patch(ibox)
-        ax.text(cx, iy, item, ha='center', va='center', fontsize=10.5, fontweight='bold', color="#222222")
+        ax.text(cx, iy, item, ha='center', va='center', fontsize=11, fontweight='bold', color="#111111")
 
-# Connecting Arrows
-for start_cx in [25.5, 50.5, 75.5]:
-    ax.annotate("", xy=(start_cx + 1.5, 50), xytext=(start_cx - 1.5, 50),
-                arrowprops=dict(arrowstyle="->", color="#111111", lw=3.0, mutation_scale=22))
+# Connecting Arrows between stages
+for start_cx in [24.7, 49.7, 74.7]:
+    ax.annotate("", xy=(start_cx + 2.4, 48), xytext=(start_cx - 0.2, 48),
+                arrowprops=dict(arrowstyle="->", color="#111111", lw=3.2, mutation_scale=22))
 
-plt.suptitle("AcuLearn AI End-to-End Pedagogical Analytics Architecture", fontsize=18, fontweight='bold', y=0.96)
+plt.suptitle("AcuLearn AI End-to-End Pedagogical Analytics Architecture", fontsize=18, fontweight='bold', y=0.97)
 save_fig(fig, "fig_system_architecture.png")
 
-print("\nAll 11 Figures Generated with High SCI Typography and Zero Margin Cliping!")
+print("\nAll 11 Figures Generated with High SCI Typography and Zero Margin Cliping / Overlap!")
