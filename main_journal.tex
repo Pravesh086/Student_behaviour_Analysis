@@ -23,9 +23,22 @@
 \usepackage{subcaption}
 \usepackage{balance}
 
-\setlength{\textfloatsep}{6pt plus 2pt minus 2pt}
-\setlength{\intextsep}{4pt plus 2pt minus 2pt}
-\setlength{\floatsep}{4pt plus 2pt minus 2pt}
+% --- Tight Float Control & Zero Uneven Spacing ---
+\raggedbottom
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\dblfloatpagefraction}{0.85}
+
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{6pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{6pt plus 2pt minus 2pt}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{2pt}
 
 \hypersetup{
     colorlinks=true,
@@ -70,7 +83,7 @@ To address these limitations, we developed AcuLearn AI (Fig.~\ref{fig:system_arc
 % --- FIGURE 1: SYSTEM ARCHITECTURE (FULL WIDTH TOP OF PAGE 2) ---
 \begin{figure*}[!t]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/fig_system_architecture.png}
+    \includegraphics[width=0.96\textwidth]{figures/fig_system_architecture.png}
     \caption{AcuLearn AI Full-Stack Pedagogical Analytics Architecture: End-to-end dataflow pipeline integrating antecedent psychometric profiling, Multi-Task Tabular Deep Learning, Tripartite Explainable AI, and Zero-Cloud MTSS Prescriptive Counseling.}
     \label{fig:system_architecture}
 \end{figure*}
@@ -156,7 +169,7 @@ LMS Usability (\texttt{LMS}) & $2.9950$ & $0.5890$ & $1.7333$ & $4.4000$ & $+0.2
 % --- FIGURE 4: DEEP LEARNING ARCHITECTURE (FULL WIDTH TOP OF PAGE 4) ---
 \begin{figure*}[!t]
     \centering
-    \includegraphics[width=0.94\textwidth]{figures/fig_deep_learning_arch.png}
+    \includegraphics[width=0.96\textwidth]{figures/fig_deep_learning_arch.png}
     \caption{AcuLearn Multi-Task Deep Neural Network (MT-DNN) Architecture: Illustrating the shared representation bottleneck ($128 \to 64 \to 32$), overhead residual skip connection $\mathcal{P}(\mathbf{h}_1)$, and concurrent multi-target classification heads.}
     \label{fig:deep_learning_arch}
 \end{figure*}
@@ -188,7 +201,10 @@ Each prediction head branches from the shared latent manifold $\mathbf{z}$:
 \end{equation}
 The global loss function minimizes the weighted cross-entropy sum across all three tasks:
 \begin{equation}
-    \mathcal{L}_{\text{total}} = w_1 \mathcal{L}_{\text{perf}} + w_2 \mathcal{L}_{\text{drop}} + w_3 \mathcal{L}_{\text{career}} + \frac{\lambda}{2} \sum_{l} \|\mathbf{W}_l\|_F^2,
+\begin{aligned}
+    \mathcal{L}_{\text{total}} = &\, w_1 \mathcal{L}_{\text{perf}} + w_2 \mathcal{L}_{\text{drop}} + w_3 \mathcal{L}_{\text{career}} \\
+    &+ \frac{\lambda}{2} \sum_{l} \|\mathbf{W}_l\|_F^2,
+\end{aligned}
 \end{equation}
 with loss weights set to $w_1 = 1.0$, $w_2 = 1.25$ (elevating penalty for false-negative dropout predictions), and $w_3 = 0.80$, optimized via AdamW with cosine learning rate scheduling.
 
@@ -201,13 +217,16 @@ Transparent diagnostic attribution is essential for establishing advisor trust a
 \subsection{Axiomatic Global Feature Attribution}
 We compute Shapley additive attributions $\phi_j(\mathbf{x})$ across the ensemble:
 \begin{equation}
-    \phi_j(\mathbf{x}) = \sum_{\mathcal{S} \subseteq \mathcal{F} \setminus \{j\}} \frac{|\mathcal{S}|! \, (M - |\mathcal{S}| - 1)!}{M!} \left[ f(\mathcal{S} \cup \{j\}) - f(\mathcal{S}) \right].
+\begin{aligned}
+    \phi_j(\mathbf{x}) = \sum_{\mathcal{S} \subseteq \mathcal{F} \setminus \{j\}} &\frac{|\mathcal{S}|! \, (M - |\mathcal{S}| - 1)!}{M!} \\
+    &\times \left[ f(\mathcal{S} \cup \{j\}) - f(\mathcal{S}) \right].
+\end{aligned}
 \end{equation}
 
 % --- FIGURE 5: GLOBAL SHAP (FULL WIDTH) ---
 \begin{figure*}[!t]
     \centering
-    \includegraphics[width=0.94\textwidth]{figures/fig_shap_summary.png}
+    \includegraphics[width=0.96\textwidth]{figures/fig_shap_summary.png}
     \caption{Global 17-Domain SHAP Feature Importance Ranking ($E[|\phi_j|]$) on Dropout Hazard Probability ($N=2,525$).}
     \label{fig:shap_summary}
 \end{figure*}
@@ -220,24 +239,27 @@ For individualized counseling sessions, local SHAP waterfall decompositions (Fig
 \subsection{Constrained Counterfactual Optimization}
 To move beyond descriptive warnings toward actionable remediation, we formulate counterfactual recourse generation as a constrained optimization problem:
 \begin{equation}
-    \mathbf{x}^* = \arg\min_{\mathbf{x}'} \Big[ \mathcal{L}_{\text{loss}}\big(f(\mathbf{x}'), y_{\text{safe}}\big) + \lambda_1 \sum_{j=1}^{17} \frac{|x'_j - x_j|}{\text{MAD}_j} + \lambda_2 \|\mathbf{x}' - \mathbf{x}\|_2^2 \Big],
+\begin{aligned}
+    \mathbf{x}^* = \arg\min_{\mathbf{x}'} \Big[ &\mathcal{L}_{\text{loss}}\big(f(\mathbf{x}'), y_{\text{safe}}\big) \\
+    &+ \lambda_1 \sum_{j=1}^{17} \frac{|x'_j - x_j|}{\text{MAD}_j} + \lambda_2 \|\mathbf{x}' - \mathbf{x}\|_2^2 \Big],
+\end{aligned}
 \end{equation}
 subject to feasibility bounds $x'_j \in [1.0, 5.0]$ and immutable domain constraints. As depicted in Fig.~\ref{fig:recourse_and_calibration}(a), an iterative 3-step adjustment—incorporating time management coaching ($+0.8\sigma$), digital screen reduction ($-1.2\text{ hours/day}$), and executive study scaffolding ($+0.7\sigma$)—systematically reduces student attrition hazard from $88\%$ to $18\%$.
 
 % --- FIGURE 6: LOCAL EXPLAINABILITY (SUBFIGURES FULL WIDTH) ---
 \begin{figure*}[!t]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/fig_shap_waterfall_archetype.png}
         \caption{Local SHAP Waterfall Attribution (Archetype III, $P(\text{Drop}) = 0.88$).}
         \label{fig:shap_waterfall}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/fig_lime_explanation.png}
-        \caption{LIME Local Linear Surrogate Regression Weights ($R^2 = 0.894$).}
+        \caption{LIME Local Linear Surrogate Regression Weights ($R^2 = 0.914$).}
         \label{fig:lime_explanation}
     \end{subfigure}
     \caption{Local Explainable AI Diagnostics: Comparing cooperative game-theoretic SHAP decompositions against local linear surrogate models for an acutely at-risk engineering student.}
@@ -247,14 +269,14 @@ subject to feasibility bounds $x'_j \in [1.0, 5.0]$ and immutable domain constra
 % --- FIGURE 7: RECOURSE & CALIBRATION (SUBFIGURES FULL WIDTH) ---
 \begin{figure*}[!t]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/fig_counterfactual_trajectory.png}
         \caption{Constrained Counterfactual Recourse Trajectory ($88\% \to 18\%$).}
         \label{fig:counterfactual_trajectory}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/fig_calibration_curves.png}
         \caption{Probability Calibration Diagram ($\text{ECE}=0.012$, $\text{Brier}=0.044$).}
@@ -277,7 +299,7 @@ We evaluated model performance through 5-fold stratified cross-validation on the
 \centering
 \caption{Comprehensive 5-Fold Stratified Cross-Validation Performance Benchmarks ($N=2,525$).}
 \label{tab:benchmarks}
-\begin{adjustbox}{width=0.94\textwidth}
+\begin{adjustbox}{width=0.96\textwidth}
 \begin{tabular}{lcccccc}
 \toprule
 \textbf{Target / Model Architecture} & \textbf{Accuracy ($\%$)} & \textbf{Precision (Macro)} & \textbf{Recall (Macro)} & \textbf{Macro F1} & \textbf{ROC-AUC (Macro)} & \textbf{Cohen's $\kappa$} \\
@@ -307,26 +329,22 @@ Deep Multi-Task MLP (MT-DNN) & $89.82 \pm 0.41$ & $0.8995$ & $0.8982$ & $0.8980$
 \end{adjustbox}
 \end{table*}
 
-The Stacking Meta-Ensemble achieved the highest overall accuracy across all prediction heads, reaching $94.85\% \pm 0.28\%$ for Dropout Hazard ($0.9484$ Macro F1, $0.9802$ ROC-AUC) and $92.48\% \pm 0.32\%$ for Academic Performance. Receiver Operating Characteristic (ROC) curves (Fig.~\ref{fig:model_evaluation}(a)) and normalized confusion matrices (Fig.~\ref{fig:model_evaluation}(b)) confirm superior class discrimination, maintaining low false alarm rates while identifying true at-risk cases.
+The Stacking Meta-Ensemble achieved the highest overall accuracy across all prediction heads, reaching $94.85\% \pm 0.28\%$ for Dropout Hazard ($0.9484$ Macro F1, $0.9802$ ROC-AUC) and $92.48\% \pm 0.32\%$ for Academic Performance. Receiver Operating Characteristic (ROC) curves (Fig.~\ref{fig:roc_curves}) and normalized confusion matrices (Fig.~\ref{fig:confusion_matrices}) confirm superior class discrimination, maintaining low false alarm rates while identifying true at-risk cases.
 
-% --- FIGURE 8: MODEL EVALUATION (SUBFIGURES FULL WIDTH) ---
+% --- FIGURE 8: ROC CURVES (FULL WIDTH) ---
 \begin{figure*}[!t]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/fig_roc_curves.png}
-        \caption{5-Fold Cross-Validation ROC Curves across Tasks.}
-        \label{fig:roc_curves}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/fig_confusion_matrices.png}
-        \caption{Normalized Multi-Class Confusion Matrices.}
-        \label{fig:confusion_matrices}
-    \end{subfigure}
-    \caption{Empirical Classifier Performance: (a) Multi-model ROC comparison; (b) Diagonal concentration across target classes ($N=2,525$).}
-    \label{fig:model_evaluation}
+    \includegraphics[width=0.96\textwidth]{figures/fig_roc_curves.png}
+    \caption{5-Fold Cross-Validation Multi-Class ROC Characteristics across all three prediction heads for baseline and ensemble models ($N=2,525$).}
+    \label{fig:roc_curves}
+\end{figure*}
+
+% --- FIGURE 9: CONFUSION MATRICES (FULL WIDTH) ---
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=0.96\textwidth]{figures/fig_confusion_matrices.png}
+    \caption{Normalized Multi-Class Confusion Matrices for the Stacking Meta-Ensemble illustrating strong diagonal concentration ($N=2,525$).}
+    \label{fig:confusion_matrices}
 \end{figure*}
 
 \subsection{Probability Calibration and Reliability}
@@ -335,7 +353,10 @@ To ensure predicted risk values represent true statistical event probabilities, 
 \subsection{Fairness and Demographic Parity Audits}
 We audited model outputs across gender, first-generation status, and socioeconomic background using Disparate Impact Ratio ($\text{DIR}$) and Equal Opportunity Difference ($\text{EOD}$) metrics \cite{dwork2012fairness, hardt2016equality, baker2024algorithmic, zhao2026responsible, chen2026fairness}:
 \begin{equation}
-    \text{DIR} = \frac{P(\hat{Y}=\text{Persist} \mid A=0)}{P(\hat{Y}=\text{Persist} \mid A=1)} \ge 0.978, \quad |\text{EOD}| \le 0.019.
+\begin{aligned}
+    \text{DIR} &= \frac{P(\hat{Y}=\text{Persist} \mid A=0)}{P(\hat{Y}=\text{Persist} \mid A=1)} \ge 0.978, \\
+    |\text{EOD}| &\le 0.019.
+\end{aligned}
 \end{equation}
 These results confirm compliance with the standard four-fifths fairness rule ($\text{DIR} \ge 0.80$), verifying that predictions reflect psychometric behaviors rather than demographic bias.
 
@@ -347,10 +368,10 @@ These results confirm compliance with the standard four-fifths fairness rule ($\
 \subsection{Client-Side Architecture and Privacy}
 AcuLearn AI is implemented as a client-side web application using HTML5, Vanilla CSS, and TensorFlow.js (Fig.~\ref{fig:dashboard_overview}). Inference executes entirely in the user's web browser, ensuring student survey data remains confidential without external network transmission. Profiling on standard workstation hardware yielded an average end-to-end inference latency of $14.06\text{ ms}$, enabling immediate feedback upon questionnaire completion.
 
-% --- FIGURE 9: DASHBOARD OVERVIEW (FULL WIDTH TOP OF PAGE 8) ---
+% --- FIGURE 10: DASHBOARD OVERVIEW (FULL WIDTH) ---
 \begin{figure*}[!t]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/fig_dashboard_overview.png}
+    \includegraphics[width=0.96\textwidth]{figures/fig_dashboard_overview.png}
     \caption{AcuLearn AI Client-Side Prescriptive Counseling Portal: Demonstrating the KPI triage summary, 17-Domain radar analytics, local SHAP explanation cards, and tri-tier MTSS prescriptive roadmap.}
     \label{fig:dashboard_overview}
 \end{figure*}
