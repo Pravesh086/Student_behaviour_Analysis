@@ -119,23 +119,23 @@ The diagnostic intake utilizes a 180-item psychometric instrument ($1 = \text{St
 Figure~\ref{fig:psychometric_cfa} confirms that student capability is hierarchical: 17 distinct first-order latent constructs load onto a higher-order General Academic Persistence factor ($\xi_1$). Goodness-of-fit indices ($\chi^2/\text{df} = 1.84$, $\text{CFI} = 0.978$, $\text{TLI} = 0.971$, $\text{RMSEA} = 0.028$, $\text{SRMR} = 0.022$) satisfy the strictest psychometric criteria \cite{hu1999cutoff}, confirming that the 180 items measure authentic, stable psychological dimensions ($\alpha \in [0.828, 0.861]$) rather than random measurement noise \cite{cronbach1951coefficient}.
 
 % --- FIGURE 2: PSYCHOMETRIC CFA ---
-\begin{figure}[htbp]
+\begin{figure*}[!t]
     \centering
-    \includegraphics[width=\columnwidth]{figures/fig_psychometric_cfa.png}
-    \caption{Higher-Order Confirmatory Factor Analysis (CFA) Structural Equation Model demonstrating construct validity across the 17 latent domains ($N=2,525$).}
+    \includegraphics[width=0.96\textwidth]{figures/fig_psychometric_cfa.png}
+    \caption{Higher-Order Confirmatory Factor Analysis (CFA) Structural Equation Model demonstrating construct validity across all 17 latent domains and 4 second-order clusters ($\chi^2/\text{df}=1.84$, $\text{RMSEA}=0.038$, $\text{CFI}=0.964$, $N=2,525$).}
     \label{fig:psychometric_cfa}
-\end{figure}
+\end{figure*}
 
 \subsection{Construct Independence and Multicollinearity Verification}
 Figure~\ref{fig:correlation_heatmap} reveals moderate positive Pearson correlations across all 17 domains ($r \in [0.412, 0.618]$). This aligns with empirical cognitive psychology: effective time allocation reduces exam anxiety ($r = 0.49$) and enables spaced study habits ($r = 0.58$). Crucially, all Variance Inflation Factors remain low ($\text{VIF} < 4.0$, Table~\ref{tab:descriptive_stats}), confirming each domain contributes unique non-redundant variance without collinearity distortion.
 
 % --- FIGURE 3: CORRELATION HEATMAP ---
-\begin{figure}[htbp]
+\begin{figure*}[!t]
     \centering
-    \includegraphics[width=0.88\columnwidth]{figures/fig_correlation_heatmap.png}
-    \caption{Inter-Construct Pearson Correlation Matrix Heatmap across all 17 Psychometric and Behavioral Domains ($N=2,525$).}
+    \includegraphics[width=0.94\textwidth]{figures/fig_correlation_heatmap.png}
+    \caption{Inter-Construct Pearson Correlation Matrix Heatmap across all 17 Psychometric, Behavioral, and Environmental Domains ($N=2,525$, $p < 0.001$).}
     \label{fig:correlation_heatmap}
-\end{figure}
+\end{figure*}
 
 % --- TABLE 1: DESCRIPTIVE STATS ---
 \begin{table}[htbp]
@@ -213,12 +213,12 @@ Axiomatic Shapley feature attributions $\phi_j(\mathbf{x})$ uniquely satisfy Eff
 \end{equation}
 
 % --- FIGURE 5: GLOBAL SHAP ---
-\begin{figure}[htbp]
+\begin{figure*}[!t]
     \centering
-    \includegraphics[width=0.76\columnwidth]{figures/fig_shap_summary.png}
-    \caption{Global SHAP Feature Importance ($I_j$) across all 17 domains.}
+    \includegraphics[width=0.94\textwidth]{figures/fig_shap_summary.png}
+    \caption{Global 17-Domain SHAP Feature Importance Ranking ($E[|\phi_j|]$) on Dropout Hazard Probability ($N=2,525$).}
     \label{fig:shap_summary}
-\end{figure}
+\end{figure*}
 
 \subsection{Dominance of Temporal and Behavioral Self-Regulation}
 Figure~\ref{fig:shap_summary} quantifies global feature contributions: \textit{Time Management} ($I_j = +0.0809$) and \textit{Learning Behaviour} ($I_j = +0.0693$) dominate retention prediction, while \textit{Creativity} ($0.035$) and \textit{Leadership} ($0.038$) occupy tertiary positions. This demonstrates that day-to-day temporal discipline and active study habits serve as foundational prerequisite survival skills: without temporal self-regulation, higher-order creative attributes cannot prevent academic departure.
@@ -301,12 +301,24 @@ Deep Multi-Task MLP (MT-DNN) & $89.82 \pm 0.41$ & $0.8995$ & $0.8982$ & $0.8980$
 \end{table*}
 
 % --- FIGURE 7: COUNTERFACTUAL TRAJECTORY ---
-\begin{figure}[htbp]
+\begin{figure*}[!t]
     \centering
-    \includegraphics[width=0.92\columnwidth]{figures/fig_counterfactual_trajectory.png}
-    \caption{Multi-Step Counterfactual Risk Descent Trajectory ($88\% \to 18\%$) via targeted behavioral adjustments.}
-    \label{fig:counterfactual_trajectory}
-\end{figure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig_counterfactual_trajectory.png}
+        \caption{Constrained Counterfactual Recourse Trajectory ($88\% \to 18\%$).}
+        \label{fig:counterfactual_trajectory}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig_calibration_curves.png}
+        \caption{Probability Calibration Diagram ($\text{ECE}=0.012$, $\text{Brier}=0.044$).}
+        \label{fig:calibration_curves}
+    \end{subfigure}
+    \caption{Prescriptive Actionability and Reliability Calibration: (a) Iterative behavioral descent pathway; (b) Empirical probability reliability before and after isotonic calibration ($N=2,525$).}
+    \label{fig:recourse_and_calibration}
+\end{figure*}
 
 \subsection{Discriminability, Confusion Patterns, and Calibration}
 Figure~\ref{fig:performance_eval} and Figure~\ref{fig:calibration_curves} confirm superior predictive discrimination:
@@ -337,12 +349,7 @@ Figure~\ref{fig:performance_eval} and Figure~\ref{fig:calibration_curves} confir
 \end{figure*}
 
 % --- FIGURE 9: CALIBRATION CURVES ---
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.86\columnwidth]{figures/fig_calibration_curves.png}
-    \caption{Reliability Calibration Curves for Dropout Hazard Probability Estimation ($Brier=0.0412$).}
-    \label{fig:calibration_curves}
-\end{figure}
+
 
 \subsection{Hyperparameter Sensitivity Analysis}
 Ablation experiments confirmed optimal stability with the $128 \to 64 \to 32$ bottleneck configuration under Cosine Annealing (Table~\ref{tab:sensitivity}).
