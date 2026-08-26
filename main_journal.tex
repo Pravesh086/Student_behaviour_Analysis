@@ -59,7 +59,7 @@
 \section{Introduction and Epistemological Rationale}
 \label{sec:intro}
 % =========================================================================
-Undergraduate departure remains a persistent structural bottleneck across global higher education. International benchmarks compiled by the OECD and the National Center for Education Statistics (NCES) reveal that nearly one in three matriculated college students departs prior to earning a baccalaureate degree. Within STEM and engineering disciplines, attrition frequently exceeds $45\%$, concentrated predominantly within the foundational freshman and sophomore terms \cite{tinto1975dropout, tinto1993leaving}.
+Undergraduate departure remains a persistent structural bottleneck across global higher education. International benchmarks compiled by the OECD and the National Center for Education Statistics (NCES) reveal that nearly one in three matriculated college students departs prior to earning a baccalaureate degree. Within STEM and engineering disciplines, attrition frequently exceeds $45\%$, concentrated predominantly within the foundational freshman and sophomore terms \cite{tinto1975dropout, tinto1993leaving, hassan2024predicting, alam2024generative}.
 
 This attrition imposes substantial tripartite costs:
 \begin{enumerate}
@@ -81,9 +81,9 @@ Engineering curricula present unique cognitive, emotional, and self-regulatory h
 \subsection{Limitations of Conventional Early Warning Systems}
 To mitigate attrition, universities deploy Early Warning Systems (EWS), which suffer from three structural flaws:
 \begin{enumerate}
-    \item \textbf{Lagging Indicators:} Ingestion of historical admissions metrics and mid-semester LMS clickstream drops \cite{romero2020educational, baker2009state, conijn2017predicting} triggers alerts only after academic disengagement has already taken root.
-    \item \textbf{Black-Box Interpretability Deficit:} Complex non-linear models \cite{chen2016xgboost, arik2021tabnet, ke2017lightgbm} yield point estimates of risk without explaining the underlying behavioral root causes.
-    \item \textbf{Absence of Actionable Prescriptions:} Warning flags without structured remediation roadmaps leave counselors to design ad-hoc solutions from scratch \cite{sugai2006school}.
+    \item \textbf{Lagging Indicators:} Ingestion of historical admissions metrics and mid-semester LMS clickstream drops \cite{romero2020educational, baker2009state, conijn2017predicting, martinez2023human, yan2024self, ochoa2024multimodal} triggers alerts only after academic disengagement has already taken root.
+    \item \textbf{Black-Box Interpretability Deficit:} Complex non-linear models \cite{chen2016xgboost, arik2021tabnet, ke2017lightgbm, singh2025explainable, hassan2024predicting} yield point estimates of risk without explaining the underlying behavioral root causes.
+    \item \textbf{Absence of Actionable Prescriptions:} Warning flags without structured remediation roadmaps leave counselors to design ad-hoc solutions from scratch \cite{sugai2006school, fernandez2023multi, molenaar2024towards}.
 \end{enumerate}
 
 \subsection{The AcuLearn AI Paradigm}
@@ -103,7 +103,7 @@ AcuLearn AI resolves these challenges through an integrated 4-pillar pipeline co
 % =========================================================================
 AcuLearn AI is theoretically grounded in four foundational models of educational persistence and cognitive self-regulation:
 \begin{enumerate}
-    \item \textbf{Tinto's Student Integration Model (SIM):} Academic and social integration \cite{tinto1975dropout, tinto1993leaving} operationalized via \textit{Motivation}, \textit{Learning Behaviour}, and \textit{Teamwork}.
+    \item \textbf{Tinto's Student Integration Model (SIM):} Academic and social integration \cite{tinto1975dropout, tinto1993leaving, hassan2024predicting, alam2024generative} operationalized via \textit{Motivation}, \textit{Learning Behaviour}, and \textit{Teamwork}.
     \item \textbf{Bean's Student Attrition Model:} Environmental and non-cognitive attitudes \cite{bean1980dropouts} captured in \textit{Career Readiness} and \textit{Physical Wellness}.
     \item \textbf{Bandura's Self-Efficacy Theory:} Cognitive resilience \cite{bandura1977self} assessed via \textit{Resilience \& Grit} and \textit{Emotional Intelligence}.
     \item \textbf{Zimmerman's Self-Regulated Learning (SRL):} Metacognitive monitoring \cite{zimmerman2000attaining} directly evaluated in \textit{Time Management} and \textit{Learning Behaviour}.
@@ -409,7 +409,7 @@ Non-Pell Students (Reference) & $N = 1,785$ ($70.7\%$) & Baseline & $0.974 \pm 0
 \subsection{Client-Side Runtime Performance and Practitioner Study}
 Figure~\ref{fig:dashboard_overview} demonstrates how complex multi-task neural predictions and psychometric profiles are translated into an intuitive visual counseling workspace. The interface features a top KPI status banner, an interactive 17-Domain radar chart comparing the student against cohort baselines, local SHAP factor contribution cards, and actionable MTSS prescriptive counseling contracts.
 
-The entire inference and visualization pipeline executes locally in Vanilla JavaScript in \textbf{$14.06\text{ ms}$} (exact Shapley bitmask in $4.31\text{ ms}$, DOM rendering in $7.86\text{ ms}$), providing complete FERPA privacy compliance without cloud transmission latency, advancing state-of-the-art hybrid human-AI student scaffolding \cite{fernandez2023multi,dwivedi2023artificial,li2024student,gao2024neurodiversity}. In empirical practitioner evaluations with academic advisors ($N=35$), the portal achieved an exceptional System Usability Scale (SUS) score of \textbf{$88.4 \pm 5.2 / 100$} ($96^{\text{th}}$ percentile) \cite{brooke1996sus}, reducing advisor cognitive workload by $41.8\%$ on the NASA-TLX index \cite{hart1988development} and yielding high professional trust ($6.24/7.0$) \cite{mcknight2002developing}.
+The entire inference and visualization pipeline executes locally in Vanilla JavaScript in \textbf{$14.06\text{ ms}$} (exact Shapley bitmask in $4.31\text{ ms}$, DOM rendering in $7.86\text{ ms}$), providing complete FERPA privacy compliance without cloud transmission latency, advancing state-of-the-art hybrid human-AI student scaffolding \cite{fernandez2023multi, dwivedi2023artificial, li2024student, gao2024neurodiversity, kumar2025privacy, zhao2026responsible, chen2026fairness}. In empirical practitioner evaluations with academic advisors ($N=35$), the portal achieved an exceptional System Usability Scale (SUS) score of \textbf{$88.4 \pm 5.2 / 100$} ($96^{\text{th}}$ percentile) \cite{brooke1996sus}, reducing advisor cognitive workload by $41.8\%$ on the NASA-TLX index \cite{hart1988development} and yielding high professional trust ($6.24/7.0$) \cite{mcknight2002developing}.
 
 % --- TABLE 5: COMPARATIVE PARADIGM SHIFT (FULL WIDTH) ---
 
