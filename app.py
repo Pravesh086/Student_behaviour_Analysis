@@ -1,8 +1,12 @@
-#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-Student Psychometric & Behavioral Diagnostics Analytics Application
-Production-Ready Web Server for Render & Local Environments
-Run Command on Render: python3 app.py
+Production-Ready Web Server with CCRO Survey-Driven Decision-Support REST APIs:
+- /ccro-dashboard -> On-Demand Survey-Driven Mentor Decision-Support UI
+- /api/v1/predict -> Survey-Based MT-DNN Risk & Calibration Prediction API
+- /api/v1/recourse -> PGD-AFT Actionable Habit Recourse Optimizer API
+- /api/v1/students -> De-identified survey cohort queue
+- /api/v1/review -> Human-in-the-loop mentor decision logging
+- /api/v1/audit-log -> Compliance & Governance Audit Trail
 """
 
 import http.server
@@ -12,6 +16,7 @@ import os
 import sys
 import urllib.parse
 from http import HTTPStatus
+import ccro_engine
 
 # Ensure analytics data is generated on startup
 if not os.path.exists("dashboard_data.json") or not os.path.exists("dashboard_data.js"):
@@ -22,7 +27,6 @@ if not os.path.exists("dashboard_data.json") or not os.path.exists("dashboard_da
     except Exception as e:
         print(f"[ERROR] Failed to run analytics engine: {e}")
 
-# Load cached data in memory for sub-millisecond API responses
 DATA_CACHE = None
 def get_data():
     global DATA_CACHE
@@ -35,15 +39,49 @@ def get_data():
             DATA_CACHE = {}
     return DATA_CACHE
 
+# Prototype De-Identified Survey Cohort
+CCRO_STUDENTS = [
+    {
+        "student_reference": "STU-9F3A72",
+        "department": "Computer Science & Engineering",
+        "semester": 4,
+        "survey_week": 7,
+        "survey_completed_date": "2026-08-20 (Week 7)",
+        "assessment_mode": "Point-in-Time Survey Response",
+        "vector": [2.10, 2.20, 2.40, 3.10, 2.80, 2.00, 2.90, 2.80, 2.50, 2.40, 2.20, 2.60, 7.20] + [0]*11
+    },
+    {
+        "student_reference": "STU-8B1C44",
+        "department": "Electronics & Communication",
+        "semester": 4,
+        "survey_week": 7,
+        "survey_completed_date": "2026-08-20 (Week 7)",
+        "assessment_mode": "Point-in-Time Survey Response",
+        "vector": [2.30, 2.10, 2.20, 2.80, 2.50, 1.80, 2.70, 2.60, 2.30, 2.10, 2.00, 2.40, 6.80] + [0]*11
+    },
+    {
+        "student_reference": "STU-4D7E91",
+        "department": "Mechanical Engineering",
+        "semester": 4,
+        "survey_week": 7,
+        "survey_completed_date": "2026-08-21 (Week 7)",
+        "assessment_mode": "Point-in-Time Survey Response",
+        "vector": [2.50, 2.40, 2.50, 2.20, 2.40, 2.50, 2.80, 2.70, 2.60, 2.50, 2.40, 2.70, 7.50] + [0]*11
+    },
+    {
+        "student_reference": "STU-3A6F28",
+        "department": "Electrical Engineering",
+        "semester": 4,
+        "survey_week": 7,
+        "survey_completed_date": "2026-08-22 (Week 7)",
+        "assessment_mode": "Point-in-Time Survey Response",
+        "vector": [2.50, 2.30, 2.10, 2.90, 2.70, 2.20, 2.60, 2.50, 2.40, 2.30, 2.20, 2.50, 7.10] + [0]*11
+    }
+]
+
 class StudentAnalyticsRequestHandler(http.server.SimpleHTTPRequestHandler):
-    """
-    High-performance HTTP Request Handler providing:
-    1. Static file delivery (HTML5, CSS3, JS, JSON)
-    2. Zero-latency REST API endpoints (/api/health, /api/data, /api/student/<id>, /api/diagnostics, /api/simulate)
-    """
 
     def end_headers(self):
-        # Add CORS and security headers
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
@@ -65,17 +103,14 @@ class StudentAnalyticsRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
-        query = urllib.parse.parse_qs(parsed.query)
 
-        # Health Check (Render readiness probe)
+        # Health Check
         if path in ("/api/health", "/healthz", "/health"):
             data = get_data()
             self.send_json_response({
                 "status": "healthy",
-                "service": "student-assessment-analytics",
-                "studentsCount": data.get("metadata", {}).get("totalStudents", 2525),
-                "totalDomains": data.get("metadata", {}).get("totalDomains", 17),
-                "totalQuestions": data.get("metadata", {}).get("totalQuestions", 255)
+                "service": "student-survey-assessment-analytics",
+                "studentsCount": data.get("metadata", {}).get("totalStudents", 2525)
             })
             return
 
@@ -84,7 +119,7 @@ class StudentAnalyticsRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json_response(get_data())
             return
 
-        # 7 Behavioral Diagnostics Summary API
+        # Diagnostics API
         if path == "/api/diagnostics":
             data = get_data()
             self.send_json_response({
@@ -93,15 +128,46 @@ class StudentAnalyticsRequestHandler(http.server.SimpleHTTPRequestHandler):
             })
             return
 
-        # Proposed Questionnaire Expansion API
-        if path == "/api/questionnaire-expansion":
-            data = get_data()
-            self.send_json_response({
-                "proposedExpansion": data.get("proposedExpansion", [])
-            })
+        # CCRO Decision Support Dashboard View
+        if path in ("/ccro", "/ccro-dashboard", "/advising-dashboard"):
+            self.path = "/ccro_dashboard.html"
+            return super().do_GET()
+
+        # Student Registration & Assessment Portal
+        if path in ("/register", "/registration", "/student-portal", "/student-registration"):
+            self.path = "/student_portal.html"
+            return super().do_GET()
+
+        # Video Manual & Sound Walkthrough Portal
+        if path in ("/video", "/video-manual", "/video-tour", "/video-guide"):
+            self.path = "/portal_video_tour.html"
+            return super().do_GET()
+
+        # CCRO API: List De-Identified Survey Students
+        if path == "/api/v1/students":
+            student_list = []
+            for s in CCRO_STUDENTS:
+                pred = ccro_engine.predict_risk_mtdnn(s["vector"])
+                student_list.append({
+                    "student_reference": s["student_reference"],
+                    "department": s["department"],
+                    "semester": s["semester"],
+                    "survey_week": s["survey_week"],
+                    "survey_completed_date": s["survey_completed_date"],
+                    "assessment_mode": s["assessment_mode"],
+                    "risk_probability": pred["risk_probability"],
+                    "risk_band": pred["risk_band"],
+                    "projected_gpa": pred["projected_gpa"]
+                })
+            self.send_json_response({"students": student_list})
             return
 
-        # Individual Student 360 & AI Counseling API: /api/student/<student_id>
+        # CCRO API: Audit Log
+        if path == "/api/v1/audit-log":
+            self.send_json_response({"audit_trail": ccro_engine.get_audit_logs()})
+            return
+
+        # Individual Student Lookup API
         if path.startswith("/api/student/"):
             student_id = path.split("/api/student/")[1].strip().upper()
             data = get_data()
@@ -113,97 +179,123 @@ class StudentAnalyticsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json_response({"error": f"Student {student_id} not found"}, status_code=HTTPStatus.NOT_FOUND)
             return
 
-        # Default static routing
         if path == "/":
             self.path = "/index.html"
 
-        # Serve static assets
         return super().do_GET()
 
     def do_POST(self):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        # Interactive Simulation Inference API
+        # CCRO API: Predict Risk
+        if path == "/api/v1/predict":
+            try:
+                length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(length)
+                req_json = json.loads(body.decode("utf-8")) if length > 0 else {}
+                stu_ref = req_json.get("student_reference", "STU-9F3A72")
+                matched = next((s for s in CCRO_STUDENTS if s["student_reference"] == stu_ref), CCRO_STUDENTS[0])
+                pred = ccro_engine.predict_risk_mtdnn(matched["vector"])
+                
+                resp = {
+                    "student_reference": matched["student_reference"],
+                    "model_version": "ccro-mtdnn-v2.1",
+                    "assessment_mode": "Point-in-Time Survey Assessment",
+                    "survey_completed_date": matched["survey_completed_date"],
+                    "risk_probability": pred["risk_probability"],
+                    "risk_band": pred["risk_band"],
+                    "projected_gpa": pred["projected_gpa"],
+                    "placement_tier": pred["placement_tier"],
+                    "alert_threshold": 0.50,
+                    "target_threshold": 0.20,
+                    "requires_human_review": pred["risk_probability"] > 0.50
+                }
+                self.send_json_response(resp)
+                return
+            except Exception as e:
+                self.send_json_response({"error": str(e)}, status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
+                return
+
+        # CCRO API: Generate Recourse
+        if path == "/api/v1/recourse":
+            try:
+                length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(length)
+                req_json = json.loads(body.decode("utf-8")) if length > 0 else {}
+                stu_ref = req_json.get("student_reference", "STU-9F3A72")
+                matched = next((s for s in CCRO_STUDENTS if s["student_reference"] == stu_ref), CCRO_STUDENTS[0])
+                
+                recourse_out = ccro_engine.run_pgd_aft_recourse(matched)
+                resp = {
+                    "student_reference": matched["student_reference"],
+                    "model_version": "ccro-mtdnn-v2.1",
+                    "solver": "PGD-AFT",
+                    "recourse_status": recourse_out["status"],
+                    "initial_risk": recourse_out["initial_risk"],
+                    "target_risk": recourse_out["target_risk"],
+                    "sparsity_L0": recourse_out["sparsity_L0"],
+                    "total_effort_cost": recourse_out["total_effort_cost"],
+                    "violations": recourse_out["violations"],
+                    "candidate_actions": recourse_out["candidate_actions"],
+                    "locked_features_preserved": True,
+                    "requires_human_review": True
+                }
+                self.send_json_response(resp)
+                return
+            except Exception as e:
+                self.send_json_response({"error": str(e)}, status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
+                return
+
+        # CCRO API: Mentor Review Decision Logging
+        if path == "/api/v1/review":
+            try:
+                length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(length)
+                req_json = json.loads(body.decode("utf-8")) if length > 0 else {}
+                stu_ref = req_json.get("student_reference", "STU-9F3A72")
+                action = req_json.get("action", "APPROVE")
+                notes = req_json.get("notes", "Candidate study plan approved for advisor check-in.")
+                
+                entry = ccro_engine.record_audit(stu_ref, action, notes=notes)
+                self.send_json_response({"status": "recorded", "entry": entry})
+                return
+            except Exception as e:
+                self.send_json_response({"error": str(e)}, status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
+                return
+
+        # Simulation API
         if path == "/api/simulate":
             try:
                 length = int(self.headers.get("Content-Length", 0))
                 body = self.rfile.read(length)
                 req_json = json.loads(body.decode("utf-8"))
-                scores = req_json.get("scores", {}) # Dict of domain names -> float
-
+                scores = req_json.get("scores", {})
                 if not scores:
-                    self.send_json_response({"error": "Missing domain scores in payload"}, status_code=HTTPStatus.BAD_REQUEST)
+                    self.send_json_response({"error": "Missing domain scores"}, status_code=HTTPStatus.BAD_REQUEST)
                     return
-
                 vals = list(scores.values())
                 sim_mean = round(sum(vals) / len(vals), 3)
-
-                # Predictive Inference Logic
-                if sim_mean >= 3.65:
-                    pred_success = "Excellent"
-                    pred_risk = "Low"
-                    pred_career = "Highly Ready"
-                elif sim_mean >= 3.20:
-                    pred_success = "Good"
-                    pred_risk = "Low" if sim_mean >= 3.45 else "Medium"
-                    pred_career = "Ready"
-                elif sim_mean >= 2.80:
-                    pred_success = "Average"
-                    pred_risk = "Medium"
-                    pred_career = "Moderately Ready"
-                elif sim_mean >= 2.40:
-                    pred_success = "Poor"
-                    pred_risk = "High"
-                    pred_career = "Not Ready"
-                else:
-                    pred_success = "Bad"
-                    pred_risk = "High"
-                    pred_career = "Not Ready"
-
-                self.send_json_response({
-                    "simulatedMean": sim_mean,
-                    "predictedSuccessTier": pred_success,
-                    "predictedDropoutRisk": pred_risk,
-                    "predictedCareerReadiness": pred_career
-                })
+                sim_risk = round(max(0.05, min(0.95, 1.0 - (sim_mean / 5.0) * 1.1)), 3)
+                self.send_json_response({"simulated_mean": sim_mean, "simulated_risk": sim_risk})
+                return
             except Exception as e:
                 self.send_json_response({"error": str(e)}, status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
-            return
+                return
 
         self.send_json_response({"error": "Endpoint not found"}, status_code=HTTPStatus.NOT_FOUND)
 
-def run():
-    # Render binds the port using the PORT environment variable
-    port = int(os.environ.get("PORT", 5000))
-    host = "0.0.0.0"
-
-    # Make sure mimetypes are properly configured
-    mimetypes.init()
-    mimetypes.add_type("application/javascript", ".js")
-    mimetypes.add_type("text/css", ".css")
-    mimetypes.add_type("application/json", ".json")
-    mimetypes.add_type("text/html", ".html")
-
-    server_address = (host, port)
-    
-    # Use ThreadingHTTPServer for concurrent client handling
-    httpd = http.server.ThreadingHTTPServer(server_address, StudentAnalyticsRequestHandler)
-
-    print("=" * 70)
-    print(" 🚀 STUDENT PSYCHOMETRIC & BEHAVIORAL ANALYTICS DASHBOARD")
-    print(f" 🌐 Host: {host} | Port: {port}")
-    print(f" 🔗 Local Preview URL: http://localhost:{port}/index.html")
-    print(f" 🩺 Health Probe:     http://localhost:{port}/api/health")
-    print(f" 📊 Dataset API:      http://localhost:{port}/api/data")
-    print("=" * 70)
-
+def main():
+    port = int(os.environ.get("PORT", 8080))
+    server_address = ("0.0.0.0", port)
+    httpd = http.server.HTTPServer(server_address, StudentAnalyticsRequestHandler)
+    print(f"[*] AcuLearn & CCRO Survey Decision-Support Server online at http://localhost:{port}")
+    print(f"[*] CCRO Mentor Dashboard available at: http://localhost:{port}/ccro-dashboard")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\n[STOP] Shutting down server gracefully...")
+        print("\n[!] Shutting down server.")
         httpd.server_close()
-        sys.exit(0)
 
 if __name__ == "__main__":
-    run()
+    main()
