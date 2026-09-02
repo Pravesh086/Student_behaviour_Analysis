@@ -143,6 +143,11 @@ class StudentAnalyticsRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.path = "/portal_video_tour.html"
             return super().do_GET()
 
+        # Presentation & Slides Portal
+        if path in ("/presentation", "/slides", "/deck"):
+            self.path = "/dashboard_presentation.html"
+            return super().do_GET()
+
         # CCRO API: List De-Identified Survey Students
         if path == "/api/v1/students":
             student_list = []

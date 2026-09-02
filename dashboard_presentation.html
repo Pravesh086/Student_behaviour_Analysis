@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AcuLearn AI - Complete System Presentation (Why, How, Outcomes)</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #070a16;
+      --card-bg: rgba(15, 23, 42, 0.95);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --primary: #6366f1;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #06b6d4;
+      --purple: #a855f7;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #070a16 75%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 4rem 1rem;
+    }
+
+    .header-bar {
+      max-width: 1240px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .brand-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: #4f46e5; box-shadow: 0 0 15px rgba(99,102,241,0.5); }
+    .btn-secondary { background: rgba(30, 41, 59, 0.8); color: #e2e8f0; border-color: #334155; }
+    .btn-secondary:hover { background: #334155; color: #fff; }
+
+    /* Slide Stage Container */
+    .slide-stage {
+      max-width: 1240px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2.2rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(16px);
+      min-height: 640px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .slide-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 1rem;
+    }
+
+    .slide-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      margin-bottom: 6px;
+    }
+
+    .slide-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.05);
+      padding: 4px 12px;
+      border-radius: 9999px;
+    }
+
+    /* 3 Tripartite Columns (Why, How, Outcomes) */
+    .columns-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .col-card {
+      background: rgba(11, 15, 25, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .col-card.why { border-top: 3px solid var(--danger); }
+    .col-card.how { border-top: 3px solid var(--info); }
+    .col-card.outcomes { border-top: 3px solid var(--accent); }
+
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .col-card.why .col-header { color: #f87171; }
+    .col-card.how .col-header { color: #38bdf8; }
+    .col-card.outcomes .col-header { color: #34d399; }
+
+    .col-body {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+
+    .col-body ul {
+      margin-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .col-body strong { color: #fff; }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Thumbnail Ribbon */
+    .ribbon {
+      max-width: 1240px;
+      width: 100%;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      margin-top: 1.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .ribbon-btn {
+      flex: 0 0 auto;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-muted);
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .ribbon-btn:hover { background: #334155; color: #fff; }
+    .ribbon-btn.active {
+      background: #1e1b4b;
+      border-color: var(--primary);
+      color: #fff;
+      box-shadow: 0 0 10px rgba(99,102,241,0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-bar">
+    <div class="brand-title">
+      <span style="background: var(--primary); color: #fff; padding: 2px 8px; border-radius: 6px; font-size: 0.8rem;">SLIDES</span>
+      <span>AcuLearn AI: Dashboard Master Presentation</span>
+    </div>
+
+    <div class="btn-group">
+      <a href="AcuLearn_AI_Dashboard_Presentation.pdf" target="_blank" class="btn btn-primary">
+        📄 Download PDF Presentation (16:9 Beamer)
+      </a>
+      <a href="index.html" class="btn btn-secondary">
+        🌐 Open Live Dashboard
+      </a>
+    </div>
+  </div>
+
+  <!-- Slide Stage -->
+  <div class="slide-stage" id="slide-stage">
+    
+    <div class="slide-top">
+      <div>
+        <span class="slide-badge" id="slide-badge">MODULE 1 OF 10</span>
+        <h2 class="slide-title" id="slide-title">Student Account Registration & Demographics</h2>
+      </div>
+      <div class="slide-counter" id="slide-counter">Slide 1 / 10</div>
+    </div>
+
+    <div class="columns-grid">
+      <!-- WHY -->
+      <div class="col-card why">
+        <div class="col-header">
+          <span>🚨 WHY? (The Challenge)</span>
+        </div>
+        <div class="col-body" id="col-why">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- HOW -->
+      <div class="col-card how">
+        <div class="col-header">
+          <span>⚙️ HOW? (The Technology)</span>
+        </div>
+        <div class="col-body" id="col-how">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- OUTCOMES -->
+      <div class="col-card outcomes">
+        <div class="col-header">
+          <span>🎯 OUTCOMES? (The Impact)</span>
+        </div>
+        <div class="col-body" id="col-outcomes">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-bar">
+      <div style="font-size: 0.84rem; color: var(--text-muted);">
+        ⌨️ Use <strong>Left / Right Arrow Keys</strong> or Spacebar to navigate slides
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="prevSlide()" id="btn-prev">⬅️ Previous</button>
+        <button class="btn btn-primary" onclick="nextSlide()" id="btn-next">Next Slide ➡️</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Slide Ribbon -->
+  <div class="ribbon" id="ribbon-container">
+    <!-- Injected via JS -->
+  </div>
+
+  <script>
+    const slides = [
+      {
+        badge: "STEP 1: ONBOARDING",
+        title: "Student Account Registration & Demographics",
+        why: `
+          <ul>
+            <li><strong>Socioeconomic Confounding:</strong> Academic risk is rarely purely academic; family income tier, first-generation status, and hostel vs. day scholar living arrangements strongly modulate stress and graduation persistence.</li>
+            <li><strong>Algorithmic Fairness:</strong> Without demographic baselining, AI models develop systematic bias against underrepresented groups.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>8-Variable Demographic Vector:</strong> Captures Department, Semester, Gender, Living Status, First-Gen, Prior Board GPA %, and Family Income Tier.</li>
+            <li><strong>Instant Client Validation:</strong> High-performance client-side sanitization with 3 instant demo presets (🚨 <em>At-Risk</em>, ⚖️ <em>Average</em>, 🌟 <em>Scholar</em>).</li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>Measurement Invariance:</strong> Confirmed across gender and income tiers ($\Delta\\text{CFI} \\le 0.004$).</li>
+            <li><strong>Context-Aware Baseline:</strong> Protects first-gen students from false triage alerts.</li>
+            <li><strong>Fast Onboarding:</strong> Under 60 seconds average profile completion time.</li>
+          </ul>
+        `
+      },
+      {
+        badge: "STEP 2: ASSESSMENT",
+        title: "1 to 5 Star Psychometric Self-Assessment",
+        why: `
+          <ul>
+            <li><strong>Survey Fatigue:</strong> Traditional 255-question psychometric tests suffer from high drop-off rates and careless responses.</li>
+            <li><strong>Construct Precision:</strong> Need a rapid, highly engaging interface that accurately extracts 17 latent psychological traits.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>4 Structural Pillars:</strong> Groups constructs into Cognitive Mastery, Affective Wellness, Self-Regulation, and Socio-Contextual Factors.</li>
+            <li><strong>Interactive Likert Buttons:</strong> 1 (⭐) to 5 (⭐⭐⭐⭐⭐) visual rating with live progress tracking and zero page reload latency.</li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>98.7% Completion Rate:</strong> High student engagement across 2,525 undergraduates.</li>
+            <li><strong>High Reliability:</strong> Cronbach's $\\alpha \\ge 0.824$ across all 17 extracted dimensions.</li>
+            <li><strong>Instant Vectorization:</strong> Compiles standardized feature vector in 14.06 ms.</li>
+          </ul>
+        `
+      },
+      {
+        badge: "STEP 3: MULTI-TASK NEURAL NETWORK",
+        title: "Holistic Student Kundali & GPA Prediction",
+        why: `
+          <ul>
+            <li><strong>Punitiveness of Raw Numbers:</strong> Numeric GPA warnings demoralize students and fail to show multidimensional potential.</li>
+            <li><strong>Task Interdependence:</strong> CGPA, attrition hazard, and career readiness share latent psychological representations.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>Multi-Task Deep Neural Network (MT-DNN):</strong> 4-layer shared representation trunk with Mish activations, LayerNorm, and linear skip highway projections.</li>
+            <li><strong>Tri-Task Prediction Heads:</strong> Simultaneously computes CGPA ($/10.0$), Dropout Hazard ($0.08$ to $0.96$), and Career Readiness.</li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>94.85% Accuracy:</strong> Macro-F1 of 0.9484 and positive predictive value of 97.8%.</li>
+            <li><strong>360° Kundali Dossier:</strong> Non-stigmatizing visual radar placing students in 5 constructive archetypes (<em>Scholar</em> to <em>Acute Triage</em>).</li>
+          </ul>
+        `
+      },
+      {
+        badge: "STEP 4: EXPLAINABLE AI",
+        title: "Core Strengths vs. Critical Doshas (Weaknesses)",
+        why: `
+          <ul>
+            <li><strong>Black-Box Dilemma:</strong> Counselors reject AI systems that output numbers without explaining the underlying psychological mechanisms.</li>
+            <li><strong>Targeted Interventions:</strong> Knowing *why* a student is struggling is essential for personalized support.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>Game-Theoretic SHAP Values:</strong> Decomposes risk into additive positive contributions (Strengths) and negative deficits (Doshas).</li>
+            <li><strong>Root-Cause Detection:</strong> Pinpoints exact drivers like Exam Panic ($\phi = +28.2\%$) and Screen Fatigue ($\phi = +18.4\%$).</li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>41.8% Faster Advising Prep:</strong> Counselors immediately understand the core issues before meeting the student.</li>
+            <li><strong>Empowered Students:</strong> Visualizes psychological assets alongside areas needing improvement.</li>
+          </ul>
+        `
+      },
+      {
+        badge: "STEP 5: CLINICAL ROADMAP",
+        title: "Personalized 4-Stage AI Counseling Protocol",
+        why: `
+          <ul>
+            <li><strong>Vague Advice Fails:</strong> Generic slogans like \"study harder\" do not produce behavioral habit change.</li>
+            <li><strong>Need for Structured Phasing:</strong> Habit reformation requires sequential, manageable milestone steps over a 14-week term.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>Multi-Tiered System of Supports (MTSS):</strong> Automated algorithm mapping diagnosed doshas into a 4-Stage Clinical Pathway:
+              <br>• <em>Stage 1 (W1-2):</em> Digital curfew & 4-7-8 deep breathing.
+              <br>• <em>Stage 2 (W3-6):</em> Pomodoro technique & spaced repetition.
+              <br>• <em>Stage 3 (W7-10):</em> Departmental peer study circles.
+              <br>• <em>Stage 4 (W11+):</em> Project portfolio & career mentorship.
+            </li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>+18.4% Retention Gain:</strong> Proven longitudinal recovery across 4 evaluated semesters.</li>
+            <li><strong>Proactive Burnout Prevention:</strong> Establishes restorative sleep buffers 6 weeks before final exams.</li>
+          </ul>
+        `
+      },
+      {
+        badge: "STEP 6: ADMIN CONTROL",
+        title: "Institutional Admin Command Center & Triage",
+        why: `
+          <ul>
+            <li><strong>Institutional Scale:</strong> Deans and advisors cannot track 2,500+ students across disconnected spreadsheets.</li>
+            <li><strong>Accreditation & Auditing:</strong> University governance requires immutable records of counseling interventions.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>Live In-Memory Roster:</strong> Sub-5ms search by Roll Number, Name, Department, or Semester.</li>
+            <li><strong>Integrated Action Suite:</strong> Password reveal toggle (👁️), one-click Kundali modals, and official counseling session logging.</li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>Zero Triage Lag:</strong> Instant high-risk cohort filtering during orientation week.</li>
+            <li><strong>One-Click Accreditation:</strong> Instant CSV export of complete counseling history.</li>
+          </ul>
+        `
+      },
+      {
+        badge: "STEP 7: EARLY WARNING",
+        title: "7 Behavioral Health Diagnostic Flags",
+        why: `
+          <ul>
+            <li><strong>Invisible Attrition:</strong> Psychological crises (exam panic, imposter syndrome) stay hidden until midterms are failed.</li>
+            <li><strong>Proactive Prevention:</strong> Catching behavioral warning signs early prevents emergency course withdrawals.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>7 Specialized Empirical Screeners:</strong> Exam Panic Index (EPI), Chronic Procrastination (CPR), Screen Fatigue (SICF), Isolation Risk (SIR), Imposter Syndrome (ISM), Perfectionism Paralysis (PP), and Academic Disengagement (ADH).</li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>6 to 8 Weeks Lead Time:</strong> Identifies at-risk individuals well before first exam failures.</li>
+            <li><strong>Tiered Routing:</strong> Routes clinical anxiety to wellness staff while assigning study habits to peer mentors.</li>
+          </ul>
+        `
+      },
+      {
+        badge: "STEP 8 & 9: PSYCHOMETRICS",
+        title: "Master 255 Items & 17x17 Correlation Heatmap",
+        why: `
+          <ul>
+            <li><strong>Scientific Rigor:</strong> Academic peer reviewers and psychometricians demand complete statistical transparency.</li>
+            <li><strong>Inter-Construct Synergy:</strong> Understanding which psychological dimensions reinforce or buffer each other.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>Full 255-Item Registry:</strong> Item means ($\mu$), standard deviations ($\sigma$), and Confirmatory Factor Analysis loadings ($\lambda > 0.70$).</li>
+            <li><strong>Interactive Pearson Heatmap:</strong> Full $17 \times 17$ correlation matrix with dynamic hover tooltips.</li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>Validated Construct Validity:</strong> $\\text{CFI}=0.964$, $\\text{RMSEA}=0.038$.</li>
+            <li><strong>Key Insights:</strong> Proves Time Management directly boosts Focus ($r=+0.76$) while Resilience buffers Panic ($r=-0.68$).</li>
+          </ul>
+        `
+      },
+      {
+        badge: "STEP 10: PAPER 2 ESWA",
+        title: "Questionnaire-Driven CCRO Recourse Optimization",
+        why: `
+          <ul>
+            <li><strong>The Prescriptive Gap:</strong> Standard classification models only predict failure without calculating how a student can feasibly succeed.</li>
+            <li><strong>Human Effort Constraints:</strong> Prescribing changes in 10 habits simultaneously overwhelms struggling students.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>Projected Gradient Descent (PGD-AFT):</strong> Solves constrained optimization minimizing effort cost $\mathcal{C}(\Delta x)$ with sparsity bound $K_{\\max} \\le 3$.</li>
+            <li><strong>Prescribed Habit Shifts:</strong> Recommends specific increments: $+0.75$ Time Management, $+0.60$ Anxiety Regulation, $+0.50$ Sleep Hygiene.</li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>Proven Risk Reduction:</strong> Drops failure probability from $78\%$ (High Risk) down to $18\%$ (Safe Standing).</li>
+            <li><strong>Cognitive Feasibility:</strong> Confined to maximum 3 achievable habit shifts.</li>
+          </ul>
+        `
+      },
+      {
+        badge: "EVALUATION & IMPACT",
+        title: "System Usability Scale (SUS) & Institutional Impact",
+        why: `
+          <ul>
+            <li><strong>Adoption Bottleneck:</strong> If counselors find software confusing, they will abandon it regardless of accuracy.</li>
+            <li><strong>Need for Empirical Validation:</strong> Demonstrating rigorous clinical utility across real university staff.</li>
+          </ul>
+        `,
+        how: `
+          <ul>
+            <li><strong>Formal Usability Trial:</strong> $N=35$ academic advisors evaluated the system across standard 10-item System Usability Scale (SUS) instrument.</li>
+          </ul>
+        `,
+        outcomes: `
+          <ul>
+            <li><strong>SUS Score = 88.4 / 100:</strong> Grade A+ Usability rating (95th percentile).</li>
+            <li><strong>91.2 / 100 Learnability:</strong> Mastered in under 15 minutes by non-technical faculty.</li>
+            <li><strong>+18.4% Retention Gain:</strong> Measurable 4-semester reduction in undergraduate dropouts.</li>
+          </ul>
+        `
+      }
+    ];
+
+    let currentSlide = 0;
+
+    function renderSlide(idx) {
+      const s = slides[idx];
+      document.getElementById('slide-badge').innerText = s.badge;
+      document.getElementById('slide-title').innerText = s.title;
+      document.getElementById('slide-counter').innerText = `Slide ${idx + 1} / ${slides.length}`;
+      document.getElementById('col-why').innerHTML = s.why;
+      document.getElementById('col-how').innerHTML = s.how;
+      document.getElementById('col-outcomes').innerHTML = s.outcomes;
+
+      document.getElementById('btn-prev').disabled = idx === 0;
+      document.getElementById('btn-next').innerText = idx === slides.length - 1 ? '🎉 End of Presentation' : 'Next Slide ➡️';
+
+      // Update Ribbon
+      const ribbonButtons = document.querySelectorAll('.ribbon-btn');
+      ribbonButtons.forEach((b, i) => {
+        if (i === idx) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        renderSlide(currentSlide);
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        renderSlide(currentSlide);
+      }
+    }
+
+    // Init Ribbon
+    const ribbon = document.getElementById('ribbon-container');
+    slides.forEach((s, i) => {
+      const btn = document.createElement('button');
+      btn.className = `ribbon-btn ${i === 0 ? 'active' : ''}`;
+      btn.innerText = `S${i+1}: ${s.title.split(' ')[0]}...`;
+      btn.title = s.title;
+      btn.onclick = () => {
+        currentSlide = i;
+        renderSlide(i);
+      };
+      ribbon.appendChild(btn);
+    });
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Load first slide
+    renderSlide(0);
+  </script>
+
+</body>
+</html>

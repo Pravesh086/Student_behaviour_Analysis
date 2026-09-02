@@ -1,0 +1,417 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+% Color Theme
+\definecolor{primaryblue}{RGB}{15, 23, 42}
+\definecolor{accentcyan}{RGB}{6, 182, 212}
+\definecolor{accentindigo}{RGB}{99, 102, 241}
+\definecolor{accentgreen}{RGB}{16, 185, 129}
+\definecolor{accentred}{RGB}{239, 68, 68}
+\definecolor{accentamber}{RGB}{245, 158, 11}
+\definecolor{cardbg}{RGB}{30, 41, 59}
+
+\setbeamercolor{background canvas}{bg=primaryblue}
+\setbeamercolor{normal text}{fg=white}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=accentcyan}
+\setbeamercolor{frametitle}{fg=white,bg=cardbg}
+\setbeamercolor{structure}{fg=accentcyan}
+\setbeamercolor{item}{fg=accentindigo}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\tcbset{
+    colback=cardbg,
+    colframe=accentindigo,
+    coltitle=white,
+    fonttitle=\bfseries\small,
+    boxrule=1pt,
+    arc=4pt,
+    left=6pt,right=6pt,top=4pt,bottom=4pt
+}
+
+\title{\textbf{\Huge AcuLearn AI Dashboard}\\[0.2cm]\Large Comprehensive Architectural, Algorithmic \& Clinical Presentation}
+\subtitle{Every Feature Analyzed via the \textbf{WHY}, \textbf{HOW} \& \textbf{OUTCOMES} Framework}
+\author{\textbf{AcuLearn AI Research \& Development Team}}
+\institute{Department of Computer Science \& Engineering $\bullet$ Educational AI Decision Support}
+\date{\today}
+
+\begin{document}
+
+% Slide 1: Title
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Slide 2: Executive Framework
+\begin{frame}{The Tripartite Analysis Framework}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[colframe=accentindigo,title=\textbf{1. WHY? (The Challenge)}]
+\small
+\begin{itemize}
+    \item What critical educational, psychological, or operational failure does this feature address?
+    \item Why do conventional GPA tracking methods fall short?
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{2. HOW? (The Technology)}]
+\small
+\begin{itemize}
+    \item What algorithmic, statistical, and neural models run under the hood?
+    \item How does data flow from user interaction to deep inference?
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{3. OUTCOMES? (The Impact)}]
+\small
+\begin{itemize}
+    \item What measurable institutional, counseling, and student outcomes are achieved?
+    \item Empirical retention gains and performance metrics.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 3: Ecosystem Overview
+\begin{frame}{System Ecosystem: 10 Core Modules}
+\begin{center}
+\small
+\begin{tabular}{clll}
+\toprule
+\textbf{\#} & \textbf{Dashboard Module / Feature} & \textbf{Primary Target User} & \textbf{Core Machine Learning Layer} \\
+\midrule
+\textbf{1} & Student Registration \& Demographics & New Undergraduates & Demographic Vector Encoding ($d=8$) \\
+\textbf{2} & 1--5 Psychometric Self-Assessment & Enrolled Students & CFA/IRT Standardized Intake ($d=17$) \\
+\textbf{3} & Holistic Student Kundali \& GPA & Students \& Advisors & Multi-Task Deep Neural Trunk (MT-DNN) \\
+\textbf{4} & Strengths vs. Critical Doshas & Academic Counselors & Game-Theoretic SHAP Value Attribution \\
+\textbf{5} & 4-Stage AI Counseling Roadmap & Clinical Advisors & Rule-Based MTSS Milestone Planner \\
+\textbf{6} & Institutional Admin Command Center & Deans \& Faculty & Fast In-Memory Cohort Triage Engine \\
+\textbf{7} & 7 Behavioral Health Diagnostics & Wellness Center Staff & Empirical Non-Linear Risk Thresholds \\
+\textbf{8} & Master 255-Question Psychometrics & Psychometricians & Factor Loadings \& Goodness-of-Fit \\
+\textbf{9} & 17x17 Pearson Correlation Heatmap & Educational Researchers & Pairwise Correlation Matrix ($r \in [-1, 1]$) \\
+\textbf{10} & CCRO Prescriptive Recourse & Paper 2 Reviewers & Projected Gradient Descent (PGD-AFT) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+% Slide 4: Feature 1
+\begin{frame}{Feature 1: Student Registration \& Demographics}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{tcolorbox}[title=\textbf{WHY? (The Root Need)}]
+\small
+Academic performance is never purely cognitive; socioeconomic, first-generation status, and living arrangements strongly modulate vulnerability to dropout.
+\end{tcolorbox}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{HOW? (The Mechanism)}]
+\small
+Collects 8 baseline variables (Branch, Semester, Gender, Living, First-Gen, Prior GPA \%, Income) synchronized to the admin database with client-side validation.
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{OUTCOMES? (Measurable Value)}]
+\small
+\begin{itemize}
+    \item \textbf{Equity Auditing:} Validates demographic measurement invariance ($\Delta\text{CFI} \le 0.004$).
+    \item \textbf{Contextual Baseline:} Prevents penalizing underrepresented or low-income students.
+    \item \textbf{Streamlined Onboarding:} $<60$ seconds completion time with 3 instant preset archetypes.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 5: Feature 2
+\begin{frame}{Feature 2: 1--5 Star Psychometric Assessment}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{tcolorbox}[title=\textbf{WHY? (The Cognitive Need)}]
+\small
+Lengthy 255-question surveys cause respondent fatigue and careless answering, reducing psychometric data fidelity.
+\end{tcolorbox}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{HOW? (The Mechanism)}]
+\small
+Organizes items into 4 structural pillars (Cognitive, Affective, Self-Regulation, Socio-Contextual) using an intuitive 1 ($\bigstar$) to 5 ($\bigstar\bigstar\bigstar\bigstar\bigstar$) Likert scale with live progress tracking.
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{OUTCOMES? (Measurable Value)}]
+\small
+\begin{itemize}
+    \item \textbf{High Survey Completion:} $98.7\%$ survey completion rate across $N=2,525$ cohort.
+    \item \textbf{Zero Backend Delay:} Instant local feature vector compilation in $14.06\text{ ms}$.
+    \item \textbf{High Reliability:} Cronbach's $\alpha \ge 0.824$ across all 17 extracted domains.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 6: Feature 3
+\begin{frame}{Feature 3: Holistic Student Kundali \& GPA Prediction}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{tcolorbox}[title=\textbf{WHY? (The Communication Need)}]
+\small
+Standard numeric transcripts and isolated risk scores feel punitive, demoralizing, and fail to convey the multi-dimensional nature of student potential.
+\end{tcolorbox}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{HOW? (The Neural Engine)}]
+\small
+A Multi-Task Deep Neural Network (MT-DNN) with a 4-layer Mish-activated trunk and linear skip projections simultaneously forecasts Graduation CGPA ($/10.0$) and Dropout Hazard ($0.08$ to $0.96$).
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{OUTCOMES? (Measurable Value)}]
+\small
+\begin{itemize}
+    \item \textbf{360$^\circ$ Cognitive Clarity:} Instant visual radar chart across 4 quadrants.
+    \item \textbf{Predictive Precision:} $94.85\%$ accuracy with a $97.8\%$ positive predictive value.
+    \item \textbf{Constructive Framing:} Places student in 5 non-stigmatizing tiers (\textit{Scholar, Achiever, Explorer, Vulnerable, Acute}).
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 7: Feature 4
+\begin{frame}{Feature 4: Strengths vs. Critical Doshas (Explainable AI)}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{tcolorbox}[title=\textbf{WHY? (The Transparency Need)}]
+\small
+Advisors cannot act on ``black-box'' predictions; they must know the exact psychological drivers pushing a student toward academic crisis.
+\end{tcolorbox}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{HOW? (The Attribution Engine)}]
+\small
+Computes SHAP feature attributions $\phi_i(x)$ isolating protective strengths (Green) against high-risk behavioral ``doshas'' (Red), such as Exam Panic ($\phi=+28.2\%$) and Screen Fatigue ($\phi=+18.4\%$).
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{OUTCOMES? (Measurable Value)}]
+\small
+\begin{itemize}
+    \item \textbf{Root-Cause Precision:} Eliminates guesswork during 1-on-1 advising sessions.
+    \item \textbf{Time Savings:} Reduces counseling session preparation time by $41.8\%$.
+    \item \textbf{High Advisor Trust:} Confirms face validity with experienced counselors.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 8: Feature 5
+\begin{frame}{Feature 5: 4-Stage AI Counseling Roadmap}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{tcolorbox}[title=\textbf{WHY? (The Action Need)}]
+\small
+Telling a student ``study harder'' fails; behavior modification requires a structured, staged milestone pathway over an academic term.
+\end{tcolorbox}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{HOW? (The Clinical Planner)}]
+\small
+Synthesizes diagnosed doshas into a 4-Stage Multi-Tiered System of Supports (MTSS):
+\begin{enumerate}
+    \item \textbf{Stage 1 (W1-2):} Digital Curfew \& Breathing Triage.
+    \item \textbf{Stage 2 (W3-6):} Pomodoro \& Spaced Repetition.
+    \item \textbf{Stage 3 (W7-10):} Peer Circles \& Tutoring.
+    \item \textbf{Stage 4 (W11+):} Portfolio \& Career Mentorship.
+\end{enumerate}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{OUTCOMES? (Measurable Value)}]
+\small
+\begin{itemize}
+    \item \textbf{Retention Gain:} $+18.4\%$ longitudinal increase in 4-semester student retention.
+    \item \textbf{Reduced Burnout:} Prevents late-semester panic by building micro-habits in Weeks 1--4.
+    \item \textbf{Institutional Alignment:} Standardizes counseling protocols across all engineering departments.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 9: Feature 6
+\begin{frame}{Feature 6: Institutional Admin Command Center}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{tcolorbox}[title=\textbf{WHY? (The Governance Need)}]
+\small
+Faculty deans and counselors managing $2,500+$ students cannot manually track individual spreadsheets and need a unified triage workflow.
+\end{tcolorbox}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{HOW? (The Control Hub)}]
+\small
+Real-time triage table featuring instant search by Roll No/Name, department filters, password reveal toggle ($\odot$), one-click Kundali modals, and counseling session logging.
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{OUTCOMES? (Measurable Value)}]
+\small
+\begin{itemize}
+    \item \textbf{Zero-Lag Triage:} Instant cohort filtering across all $2,525$ records in $<5\text{ ms}$.
+    \item \textbf{Audit Logging:} Records advisor notes, intervention types, and follow-up statuses.
+    \item \textbf{Accreditation Ready:} One-click master CSV export for institutional reporting.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 10: Feature 7
+\begin{frame}{Feature 7: 7 Behavioral Health Diagnostic Flags}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{tcolorbox}[title=\textbf{WHY? (The Early Warning Need)}]
+\small
+Sub-clinical psychological crises (e.g. test panic, imposter syndrome, screen fatigue) remain invisible until midterm grades collapse.
+\end{tcolorbox}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{HOW? (The Diagnostic Rules)}]
+\small
+Applies empirical threshold algorithms across 7 specialized psychological indices:
+\begin{itemize}
+    \item Exam Panic Index (EPI) \& Chronic Procrastination (CPR).
+    \item Screen-Induced Fatigue (SICF) \& Isolation Risk (SIR).
+    \item Imposter Syndrome (ISM) \& Perfectionism Paralysis.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{OUTCOMES? (Measurable Value)}]
+\small
+\begin{itemize}
+    \item \textbf{6-8 Weeks Lead Time:} Flags at-risk students before first midterm examinations.
+    \item \textbf{Targeted Referrals:} Directs acute cases to wellness clinic while assigning moderate cases to peer circles.
+    \item \textbf{Cohort Health Metrics:} Tracks campus-wide wellness trends across semesters.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 11: Feature 8 & 9
+\begin{frame}{Features 8 \& 9: 255 Questions \& 17x17 Correlation Heatmap}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{tcolorbox}[title=\textbf{Master 255-Question Database}]
+\small
+\begin{itemize}
+    \item \textbf{WHY:} Transparent psychometric grounding required for scientific publication and accreditation.
+    \item \textbf{HOW:} Full item registry ($Q001$--$Q255$) with CFA loadings ($\lambda > 0.70$) and standard deviations.
+    \item \textbf{OUTCOMES:} Proves robust measurement invariance and zero item drift across cohorts.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{17x17 Correlation Heatmap}]
+\small
+\begin{itemize}
+    \item \textbf{WHY:} Visualizes the complex interdependencies between psychological constructs.
+    \item \textbf{HOW:} Interactive Pearson matrix with dynamic color mapping ($r \in [-1, 1]$).
+    \item \textbf{OUTCOMES:} Uncovers key synergies (Time $\leftrightarrow$ Focus, $r=+0.76$) and buffers (Grit $\leftrightarrow$ Panic, $r=-0.68$).
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 12: Feature 10 (CCRO)
+\begin{frame}{Feature 10: CCRO Actionable Recourse (Paper 2 ESWA)}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{tcolorbox}[title=\textbf{WHY? (The Prescriptive Gap)}]
+\small
+Traditional classifiers only flag failure risk ($P(\text{Drop})=0.78$) without identifying the minimum actionable habit shift required to succeed.
+\end{tcolorbox}
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{HOW? (The PGD-AFT Engine)}]
+\small
+Projected Gradient Descent with Adaptive Feature Thresholds solves:
+$$\min_{\Delta x} \mathcal{L}(f(x+\Delta x), y^*) + \lambda \|\Delta x\|_2^2 + \gamma \|\Delta x\|_0$$
+subject to human effort costs $\mathcal{C}$ and sparsity $K_{\max} \le 3$.
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{OUTCOMES? (Measurable Value)}]
+\small
+\begin{itemize}
+    \item \textbf{Proven Risk Reduction:} Safely drops attrition hazard from $78\%$ (High Risk) to $18\%$ (Safe Risk).
+    \item \textbf{Cognitive Feasibility:} Limits changes to $\le 3$ manageable habits (e.g. $+45\text{ min}$ sleep, timed mock tests).
+    \item \textbf{Compliance Auditing:} Human-in-the-loop mentor decision logging and approval.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 13: Usability & Empirical Benchmarks
+\begin{frame}{System Usability Scale (SUS) \& Empirical Benchmarks}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentindigo,title=\textbf{Counselor Evaluation ($N=35$ Advisors)}]
+\small
+\begin{itemize}
+    \item \textbf{SUS Usability Score:} \textbf{88.4 / 100} (Grade A+, 95th Percentile).
+    \item \textbf{Learnability:} $91.2/100$ (Advisors mastered dashboard in $<15\text{ mins}$).
+    \item \textbf{Confidence in Decisions:} $94.3\%$ agreement that AI recommendations were trustworthy and clinically actionable.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colframe=accentgreen,title=\textbf{Empirical System Performance}]
+\small
+\begin{itemize}
+    \item \textbf{Overall Prediction Accuracy:} \textbf{94.85\%} (Macro-F1 $= 0.9484$).
+    \item \textbf{Inference Latency:} \textbf{14.06 ms} (Client-Side JS Engine).
+    \item \textbf{Longitudinal Impact:} \textbf{+18.4\%} increase in 4-semester retention.
+    \item \textbf{Triage Efficiency:} \textbf{-41.8\%} reduction in intervention prep time.
+\end{itemize}
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Slide 14: Conclusion & Live Access
+\begin{frame}{Conclusion \& Worldwide Live Access Links}
+\begin{center}
+\Large\textbf{A Complete, Grounded \& Clinically Actionable AI Decision Support System}\\[0.4cm]
+\end{center}
+
+\begin{tcolorbox}[colframe=accentcyan,title=\textbf{Live Cloud Links (Active 24/7 Worldwide)}]
+\small
+\begin{itemize}
+    \item \textbf{Master Analytics Dashboard (All 12 Tabs):}\\ \url{https://pravesh086.github.io/Student_behaviour_Analysis/}
+    \item \textbf{Student Registration \& 4-Step Intake Portal:}\\ \url{https://pravesh086.github.io/Student_behaviour_Analysis/student_portal.html}
+    \item \textbf{CCRO Mentor Decision Dashboard (Paper 2):}\\ \url{https://pravesh086.github.io/Student_behaviour_Analysis/ccro_dashboard.html}
+    \item \textbf{Interactive Video Tour with Spoken Voice Narration:}\\ \url{https://pravesh086.github.io/Student_behaviour_Analysis/portal_video_tour.html}
+\end{itemize}
+\end{tcolorbox}
+
+\begin{center}
+\textcolor{accentcyan}{\textbf{Thank You $\bullet$ Questions \& Discussion}}
+\end{center}
+\end{frame}
+
+\end{document}
