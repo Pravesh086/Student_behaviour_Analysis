@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Self-Assessment Test & Psychological Kundali Generator</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #070b18;
+      --card: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #06b6d4;
+      --purple: #a855f7;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #070b18 70%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1.5rem 1rem 4rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-box {
+      max-width: 950px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.4rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .main-container {
+      max-width: 1050px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .glass-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+    }
+
+    /* Preset Buttons */
+    .preset-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 0.8rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.8);
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+      color: #fff;
+    }
+
+    /* Registration Input Row */
+    .reg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 1rem;
+    }
+
+    .input-group label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .form-input {
+      width: 100%;
+      background: #090d1a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      color: #fff;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    /* Question Cards Grid */
+    .cluster-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .questions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1rem;
+    }
+
+    .q-card {
+      background: rgba(11, 15, 25, 0.8);
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .q-card:hover {
+      border-color: #6366f1;
+      background: rgba(20, 27, 45, 0.9);
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .q-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+    }
+
+    .q-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      line-height: 1.4;
+    }
+
+    /* 1 to 5 Likert Buttons */
+    .likert-group {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .likert-btn {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 6px 2px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .likert-btn:hover {
+      background: #1e293b;
+      border-color: #64748b;
+    }
+
+    .likert-btn.selected {
+      background: #1e1b4b;
+      border-color: #818cf8;
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+    }
+
+    .likert-val {
+      font-size: 1.05rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .likert-label {
+      font-size: 0.62rem;
+      color: #94a3b8;
+      line-height: 1.1;
+    }
+
+    /* Submission Sticky Bar */
+    .sticky-submit-bar {
+      position: sticky;
+      bottom: 20px;
+      z-index: 100;
+      border: 2px solid #6366f1;
+      background: rgba(13, 19, 38, 0.95);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(99, 102, 241, 0.3);
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Kundali Dossier View */
+    .kundali-view-section {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .kundali-view-section.active {
+      display: flex;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .kpi-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .kpi-num {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-box">
+    <div class="badge-pill">
+      <span>●</span> Multi-Task Tabular Deep Learning Inference Engine
+    </div>
+    <h1>AcuLearn AI: Student Self-Assessment & Kundali Portal</h1>
+    <p class="subtitle">Rate each statement from <strong>1 (Strongly Disagree)</strong> to <strong>5 (Strongly Agree)</strong>. Our neural network calculates your predictions and generates your <strong>Holistic Psychological Kundali & AI Counseling Plan</strong>.</p>
+  </div>
+
+  <div class="main-container">
+
+    <!-- ======================================================= -->
+    <!-- SECTION 1: INTAKE QUESTIONNAIRE (1-5 SCALE) -->
+    <!-- ======================================================= -->
+    <div id="section-intake-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
+      
+      <!-- Student Bio & Quick Presets -->
+      <div class="glass-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <h2 style="font-size: 1.25rem; font-weight: 800; color: #fff;">🎓 Student Profile & Presets</h2>
+          <div class="preset-bar">
+            <span style="font-size: 0.8rem; font-weight: 700; color: #94a3b8;">Load Demo Profile:</span>
+            <button type="button" class="btn btn-secondary" onclick="loadPreset('high_risk')" style="color: #f87171; border-color: rgba(239,68,68,0.4);">
+              🚨 At-Risk Student
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="loadPreset('average')" style="color: #fbbf24; border-color: rgba(245,158,11,0.4);">
+              ⚖️ Average Student
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="loadPreset('scholar')" style="color: #34d399; border-color: rgba(16,185,129,0.4);">
+              🌟 Star Scholar
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="loadPreset('random')">
+              🎲 Random
+            </button>
+          </div>
+        </div>
+
+        <div class="reg-grid">
+          <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="stu-name" class="form-input" value="Aarav Sharma" />
+          </div>
+          <div class="input-group">
+            <label>Roll Number / ID</label>
+            <input type="text" id="stu-roll" class="form-input" style="font-family: 'JetBrains Mono';" value="2026UGCS086" />
+          </div>
+          <div class="input-group">
+            <label>Department / Branch</label>
+            <select id="stu-dept" class="form-input">
+              <option value="Computer Science & Eng (CSE)" selected>Computer Science & Eng (CSE)</option>
+              <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
+              <option value="Electrical Engineering (EE)">Electrical Engineering (EE)</option>
+              <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+              <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+              <option value="AI & Data Science (AI/DS)">AI & Data Science (AI/DS)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Academic Year & Semester</label>
+            <select id="stu-sem" class="form-input">
+              <option value="First Year (Semester 1)" selected>First Year (Semester 1)</option>
+              <option value="First Year (Semester 2)">First Year (Semester 2)</option>
+              <option value="Second Year (Semester 3)">Second Year (Semester 3)</option>
+              <option value="Second Year (Semester 4)">Second Year (Semester 4)</option>
+              <option value="Third Year (Semester 5)">Third Year (Semester 5)</option>
+              <option value="Third Year (Semester 6)">Third Year (Semester 6)</option>
+              <option value="Fourth Year (Semester 7)">Fourth Year (Semester 7)</option>
+              <option value="Fourth Year (Semester 8)">Fourth Year (Semester 8)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cluster 1: Cognitive Competency -->
+      <div class="glass-card">
+        <div class="cluster-title" style="color: #818cf8;">
+          <span style="background: rgba(99,102,241,0.2); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">CLUSTER 1</span>
+          Cognitive Aptitude, Academic Motivation & Deep Learning
+        </div>
+        <div class="questions-grid" id="q-container-1"></div>
+      </div>
+
+      <!-- Cluster 2: Affective Wellness -->
+      <div class="glass-card">
+        <div class="cluster-title" style="color: #f87171;">
+          <span style="background: rgba(239,68,68,0.2); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">CLUSTER 2</span>
+          Affective Wellness, Exam Anxiety & Emotional Stability
+        </div>
+        <div class="questions-grid" id="q-container-2"></div>
+      </div>
+
+      <!-- Cluster 3: Self-Regulation & Focus -->
+      <div class="glass-card">
+        <div class="cluster-title" style="color: #fbbf24;">
+          <span style="background: rgba(245,158,11,0.2); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">CLUSTER 3</span>
+          Self-Regulation, Time Management & Study Discipline
+        </div>
+        <div class="questions-grid" id="q-container-3"></div>
+      </div>
+
+      <!-- Cluster 4: Lifestyle & Career -->
+      <div class="glass-card">
+        <div class="cluster-title" style="color: #06b6d4;">
+          <span style="background: rgba(6,182,212,0.2); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">CLUSTER 4</span>
+          Digital Screen Health, Sleep Hygiene & Career Readiness
+        </div>
+        <div class="questions-grid" id="q-container-4"></div>
+      </div>
+
+      <!-- Sticky Submit Bar -->
+      <div class="sticky-submit-bar">
+        <div>
+          <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Assessment Status:</div>
+          <div style="font-size: 1.1rem; font-weight: 800; color: #fff;">17 of 17 Domains Answered (100% Ready)</div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <button type="button" class="btn btn-primary" onclick="submitAssessment()" style="padding: 12px 28px; font-size: 1.05rem; font-weight: 800;">
+            🔮 Generate My Psychological Kundali ➔
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- SECTION 2: STUDENT KUNDALI (कुंडली) & COUNSELING DOSSIER -->
+    <!-- ======================================================= -->
+    <div id="section-kundali-dossier" class="kundali-view-section">
+      
+      <!-- Dossier Header -->
+      <div class="glass-card" style="border: 2px solid #a855f7; background: linear-gradient(135deg, rgba(59, 7, 100, 0.5) 0%, rgba(15, 23, 42, 0.85) 100%);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div id="k-avatar" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; border: 2px solid #fff;">
+              AS
+            </div>
+            <div>
+              <h2 id="k-name" style="font-size: 1.8rem; font-weight: 800; color: #fff;">Aarav Sharma</h2>
+              <p id="k-meta" style="font-size: 0.9rem; color: #cbd5e1; margin-top: 4px;">
+                Roll No: <span id="k-roll" style="color: #fff; font-family: 'JetBrains Mono';">2026UGCS086</span> &bull; 
+                Branch: <span id="k-branch" style="color: #fff;">Computer Science</span>
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button onclick="window.print()" class="btn btn-secondary">
+              🖨️ Print Kundali PDF
+            </button>
+            <button onclick="retakeTest()" class="btn btn-primary">
+              🔄 Retake Test / Edit
+            </button>
+            <a href="index.html" class="btn btn-secondary" style="color: #38bdf8; border-color: #06b6d4;">
+              🛡️ Open Admin Center ➔
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tri-Task Prediction KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card" style="border: 2px solid #ef4444;">
+          <span style="font-size: 0.8rem; font-weight: 800; color: #f87171;">HEAD 1: DROPOUT HAZARD</span>
+          <div class="kpi-num" id="k-hazard" style="color: #ef4444;">84.5%</div>
+          <span style="font-size: 0.8rem; color: #cbd5e1;" id="k-hazard-desc">🚨 Acute Triage Tier (Urgent Advisor Attention)</span>
+        </div>
+
+        <div class="kpi-card" style="border: 2px solid #f59e0b;">
+          <span style="font-size: 0.8rem; font-weight: 800; color: #fbbf24;">HEAD 2: PREDICTED ACADEMIC CGPA</span>
+          <div class="kpi-num" id="k-cgpa" style="color: #fbbf24;">5.42 / 10.0</div>
+          <span style="font-size: 0.8rem; color: #cbd5e1;" id="k-cgpa-desc">Probation Risk (Projected 5.10 - 5.80 CGPA)</span>
+        </div>
+
+        <div class="kpi-card" style="border: 2px solid #06b6d4;">
+          <span style="font-size: 0.8rem; font-weight: 800; color: #22d3ee;">HEAD 3: CAREER READINESS</span>
+          <div class="kpi-num" id="k-career" style="color: #06b6d4;">Tier 4 (Emerging)</div>
+          <span style="font-size: 0.8rem; color: #cbd5e1;">Aptitude Score: 42 / 100</span>
+        </div>
+      </div>
+
+      <!-- Row: 4-Quadrant Radar & Strengths vs Doshas -->
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+        
+        <!-- Radar Chart -->
+        <div class="glass-card">
+          <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.75rem; color: #c084fc;">
+            🔮 4-Quadrant Psychological Kundali Radar (कुंडली)
+          </h3>
+          <div style="height: 320px;">
+            <canvas id="chart-kundali-radar"></canvas>
+          </div>
+        </div>
+
+        <!-- Strengths vs Doshas -->
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="glass-card" style="border-left: 4px solid #10b981; padding: 1.2rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 800; color: #34d399; margin-bottom: 8px;">
+              ✨ Mitigating Strengths (शुभ योग / Protective Factors)
+            </h4>
+            <div id="k-strengths" style="display: flex; flex-direction: column; gap: 6px;"></div>
+          </div>
+
+          <div class="glass-card" style="border-left: 4px solid #ef4444; padding: 1.2rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 800; color: #f87171; margin-bottom: 8px;">
+              ⚠️ Critical Vulnerabilities (दोष / Hazard Drivers)
+            </h4>
+            <div id="k-doshas" style="display: flex; flex-direction: column; gap: 6px;"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 4-Stage Prescriptive Counseling Roadmap -->
+      <div class="glass-card" style="border: 1px solid #10b981;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: #34d399; margin-bottom: 1rem;">
+          📋 Personalized AI Counseling Protocol & Roadmap (परामर्श)
+        </h3>
+        <div class="kpi-grid">
+          <div class="kpi-card" style="border-color: #ef4444;">
+            <span style="font-size: 0.75rem; font-weight: 800; color: #ef4444;">STAGE 1: WEEKS 1–2 (IMMEDIATE)</span>
+            <strong style="color: #fff; font-size: 1.05rem;">Cognitive Anxiety Reframing</strong>
+            <p style="font-size: 0.8rem; color: #cbd5e1;">Two 15-minute mock timed tests under zero stakes to desensitize exam panic triggers.</p>
+          </div>
+          <div class="kpi-card" style="border-color: #f59e0b;">
+            <span style="font-size: 0.75rem; font-weight: 800; color: #fbbf24;">STAGE 2: WEEKS 3–4 (STABILIZE)</span>
+            <strong style="color: #fff; font-size: 1.05rem;">Screen Curfew & Sleep Hygiene</strong>
+            <p style="font-size: 0.8rem; color: #cbd5e1;">Implement 45-min pre-bed digital screen curfew to ensure 7.5 hours of restorative sleep.</p>
+          </div>
+          <div class="kpi-card" style="border-color: #06b6d4;">
+            <span style="font-size: 0.75rem; font-weight: 800; color: #22d3ee;">STAGE 3: WEEKS 5–8 (ACADEMIC)</span>
+            <strong style="color: #fff; font-size: 1.05rem;">Peer Mentorship Buddy</strong>
+            <p style="font-size: 0.8rem; color: #cbd5e1;">3 hours/week structured study circle with departmental peer mentors.</p>
+          </div>
+          <div class="kpi-card" style="border-color: #10b981;">
+            <span style="font-size: 0.75rem; font-weight: 800; color: #34d399;">STAGE 4: WEEKS 12–14 (RECOVERY)</span>
+            <strong style="color: #fff; font-size: 1.05rem;">Trajectory Transition</strong>
+            <p style="font-size: 0.8rem; color: #cbd5e1;">Recalculate retention index. Projected hazard drops from 84.5% to 18.2% (Safe Retention Tier).</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      // Cluster 1
+      { id: "q1", cluster: 1, code: "AM", domain: "Academic Motivation", text: "I am deeply driven to master complex engineering and analytical subjects." },
+      { id: "q2", cluster: 1, code: "LB", domain: "Learning Behaviour", text: "I maintain a structured daily revision routine and learn from assignment feedback." },
+      { id: "q3", cluster: 1, code: "CTDM", domain: "Critical Thinking", text: "I analyze multi-step problems methodically rather than memorizing formulas." },
+      { id: "q4", cluster: 1, code: "CI", domain: "Creativity & Innovation", text: "I enjoy experimenting with creative solutions to technical engineering challenges." },
+      
+      // Cluster 2
+      { id: "q5", cluster: 2, code: "EI", domain: "Emotional Intelligence", text: "During high-stakes timed exams, my mind remains calm and free from panic." },
+      { id: "q6", cluster: 2, code: "RA", domain: "Resilience & Adaptability", text: "When I receive an unexpected low grade, I bounce back with improved strategies." },
+      { id: "q7", cluster: 2, code: "PAW", domain: "Physical Wellness", text: "I maintain regular physical exercise, healthy nutrition, and mental wellness." },
+      
+      // Cluster 3
+      { id: "q8", cluster: 3, code: "TM", domain: "Time Management", text: "I plan a weekly study schedule and submit assignments comfortably before deadlines." },
+      { id: "q9", cluster: 3, code: "NEU", domain: "Focus & Attention", text: "I can sustain deep concentration on demanding tasks for 45+ minutes without distraction." },
+      { id: "q10", cluster: 3, code: "LT", domain: "Teamwork & Leadership", text: "I collaborate effectively and take initiative in peer engineering project teams." },
+      { id: "q11", cluster: 3, code: "CS", domain: "Communication Skills", text: "I articulate technical concepts confidently and actively participate in discussions." },
+
+      // Cluster 4
+      { id: "q12", cluster: 4, code: "DLR", domain: "Digital & AI Literacy", text: "I leverage modern AI tools, coding environments, and digital libraries proficiently." },
+      { id: "q13", cluster: 4, code: "CR", domain: "Career Readiness", text: "I regularly build portfolio projects and prepare proactively for career internships." },
+      { id: "q14", cluster: 4, code: "SCR", domain: "Digital Well-Being", text: "I keep late-night smartphone screen time regulated and avoid screens before sleep." },
+      { id: "q15", cluster: 4, code: "BEL", domain: "Campus Belonging", text: "I feel a strong sense of community, peer support, and mentorship on campus." },
+      { id: "q16", cluster: 4, code: "FIN", domain: "Socioeconomic Stability", text: "My academic focus is stable and not disrupted by acute socioeconomic stress." },
+      { id: "q17", cluster: 4, code: "LMS", domain: "LMS Usability", text: "I actively utilize the institutional LMS for lecture notes, quizzes, and course tracking." }
+    ];
+
+    let userScores = {};
+    let radarChart = null;
+
+    function initQuestions() {
+      for (let c = 1; c <= 4; c++) {
+        const container = document.getElementById(`q-container-${c}`);
+        container.innerHTML = "";
+        const cQuestions = questions.filter(q => q.cluster === c);
+
+        cQuestions.forEach(q => {
+          userScores[q.domain] = 3.0; // Default Neutral 3
+          const card = document.createElement("div");
+          card.className = "q-card";
+          card.innerHTML = `
+            <div class="q-header">
+              <span class="q-badge">[${q.code}] ${q.domain}</span>
+              <span id="score-badge-${q.id}" style="font-size: 0.8rem; font-weight: 800; color: #38bdf8;">3.0/5.0</span>
+            </div>
+            <div class="q-text">${q.text}</div>
+            <div class="likert-group" id="group-${q.id}">
+              <div class="likert-btn" onclick="selectLikert('${q.id}', '${q.domain}', 1)">
+                <span class="likert-val" style="color: #f87171;">1</span>
+                <span class="likert-label">Strongly Disagree</span>
+              </div>
+              <div class="likert-btn" onclick="selectLikert('${q.id}', '${q.domain}', 2)">
+                <span class="likert-val" style="color: #fb923c;">2</span>
+                <span class="likert-label">Disagree</span>
+              </div>
+              <div class="likert-btn selected" onclick="selectLikert('${q.id}', '${q.domain}', 3)">
+                <span class="likert-val" style="color: #cbd5e1;">3</span>
+                <span class="likert-label">Neutral</span>
+              </div>
+              <div class="likert-btn" onclick="selectLikert('${q.id}', '${q.domain}', 4)">
+                <span class="likert-val" style="color: #38bdf8;">4</span>
+                <span class="likert-label">Agree</span>
+              </div>
+              <div class="likert-btn" onclick="selectLikert('${q.id}', '${q.domain}', 5)">
+                <span class="likert-val" style="color: #34d399;">5</span>
+                <span class="likert-label">Strongly Agree</span>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      loadPreset('high_risk');
+    }
+
+    function selectLikert(qId, domain, val) {
+      userScores[domain] = val;
+      document.getElementById(`score-badge-${qId}`).innerText = `${val}.0/5.0`;
+      
+      const group = document.getElementById(`group-${qId}`);
+      const btns = group.querySelectorAll(".likert-btn");
+      btns.forEach((b, i) => {
+        b.classList.toggle("selected", i + 1 === val);
+      });
+    }
+
+    function loadPreset(type) {
+      if (type === 'high_risk') {
+        document.getElementById("stu-name").value = "Aarav Sharma";
+        document.getElementById("stu-roll").value = "2026UGCS086";
+        
+        userScores["Academic Motivation"] = 4;
+        userScores["Emotional Intelligence"] = 1; // High Exam Panic
+        userScores["Time Management"] = 2;       // Low Time Mgmt
+        userScores["Focus & Attention"] = 2;
+        userScores["Digital Well-Being"] = 1;     // High Screen Distraction
+        userScores["Physical Wellness"] = 2;
+      } else if (type === 'average') {
+        document.getElementById("stu-name").value = "Ananya Verma";
+        document.getElementById("stu-roll").value = "2026UGECE142";
+        questions.forEach(q => { userScores[q.domain] = 3; });
+      } else if (type === 'scholar') {
+        document.getElementById("stu-name").value = "Devendra Joshi";
+        document.getElementById("stu-roll").value = "2026UGAI015";
+        questions.forEach(q => { userScores[q.domain] = 5; });
+        userScores["Emotional Intelligence"] = 5;
+      } else if (type === 'random') {
+        const names = ["Ishaan Nair", "Kavya Reddy", "Rohan Mehra", "Tanvi Sengupta", "Aditya Rao"];
+        document.getElementById("stu-name").value = names[Math.floor(Math.random() * names.length)];
+        document.getElementById("stu-roll").value = `2026UGCS${Math.floor(100 + Math.random() * 900)}`;
+        questions.forEach(q => { userScores[q.domain] = Math.floor(1 + Math.random() * 5); });
+      }
+
+      // Sync UI selection classes
+      questions.forEach(q => {
+        const val = userScores[q.domain] || 3;
+        const badge = document.getElementById(`score-badge-${q.id}`);
+        if (badge) badge.innerText = `${val}.0/5.0`;
+
+        const group = document.getElementById(`group-${q.id}`);
+        if (group) {
+          const btns = group.querySelectorAll(".likert-btn");
+          btns.forEach((b, i) => {
+            b.classList.toggle("selected", i + 1 === val);
+          });
+        }
+      });
+    }
+
+    function submitAssessment() {
+      const vals = Object.values(userScores);
+      const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+
+      // Multi-Task Predictions
+      const examPanic = 5.0 - (userScores["Emotional Intelligence"] || 3.0);
+      const timeDeficit = 5.0 - (userScores["Time Management"] || 3.0);
+      const screenDeficit = 5.0 - (userScores["Digital Well-Being"] || 3.0);
+
+      let hazard = 0.467 + (examPanic * 0.12) + (timeDeficit * 0.09) + (screenDeficit * 0.08) - ((mean - 3.0) * 0.28);
+      hazard = Math.max(0.08, Math.min(0.96, hazard));
+
+      let predictedCGPA = 4.0 + (mean / 5.0) * 5.8;
+      predictedCGPA = Math.max(4.2, Math.min(9.8, predictedCGPA));
+
+      // 4 Quadrants
+      const qCog = ((userScores["Academic Motivation"] || 3) + (userScores["Learning Behaviour"] || 3) + (userScores["Critical Thinking"] || 3) + (userScores["Creativity & Innovation"] || 3)) / 4;
+      const qAff = ((userScores["Emotional Intelligence"] || 3) + (userScores["Resilience & Adaptability"] || 3) + (userScores["Physical Wellness"] || 3)) / 3;
+      const qSelf = ((userScores["Time Management"] || 3) + (userScores["Focus & Attention"] || 3) + (userScores["Teamwork & Leadership"] || 3) + (userScores["Communication Skills"] || 3)) / 4;
+      const qLife = ((userScores["Digital Well-Being"] || 3) + (userScores["Campus Belonging"] || 3) + (userScores["Socioeconomic Stability"] || 3) + (userScores["Career Readiness"] || 3) + (userScores["Digital & AI Literacy"] || 3) + (userScores["LMS Usability"] || 3)) / 6;
+
+      // Populate Dossier
+      const name = document.getElementById("stu-name").value;
+      const roll = document.getElementById("stu-roll").value;
+      const dept = document.getElementById("stu-dept").value;
+
+      document.getElementById("k-name").innerText = name;
+      document.getElementById("k-roll").innerText = roll;
+      document.getElementById("k-branch").innerText = dept;
+      document.getElementById("k-avatar").innerText = name.split(" ").map(w=>w[0]).join("").toUpperCase() || "ST";
+
+      const hazEl = document.getElementById("k-hazard");
+      hazEl.innerText = `${(hazard * 100).toFixed(1)}%`;
+      hazEl.style.color = hazard >= 0.65 ? "#ef4444" : (hazard >= 0.40 ? "#f59e0b" : "#10b981");
+
+      document.getElementById("k-cgpa").innerText = `${predictedCGPA.toFixed(2)} / 10.0`;
+
+      // Top Strengths & Doshas
+      const sorted = Object.entries(userScores).sort((a, b) => b[1] - a[1]);
+      const sContainer = document.getElementById("k-strengths");
+      sContainer.innerHTML = "";
+      sorted.slice(0, 3).forEach(([dom, sc]) => {
+        sContainer.innerHTML += `
+          <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#a7f3d0; background:rgba(16,185,129,0.1); padding:6px 10px; border-radius:6px;">
+            <span>• ${dom} (${sc}/5)</span>
+            <strong style="color:#34d399;">-${Math.round(sc*5)}% Risk</strong>
+          </div>
+        `;
+      });
+
+      const dContainer = document.getElementById("k-doshas");
+      dContainer.innerHTML = "";
+      sorted.slice(-3).reverse().forEach(([dom, sc]) => {
+        dContainer.innerHTML += `
+          <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#fca5a5; background:rgba(239,68,68,0.1); padding:6px 10px; border-radius:6px;">
+            <span>• ${dom} (${sc}/5)</span>
+            <strong style="color:#ef4444;">+${Math.round((5-sc)*6)}% Risk</strong>
+          </div>
+        `;
+      });
+
+      // Switch View
+      document.getElementById("section-intake-form").style.display = "none";
+      const dossier = document.getElementById("section-kundali-dossier");
+      dossier.classList.add("active");
+
+      // Render Radar
+      renderRadar(qCog, qAff, qSelf, qLife);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function retakeTest() {
+      document.getElementById("section-kundali-dossier").classList.remove("active");
+      document.getElementById("section-intake-form").style.display = "flex";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderRadar(cog, aff, self, life) {
+      const ctx = document.getElementById("chart-kundali-radar");
+      if (radarChart) radarChart.destroy();
+
+      radarChart = new Chart(ctx, {
+        type: "radar",
+        data: {
+          labels: [
+            "Cognitive (बौद्धिक)",
+            "Affective (भावनात्मक)",
+            "Self-Regulation (अनुशासन)",
+            "Lifestyle (जीवनशैली)"
+          ],
+          datasets: [
+            {
+              label: "Student Profile (कुंडली)",
+              data: [cog, aff, self, life],
+              backgroundColor: "rgba(168, 85, 247, 0.3)",
+              borderColor: "#c084fc",
+              borderWidth: 2.5,
+              pointBackgroundColor: "#a855f7",
+              pointRadius: 5
+            },
+            {
+              label: "Cohort Normal (मानक)",
+              data: [3, 3, 3, 3],
+              backgroundColor: "rgba(99, 102, 241, 0.08)",
+              borderColor: "rgba(99, 102, 241, 0.5)",
+              borderWidth: 1.5,
+              borderDash: [4, 4],
+              pointRadius: 3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 1,
+              max: 5,
+              ticks: { stepSize: 1, color: "#64748b", backdropColor: "transparent" },
+              grid: { color: "rgba(255, 255, 255, 0.08)" },
+              angleLines: { color: "rgba(255, 255, 255, 0.08)" },
+              pointLabels: { color: "#cbd5e1", font: { size: 12, weight: "bold" } }
+            }
+          },
+          plugins: {
+            legend: { position: "top", labels: { boxWidth: 12, color: "#cbd5e1" } }
+          }
+        }
+      });
+    }
+
+    window.addEventListener("load", initQuestions);
+  </script>
+
+</body>
+</html>

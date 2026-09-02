@@ -40,20 +40,35 @@
       </div>
 
       <div class="header-actions">
+        <a href="student_test_portal.html" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: #fff; font-weight: 800;">
+          🎓 Open Student 1–5 Test & Kundali
+        </a>
         <button id="btn-export-csv" class="btn btn-secondary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Export Expanded CSV
+          Export CSV
         </button>
-        <button id="btn-print-report" class="btn btn-primary">
+        <button id="btn-print-report" class="btn btn-secondary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-          Print / PDF Report
+          Print PDF
         </button>
       </div>
     </header>
 
     <!-- Navigation Tabs -->
     <nav class="tabs-container" id="main-tabs" role="tablist">
-      <button class="tab-btn active" data-tab="overview" role="tab">
+      <button class="tab-btn active highlight-student-tab" data-tab="student-portal" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        🎓 Student Live Test (1–5)
+      </button>
+      <button class="tab-btn highlight-kundali-tab" data-tab="student-kundali" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        🔮 Student Kundali & Dossier
+      </button>
+      <button class="tab-btn highlight-admin-tab" data-tab="admin-portal" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M14 9l3 3-3 3"/></svg>
+        🛡️ Admin & Advisor Center
+      </button>
+      <button class="tab-btn" data-tab="overview" role="tab">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
         Executive Overview
       </button>
@@ -91,8 +106,470 @@
       </button>
     </nav>
 
-    <!-- TAB 1: EXECUTIVE OVERVIEW -->
-    <main id="tab-overview" class="tab-content active">
+    <!-- ======================================================== -->
+    <!-- TAB: STUDENT LIVE ASSESSMENT & INTAKE PORTAL (1-5 TEST) -->
+    <!-- ======================================================== -->
+    <main id="tab-student-portal" class="tab-content active">
+      
+      <!-- Student Intake Hero Card -->
+      <section class="glass-card" style="border: 1px solid rgba(99, 102, 241, 0.4); background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);">
+        <div class="card-title-row" style="flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); margin-bottom: 6px;">
+              <span style="width: 7px; height: 7px; background: #10b981; border-radius: 50%; display: inline-block;"></span>
+              Real-Time Client-Side Inference Engine (14.06 ms)
+            </div>
+            <h2 class="card-title" style="font-size: 1.4rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              Student Self-Assessment & Psychometric Intake Test
+            </h2>
+            <p class="card-subtitle">
+              Rate each statement on a scale of <strong>1 (Strongly Disagree)</strong> to <strong>5 (Strongly Agree)</strong>. The Multi-Task Deep Neural Network will calculate your multi-task predictions and generate your <strong>Holistic Psychological Kundali & AI Counseling Dossier</strong>.
+            </p>
+          </div>
+
+          <!-- Quick Presets -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size: 0.78rem; font-weight: 700; color: #94a3b8;">Quick Demo Presets:</span>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadTestPreset('high_risk')" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4);">
+              🚨 At-Risk Student
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadTestPreset('average')" style="color: #fbbf24; border-color: rgba(245, 158, 11, 0.4);">
+              ⚖️ Average Student
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadTestPreset('scholar')" style="color: #34d399; border-color: rgba(16, 185, 129, 0.4);">
+              🌟 Star Scholar
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadTestPreset('random')">
+              🎲 Random
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="resetStudentTest()">
+              🧹 Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Student Registration Bar -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 16px; padding: 14px; background: rgba(0, 0, 0, 0.35); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Full Name</label>
+            <input type="text" id="inp-student-name" class="filter-select" style="width: 100%; margin-top: 4px;" value="Aarav Sharma" placeholder="Enter student name..." />
+          </div>
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Roll / Registration No.</label>
+            <input type="text" id="inp-student-roll" class="filter-select" style="width: 100%; margin-top: 4px; font-family: var(--font-mono);" value="2026UGCS086" placeholder="e.g. 2026UGCS086" />
+          </div>
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Branch / Program</label>
+            <select id="inp-student-branch" class="filter-select" style="width: 100%; margin-top: 4px;">
+              <option value="Computer Science & Eng (CSE)" selected>Computer Science & Eng (CSE)</option>
+              <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
+              <option value="Electrical Engineering (EE)">Electrical Engineering (EE)</option>
+              <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+              <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+              <option value="AI & Data Science (AI/DS)">AI & Data Science (AI/DS)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Current Semester</label>
+            <select id="inp-student-sem" class="filter-select" style="width: 100%; margin-top: 4px;">
+              <option value="Semester 1 (Freshman)" selected>Semester 1 (Freshman)</option>
+              <option value="Semester 2 (Freshman)">Semester 2 (Freshman)</option>
+              <option value="Semester 3 (Sophomore)">Semester 3 (Sophomore)</option>
+              <option value="Semester 4 (Sophomore)">Semester 4 (Sophomore)</option>
+              <option value="Semester 5 (Junior)">Semester 5 (Junior)</option>
+              <option value="Semester 6 (Junior)">Semester 6 (Junior)</option>
+              <option value="Semester 7 (Senior)">Semester 7 (Senior)</option>
+              <option value="Semester 8 (Senior)">Semester 8 (Senior)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Gender</label>
+            <select id="inp-student-gender" class="filter-select" style="width: 100%; margin-top: 4px;">
+              <option value="Male" selected>Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other / Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- 17-Domain Survey Assessment Questionnaire -->
+      <form id="form-student-assessment" onsubmit="handleStudentTestSubmit(event)">
+        
+        <!-- Cluster 1: Cognitive & Academic Competency -->
+        <section class="glass-card" style="margin-top: 18px;">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title" style="color: #818cf8;">
+                <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc;">CLUSTER 1</span>
+                Cognitive Aptitude, Motivation & Learning Rigor
+              </h3>
+              <p class="card-subtitle">Measures core academic drive, deep conceptual learning, and analytical problem solving.</p>
+            </div>
+          </div>
+          <div class="survey-items-container" id="cluster-1-items">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- Cluster 2: Affective & Emotional Resilience -->
+        <section class="glass-card" style="margin-top: 18px;">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title" style="color: #f87171;">
+                <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #fca5a5;">CLUSTER 2</span>
+                Affective Wellness, Exam Anxiety & Emotional Intelligence
+              </h3>
+              <p class="card-subtitle">Measures examination pressure tolerance, stress management, and emotional stability.</p>
+            </div>
+          </div>
+          <div class="survey-items-container" id="cluster-2-items">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- Cluster 3: Self-Regulation & Executive Functioning -->
+        <section class="glass-card" style="margin-top: 18px;">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title" style="color: #fbbf24;">
+                <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #fde68a;">CLUSTER 3</span>
+                Self-Regulation, Time Management & Focus Discipline
+              </h3>
+              <p class="card-subtitle">Measures weekly study scheduling, ADHD/distractibility resistance, and collaboration.</p>
+            </div>
+          </div>
+          <div class="survey-items-container" id="cluster-3-items">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- Cluster 4: Digital, Career & Socioeconomic Balance -->
+        <section class="glass-card" style="margin-top: 18px;">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title" style="color: #22d3ee;">
+                <span class="badge" style="background: rgba(6, 182, 212, 0.2); color: #a5f3fc;">CLUSTER 4</span>
+                Digital Well-Being, Career Readiness & Campus Support
+              </h3>
+              <p class="card-subtitle">Measures late-night screen time, sleep hygiene, peer community, and industry readiness.</p>
+            </div>
+          </div>
+          <div class="survey-items-container" id="cluster-4-items">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- Assessment Submission Bar -->
+        <section class="glass-card" style="position: sticky; bottom: 20px; z-index: 50; border: 2px solid #6366f1; background: rgba(13, 19, 38, 0.95); backdrop-filter: blur(16px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(99, 102, 241, 0.3);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <div style="font-size: 0.82rem; color: #94a3b8; font-weight: 600;">Completion Progress:</div>
+              <div style="font-size: 1.1rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px;">
+                <span id="test-progress-count">17 / 17 Domains Answered</span>
+                <span id="test-progress-badge" class="badge badge-excellent">100% Ready</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <button type="submit" class="btn btn-primary btn-pulse" style="padding: 12px 28px; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.3px;">
+                🔮 Run Neural Prediction & Generate Student Kundali ➔
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </form>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- TAB: STUDENT KUNDALI (कुंडली) & AI COUNSELING DOSSIER -->
+    <!-- ======================================================== -->
+    <main id="tab-student-kundali" class="tab-content">
+      
+      <!-- Student Dossier Header Banner -->
+      <section class="glass-card" style="border: 1px solid rgba(168, 85, 247, 0.4); background: linear-gradient(135deg, rgba(59, 7, 100, 0.5) 0%, rgba(15, 23, 42, 0.85) 100%);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 18px;">
+            <div id="kundali-avatar" style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; color: #fff; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); border: 2px solid #fff;">
+              AS
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <h1 id="kundali-student-name" style="font-size: 1.8rem; font-weight: 800; color: #fff; margin: 0;">Aarav Sharma</h1>
+                <span id="kundali-risk-pill" class="badge badge-risk-high" style="font-size: 0.85rem; padding: 4px 10px;">🚨 Acute Triage (Tier 3)</span>
+              </div>
+              <p id="kundali-meta-text" style="color: #cbd5e1; font-size: 0.9rem; margin-top: 4px;">
+                Roll No: <span style="color:#fff; font-family: var(--font-mono);">2026UGCS086</span> &bull; 
+                Branch: <span style="color:#fff;">Computer Science & Eng (CSE)</span> &bull; 
+                Semester: <span style="color:#fff;">Semester 1</span> &bull; 
+                Assessment Date: <span id="kundali-timestamp" style="color: #38bdf8;">Today</span>
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button onclick="window.print()" class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Print / Save Kundali PDF
+            </button>
+            <button onclick="switchTab('student-portal')" class="btn btn-secondary" style="color: #a5b4fc; border-color: #6366f1;">
+              🔄 Retest / Edit Inputs
+            </button>
+            <button onclick="switchTab('admin-portal')" class="btn btn-primary">
+              🛡️ View in Admin Center
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tri-Task Master Predictions Grid -->
+      <section class="kpi-grid" style="margin-top: 18px;">
+        
+        <!-- Head 1: Dropout Hazard -->
+        <div class="kpi-card" id="kundali-card-hazard" style="--card-accent: #ef4444; border: 2px solid rgba(239, 68, 68, 0.4);">
+          <div class="kpi-header">
+            <span class="kpi-title" style="color: #f87171;">HEAD 1: DROPOUT ATTRITION HAZARD</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kundali-hazard-val" style="color: #ef4444; font-family: var(--font-mono);">84.5%</div>
+          <div class="kpi-sub" id="kundali-hazard-sub">
+            <span class="pill pill-danger">Acute Triage</span> Urgent 1-on-1 advisor counseling required
+          </div>
+        </div>
+
+        <!-- Head 2: Predicted Academic CGPA -->
+        <div class="kpi-card" id="kundali-card-cgpa" style="--card-accent: #f59e0b; border: 2px solid rgba(245, 158, 11, 0.4);">
+          <div class="kpi-header">
+            <span class="kpi-title" style="color: #fbbf24;">HEAD 2: PREDICTED ACADEMIC CGPA</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kundali-cgpa-val" style="color: #fbbf24; font-family: var(--font-mono);">5.42 / 10.0</div>
+          <div class="kpi-sub" id="kundali-cgpa-sub">
+            <span class="pill pill-warning">Tier 4 Probation</span> Projected range: 5.10 – 5.80 CGPA
+          </div>
+        </div>
+
+        <!-- Head 3: Career Placement Readiness -->
+        <div class="kpi-card" id="kundali-card-career" style="--card-accent: #06b6d4; border: 2px solid rgba(6, 182, 212, 0.4);">
+          <div class="kpi-header">
+            <span class="kpi-title" style="color: #22d3ee;">HEAD 3: CAREER PLACEMENT READINESS</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kundali-career-val" style="color: #06b6d4;">Tier 4 (Emerging)</div>
+          <div class="kpi-sub" id="kundali-career-sub">
+            <span class="pill pill-info">Requires Project Portfolio</span> Internship readiness score: 42/100
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Row 2: 4-Quadrant Kundali Radar & Strengths vs Doshas -->
+      <section class="grid-2col" style="margin-top: 18px;">
+        
+        <!-- 4-Quadrant Psychological Kundali Radar -->
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                4-Quadrant Psychological Kundali Radar
+              </h3>
+              <p class="card-subtitle">Student Profile vs. Cohort Normal Benchmark (Scale 1.0 - 5.0)</p>
+            </div>
+          </div>
+          <div class="chart-wrapper" style="min-height: 320px; max-height: 360px;">
+            <canvas id="chart-kundali-radar"></canvas>
+          </div>
+        </div>
+
+        <!-- Strengths (शुभ योग) vs Vulnerabilities (दोष) -->
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          
+          <!-- Mitigating Strengths Box -->
+          <div class="glass-card" style="border-left: 4px solid #10b981; padding: 16px;">
+            <h3 style="font-size: 1rem; color: #34d399; display: flex; align-items: center; gap: 8px;">
+              <span>✨</span> Key Mitigating Strengths (शुभ योग / Protective Factors)
+            </h3>
+            <div id="kundali-strengths-list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <!-- Doshas / Hazard Drivers Box -->
+          <div class="glass-card" style="border-left: 4px solid #ef4444; padding: 16px;">
+            <h3 style="font-size: 1rem; color: #f87171; display: flex; align-items: center; gap: 8px;">
+              <span>⚠️</span> Critical Vulnerabilities & Doshas (दोष / Hazard Drivers)
+            </h3>
+            <div id="kundali-doshas-list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Row 3: Personalized 4-Stage AI Counseling Prescription (परामर्श) -->
+      <section class="glass-card" style="margin-top: 18px; border: 1px solid rgba(16, 185, 129, 0.4);">
+        <div class="card-title-row">
+          <div>
+            <h3 class="card-title" style="color: #34d399;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              Personalized AI Counseling Protocol & Recourse Roadmap (परामर्श)
+            </h3>
+            <p class="card-subtitle">Actionable counterfactual recovery plan designed by Constrained Counterfactual Recourse Optimization (CCRO).</p>
+          </div>
+        </div>
+
+        <div class="grid-4col" id="kundali-counseling-stages" style="margin-top: 14px;">
+          <!-- 4 Stages Injected via JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- TAB: INSTITUTIONAL ADMIN & ADVISOR COMMAND CENTER -->
+    <!-- ======================================================== -->
+    <main id="tab-admin-portal" class="tab-content">
+      
+      <!-- Admin Executive KPIs -->
+      <section class="kpi-grid">
+        <div class="kpi-card" style="--card-accent: #6366f1;">
+          <div class="kpi-header">
+            <span class="kpi-title">Cohort Size & Live Submissions</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          </div>
+          <div class="kpi-value" id="admin-total-count">2,525</div>
+          <div class="kpi-sub"><span class="pill pill-info" id="admin-live-badge">+1 Live Today</span> Complete institutional coverage</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: #ef4444;">
+          <div class="kpi-header">
+            <span class="kpi-title">Acute Attrition Risk (Tier 3)</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          </div>
+          <div class="kpi-value" id="admin-acute-count" style="color: #ef4444;">1,180</div>
+          <div class="kpi-sub"><span class="pill pill-danger">Priority Triage</span> Immediate advisor action assigned</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: #f59e0b;">
+          <div class="kpi-header">
+            <span class="kpi-title">Targeted Academic Support (Tier 2)</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          </div>
+          <div class="kpi-value" id="admin-targeted-count" style="color: #fbbf24;">669</div>
+          <div class="kpi-sub"><span class="pill pill-warning">Peer Circles</span> Time management & study workshops</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: #10b981;">
+          <div class="kpi-header">
+            <span class="kpi-title">Universal Safe Retention (Tier 1)</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          </div>
+          <div class="kpi-value" id="admin-safe-count" style="color: #10b981;">676</div>
+          <div class="kpi-sub"><span class="pill pill-success">Dean's List / On Track</span> Regular semester curriculum</div>
+        </div>
+      </section>
+
+      <!-- Search, Department Filter & Roster Management -->
+      <section class="glass-card" style="margin-top: 18px;">
+        <div class="card-title-row" style="flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h3 class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M14 9l3 3-3 3"/></svg>
+              Master Student Roster & Live Triage Dashboard
+            </h3>
+            <p class="card-subtitle">Real-time student submissions, risk classification, and one-click psychological Kundali inspection.</p>
+          </div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <input type="text" id="admin-search-input" class="filter-select" style="min-width: 220px;" placeholder="🔍 Search Name or Roll No..." oninput="handleAdminSearch(this.value)" />
+            <select id="admin-dept-filter" class="filter-select" onchange="filterAdminRoster()">
+              <option value="ALL">All Departments</option>
+              <option value="Computer Science & Eng (CSE)">CSE</option>
+              <option value="Electronics & Comm (ECE)">ECE</option>
+              <option value="Electrical Engineering (EE)">EE</option>
+              <option value="Mechanical Engineering (ME)">ME</option>
+              <option value="Civil Engineering (CE)">Civil</option>
+            </select>
+            <select id="admin-risk-filter" class="filter-select" onchange="filterAdminRoster()">
+              <option value="ALL">All Risk Tiers</option>
+              <option value="High">🚨 High Risk (Acute)</option>
+              <option value="Medium">⚖️ Medium Risk</option>
+              <option value="Low">✅ Low Risk (Safe)</option>
+            </select>
+            <button onclick="exportAdminRosterCSV()" class="btn btn-secondary">
+              📥 Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Master Student Table -->
+        <div class="table-container" style="max-height: 480px; overflow-y: auto; margin-top: 14px;">
+          <table class="data-table" id="admin-roster-table">
+            <thead>
+              <tr>
+                <th>Student ID / Name</th>
+                <th>Branch & Sem</th>
+                <th>Overall Score (17D)</th>
+                <th>Dropout Hazard</th>
+                <th>Academic CGPA</th>
+                <th>Career Readiness</th>
+                <th>Risk Tier</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-roster-tbody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Advisor Counseling Intervention Action Log -->
+      <section class="glass-card" style="margin-top: 18px;">
+        <div class="card-title-row" style="flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h3 class="card-title" style="color: #a855f7;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Advisor Counseling Intervention Log & Case Notes
+            </h3>
+            <p class="card-subtitle">Chronological record of counseling appointments, peer buddy assignments, and longitudinal notes.</p>
+          </div>
+          <button onclick="openNewCounselorNoteModal()" class="btn btn-primary btn-sm">
+            + Log New Counseling Session
+          </button>
+        </div>
+
+        <div class="table-container" style="max-height: 280px; overflow-y: auto; margin-top: 14px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Student</th>
+                <th>Advisor Name</th>
+                <th>Intervention Type</th>
+                <th>Notes / Action Plan</th>
+                <th>Follow-up Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-counselor-notes-tbody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: EXECUTIVE OVERVIEW (ORIGINAL ANALYTICS) -->
+    <!-- ======================================================== -->
+    <main id="tab-overview" class="tab-content">
       <section class="kpi-grid">
         <div class="kpi-card" style="--card-accent: #6366f1;">
           <div class="kpi-header">
@@ -829,6 +1306,64 @@
           <!-- Injected via JS -->
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ADVISOR COUNSELOR ACTION MODAL -->
+  <div class="modal-overlay" id="counselor-modal" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 600px;">
+      <button class="modal-close-btn" onclick="closeCounselorModal()" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="modal-header-section">
+        <div>
+          <h2 style="font-size: 1.3rem; font-weight: 800; color: #fff;">📝 Log Academic Counseling Session</h2>
+          <div style="font-size: 0.84rem; color: #cbd5e1; margin-top: 4px;">Record student intervention notes, prescribed action plans, and schedule follow-ups.</div>
+        </div>
+      </div>
+
+      <form onsubmit="saveCounselorNote(event)" style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Student ID / Name</label>
+          <input type="text" id="note-student-target" class="filter-select" style="width: 100%; margin-top: 4px;" placeholder="e.g. STU-0042 (Aarav Sharma)" required />
+        </div>
+
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Academic Advisor Name</label>
+          <input type="text" id="note-advisor-name" class="filter-select" style="width: 100%; margin-top: 4px;" value="Dr. Alok Verma / Academic Cell" required />
+        </div>
+
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Intervention Type</label>
+          <select id="note-intervention-type" class="filter-select" style="width: 100%; margin-top: 4px;">
+            <option value="1-on-1 Clinical Counseling (Acute Triage)">1-on-1 Clinical Counseling (Acute Triage)</option>
+            <option value="Academic Tutoring & Study Group Assignment">Academic Tutoring & Study Group Assignment</option>
+            <option value="Test Anxiety & Cognitive Reframing Session">Test Anxiety & Cognitive Reframing Session</option>
+            <option value="Sleep Hygiene & Digital Curfew Protocol">Sleep Hygiene & Digital Curfew Protocol</option>
+            <option value="Career Mentorship & Portfolio Review">Career Mentorship & Portfolio Review</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Session Notes & Prescribed Action Plan</label>
+          <textarea id="note-action-text" class="filter-select" style="width: 100%; height: 90px; margin-top: 4px; padding: 10px; resize: vertical;" placeholder="Discussed test anxiety reframing and agreed to 15-min mock timed test protocol. Scheduled peer study circle with CSE sophomores..." required></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+          <div>
+            <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8;">Follow-up Status:</label>
+            <select id="note-status-select" class="filter-select" style="margin-left: 8px;">
+              <option value="In Progress (Week 2 Review)">In Progress (Week 2 Review)</option>
+              <option value="Resolved (Tier Transition)">Resolved (Tier Transition)</option>
+              <option value="Escalated to Dean">Escalated to Dean</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            💾 Save Counseling Record
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 

@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AcuLearn AI: Complete Student Registration, Assessment & Admin System</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #070a16;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #06b6d4;
+      --purple: #a855f7;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #070a16 70%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.25rem 1rem 4rem 1rem;
+    }
+
+    /* Top Mode Switcher Bar */
+    .top-nav-bar {
+      max-width: 1100px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-modes {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: rgba(30, 41, 59, 0.7);
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #334155;
+      color: #fff;
+    }
+
+    .nav-btn.active {
+      background: #1e1b4b;
+      border-color: var(--primary);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.35);
+    }
+
+    .btn-admin-highlight {
+      border-color: rgba(6, 182, 212, 0.5) !important;
+      color: #67e8f9 !important;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+    }
+
+    .section-view {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .section-view.active {
+      display: flex;
+    }
+
+    /* Form Fields */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .input-group label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: #090d1a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      color: #fff;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: 9px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.8);
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    /* 1 to 5 Likert Buttons */
+    .questions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .q-card {
+      background: rgba(11, 15, 25, 0.8);
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .q-card:hover {
+      border-color: var(--primary);
+      background: rgba(20, 27, 45, 0.9);
+    }
+
+    .likert-group {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .likert-btn {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 6px 2px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .likert-btn:hover {
+      background: #1e293b;
+      border-color: #64748b;
+    }
+
+    .likert-btn.selected {
+      background: #1e1b4b;
+      border-color: #818cf8;
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+    }
+
+    .likert-val {
+      font-size: 1.05rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .likert-label {
+      font-size: 0.62rem;
+      color: #94a3b8;
+      line-height: 1.1;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .badge-high { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .badge-med { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-low { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      text-align: left;
+    }
+
+    .data-table th {
+      background: #111827;
+      color: #94a3b8;
+      padding: 10px 12px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid #1e293b;
+      color: #cbd5e1;
+    }
+
+    .data-table tr:hover td {
+      background: rgba(30, 41, 59, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation & Mode Switcher -->
+  <nav class="top-nav-bar">
+    <div class="brand-title">
+      <span style="background: var(--primary); color: #fff; padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">ACULEARN AI</span>
+      <span>Student Psychological Lifecycle & Admin Portal</span>
+    </div>
+
+    <div class="nav-modes">
+      <button class="nav-btn active" id="btn-nav-register" onclick="showView('register')">
+        📝 Step 1: Student Register
+      </button>
+      <button class="nav-btn" id="btn-nav-test" onclick="showView('test')">
+        ✍️ Step 2: Assessment (1–5)
+      </button>
+      <button class="nav-btn" id="btn-nav-kundali" onclick="showView('kundali')">
+        🔮 Step 3: Student Kundali
+      </button>
+      <button class="nav-btn btn-admin-highlight" id="btn-nav-admin" onclick="showView('admin')">
+        🛡️ Admin Command Center
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- ======================================================== -->
+    <!-- VIEW 1: STUDENT REGISTRATION & DEMOGRAPHIC INTAKE -->
+    <!-- ======================================================== -->
+    <div id="view-register" class="section-view active">
+      <div class="glass-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #1e293b; padding-bottom: 1rem; margin-bottom: 1rem;">
+          <div>
+            <span class="badge" style="background: rgba(99,102,241,0.2); color: #a5b4fc; margin-bottom: 6px;">STEP 1 OF 3: ONBOARDING</span>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: #fff;">Student Account Registration & Demographics</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Enter your credentials and background attributes. Your password and student ID will be registered in the institutional Admin Portal.</p>
+          </div>
+
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn btn-secondary" onclick="fillPresetUser('high_risk')" style="color: #f87171;">🚨 Preset: At-Risk</button>
+            <button type="button" class="btn btn-secondary" onclick="fillPresetUser('average')" style="color: #fbbf24;">⚖️ Preset: Average</button>
+            <button type="button" class="btn btn-secondary" onclick="fillPresetUser('scholar')" style="color: #34d399;">🌟 Preset: Scholar</button>
+          </div>
+        </div>
+
+        <form id="form-registration" onsubmit="handleRegistrationSubmit(event)">
+          
+          <h3 style="font-size: 1rem; color: #818cf8; font-weight: 700; margin-top: 0.5rem;">🔑 Account Login Credentials</h3>
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Full Name *</label>
+              <input type="text" id="reg-name" class="form-input" value="Aarav Sharma" required />
+            </div>
+            <div class="input-group">
+              <label>Roll Number / Student ID *</label>
+              <input type="text" id="reg-id" class="form-input" style="font-family: 'JetBrains Mono';" value="2026UGCS086" required />
+            </div>
+            <div class="input-group">
+              <label>Institutional Email *</label>
+              <input type="email" id="reg-email" class="form-input" value="aarav.sharma@mnit.ac.in" required />
+            </div>
+            <div class="input-group">
+              <label>Password (Stored in Admin Portal) *</label>
+              <input type="text" id="reg-password" class="form-input" style="font-family: 'JetBrains Mono';" value="Aarav@2026" required />
+            </div>
+          </div>
+
+          <h3 style="font-size: 1rem; color: #06b6d4; font-weight: 700; margin-top: 1.5rem;">📊 8 Demographic Attributes (Background Baseline)</h3>
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Engineering Major / Branch</label>
+              <select id="reg-dept" class="form-input">
+                <option value="Computer Science & Eng (CSE)" selected>Computer Science & Eng (CSE)</option>
+                <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
+                <option value="Electrical Engineering (EE)">Electrical Engineering (EE)</option>
+                <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+                <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+                <option value="AI & Data Science (AI/DS)">AI & Data Science (AI/DS)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Academic Year & Semester</label>
+              <select id="reg-sem" class="form-input">
+                <option value="First Year (Semester 1)" selected>First Year (Semester 1)</option>
+                <option value="First Year (Semester 2)">First Year (Semester 2)</option>
+                <option value="Second Year (Semester 3)">Second Year (Semester 3)</option>
+                <option value="Second Year (Semester 4)">Second Year (Semester 4)</option>
+                <option value="Third Year (Semester 5)">Third Year (Semester 5)</option>
+                <option value="Third Year (Semester 6)">Third Year (Semester 6)</option>
+                <option value="Fourth Year (Semester 7)">Fourth Year (Semester 7)</option>
+                <option value="Fourth Year (Semester 8)">Fourth Year (Semester 8)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Gender</label>
+              <select id="reg-gender" class="form-input">
+                <option value="Male" selected>Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Age</label>
+              <input type="number" id="reg-age" class="form-input" min="17" max="30" value="19" />
+            </div>
+            <div class="input-group">
+              <label>Housing / Living Arrangement</label>
+              <select id="reg-housing" class="form-input">
+                <option value="On-Campus University Hostel" selected>On-Campus University Hostel</option>
+                <option value="Day Scholar (Commuting from Home)">Day Scholar (Commuting from Home)</option>
+                <option value="Off-Campus Private Rental">Off-Campus Private Rental</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>First-Generation College Student?</label>
+              <select id="reg-firstgen" class="form-input">
+                <option value="No (Continuing-Generation)" selected>No (Continuing-Generation)</option>
+                <option value="Yes (First in Family)">Yes (First in Family)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Prior High School GPA / Board %</label>
+              <input type="text" id="reg-priorgpa" class="form-input" value="88.5% (3.8 GPA)" />
+            </div>
+            <div class="input-group">
+              <label>Annual Family Income Tier</label>
+              <select id="reg-income" class="form-input">
+                <option value="Middle Income (5–10 LPA)" selected>Middle Income (5–10 LPA)</option>
+                <option value="Low Income (< 3 LPA)">Low Income (< 3 LPA)</option>
+                <option value="High Income (> 15 LPA)">High Income (> 15 LPA)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
+            <button type="submit" class="btn btn-primary" style="padding: 12px 28px; font-size: 1rem;">
+              🚀 Save Account & Proceed to 1–5 Assessment ➔
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 2: 17-DOMAIN PSYCHOMETRIC ASSESSMENT (1-5 TEST) -->
+    <!-- ======================================================== -->
+    <div id="view-test" class="section-view">
+      <div class="glass-card" style="border-color: #6366f1;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #1e293b; padding-bottom: 0.8rem; margin-bottom: 1rem;">
+          <div>
+            <span class="badge" style="background: rgba(99,102,241,0.2); color: #a5b4fc;">STEP 2 OF 3: BEHAVIORAL BATTERY</span>
+            <h2 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin-top: 4px;">
+              Active Assessment for: <span id="test-active-user-name" style="color: #38bdf8;">Aarav Sharma</span> (<span id="test-active-user-id" style="font-family: 'JetBrains Mono'; color: #a5b4fc;">2026UGCS086</span>)
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.88rem;">Rate each item from <strong>1 (Strongly Disagree)</strong> to <strong>5 (Strongly Agree)</strong>.</p>
+          </div>
+          <div style="font-size: 0.85rem; color: #34d399; font-weight: 700;" id="test-answered-badge">
+            ● 17 of 17 Items Answered
+          </div>
+        </div>
+
+        <div class="questions-grid" id="test-questions-wrapper">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; border-top: 1px solid #1e293b; padding-top: 1rem;">
+          <button class="btn btn-secondary" onclick="showView('register')">⏮ Edit Demographics</button>
+          <button class="btn btn-primary" onclick="submitAssessmentAnswers()" style="padding: 12px 28px; font-size: 1rem; font-weight: 800;">
+            🔮 Run Neural Model & Generate Kundali ➔
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 3: STUDENT KUNDALI & COUNSELING DOSSIER -->
+    <!-- ======================================================== -->
+    <div id="view-kundali" class="section-view">
+      
+      <!-- Dossier Header -->
+      <div class="glass-card" style="border: 2px solid #a855f7; background: linear-gradient(135deg, rgba(59, 7, 100, 0.5) 0%, rgba(15, 23, 42, 0.85) 100%);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div id="kd-avatar" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; border: 2px solid #fff;">
+              AS
+            </div>
+            <div>
+              <h2 id="kd-name" style="font-size: 1.8rem; font-weight: 800; color: #fff;">Aarav Sharma</h2>
+              <p id="kd-meta" style="font-size: 0.9rem; color: #cbd5e1; margin-top: 4px;">
+                Roll No: <span id="kd-roll" style="color: #fff; font-family: 'JetBrains Mono';">2026UGCS086</span> &bull; 
+                Branch: <span id="kd-branch" style="color: #fff;">Computer Science</span> &bull; 
+                First-Gen: <span id="kd-firstgen" style="color: #38bdf8;">No</span>
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button onclick="window.print()" class="btn btn-secondary">🖨️ Print Kundali PDF</button>
+            <button onclick="showView('test')" class="btn btn-secondary" style="color: #a5b4fc; border-color: #6366f1;">🔄 Edit Scores</button>
+            <button onclick="showView('admin')" class="btn btn-primary">🛡️ View in Admin Registry</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tri-Task Predictions -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+        <div class="glass-card" style="border: 2px solid #ef4444;">
+          <span style="font-size: 0.8rem; font-weight: 800; color: #f87171;">HEAD 1: DROPOUT ATTRITION HAZARD</span>
+          <div id="kd-hazard" style="font-size: 2rem; font-weight: 800; color: #ef4444; font-family: 'JetBrains Mono'; margin: 4px 0;">84.5%</div>
+          <span style="font-size: 0.8rem; color: #cbd5e1;" id="kd-hazard-sub">🚨 Acute Triage Tier (Urgent Advisor Attention)</span>
+        </div>
+
+        <div class="glass-card" style="border: 2px solid #f59e0b;">
+          <span style="font-size: 0.8rem; font-weight: 800; color: #fbbf24;">HEAD 2: PREDICTED ACADEMIC CGPA</span>
+          <div id="kd-cgpa" style="font-size: 2rem; font-weight: 800; color: #fbbf24; font-family: 'JetBrains Mono'; margin: 4px 0;">5.42 / 10.0</div>
+          <span style="font-size: 0.8rem; color: #cbd5e1;">Projected: 5.10 – 5.80 CGPA (Probation Risk)</span>
+        </div>
+
+        <div class="glass-card" style="border: 2px solid #06b6d4;">
+          <span style="font-size: 0.8rem; font-weight: 800; color: #22d3ee;">HEAD 3: CAREER READINESS</span>
+          <div id="kd-career" style="font-size: 2rem; font-weight: 800; color: #06b6d4; margin: 4px 0;">Tier 4 (Emerging)</div>
+          <span style="font-size: 0.8rem; color: #cbd5e1;">Industry Aptitude Score: 42 / 100</span>
+        </div>
+      </div>
+
+      <!-- Radar & Strengths vs Doshas -->
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+        <div class="glass-card">
+          <h3 style="font-size: 1.1rem; font-weight: 800; color: #c084fc; margin-bottom: 8px;">
+            🔮 4-Quadrant Psychological Kundali Radar (कुंडली)
+          </h3>
+          <div style="height: 320px;">
+            <canvas id="chart-kd-radar"></canvas>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="glass-card" style="border-left: 4px solid #10b981; padding: 1.2rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 800; color: #34d399; margin-bottom: 8px;">✨ Mitigating Strengths (शुभ योग / Protective Factors)</h4>
+            <div id="kd-strengths-box" style="display: flex; flex-direction: column; gap: 6px;"></div>
+          </div>
+          <div class="glass-card" style="border-left: 4px solid #ef4444; padding: 1.2rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 800; color: #f87171; margin-bottom: 8px;">⚠️ Critical Vulnerabilities (दोष / Hazard Drivers)</h4>
+            <div id="kd-doshas-box" style="display: flex; flex-direction: column; gap: 6px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-Stage Counseling Plan -->
+      <div class="glass-card" style="border: 1px solid #10b981;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: #34d399; margin-bottom: 1rem;">📋 4-Stage CCRO Prescriptive Action Plan (परामर्श)</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+          <div style="background:#111827; border: 1px solid #ef4444; border-radius:10px; padding:12px;">
+            <span style="font-size:0.75rem; font-weight:800; color:#ef4444;">STAGE 1: WEEKS 1–2</span>
+            <h4 style="color:#fff; font-size:0.95rem; margin:4px 0;">Anxiety Reframing</h4>
+            <p style="font-size:0.8rem; color:#cbd5e1;">Two 15-min mock timed tests under zero stakes to reduce panic triggers.</p>
+          </div>
+          <div style="background:#111827; border: 1px solid #f59e0b; border-radius:10px; padding:12px;">
+            <span style="font-size:0.75rem; font-weight:800; color:#fbbf24;">STAGE 2: WEEKS 3–4</span>
+            <h4 style="color:#fff; font-size:0.95rem; margin:4px 0;">Sleep & Screen Curfew</h4>
+            <p style="font-size:0.8rem; color:#cbd5e1;">45-min pre-bed digital curfew to restore 7.5h restorative sleep.</p>
+          </div>
+          <div style="background:#111827; border: 1px solid #06b6d4; border-radius:10px; padding:12px;">
+            <span style="font-size:0.75rem; font-weight:800; color:#22d3ee;">STAGE 3: WEEKS 5–8</span>
+            <h4 style="color:#fff; font-size:0.95rem; margin:4px 0;">Peer Study Circle</h4>
+            <p style="font-size:0.8rem; color:#cbd5e1;">3h/week peer group with high-performing sophomores in student's branch.</p>
+          </div>
+          <div style="background:#111827; border: 1px solid #10b981; border-radius:10px; padding:12px;">
+            <span style="font-size:0.75rem; font-weight:800; color:#34d399;">STAGE 4: WEEKS 12–14</span>
+            <h4 style="color:#fff; font-size:0.95rem; margin:4px 0;">Retention Recovery</h4>
+            <p style="font-size:0.8rem; color:#cbd5e1;">Hazard drops from 84.5% down to 18.2% (Safe Retention Tier).</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 4: ADMIN PORTAL (SHOWING ID & PASSWORD OF REGISTERED USERS) -->
+    <!-- ======================================================== -->
+    <div id="view-admin" class="section-view">
+      
+      <!-- Admin Header -->
+      <div class="glass-card" style="border: 1px solid rgba(6, 182, 212, 0.4); background: linear-gradient(135deg, rgba(8, 51, 68, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <span class="badge" style="background: rgba(6, 182, 212, 0.2); color: #67e8f9; margin-bottom: 6px;">🛡️ INSTITUTIONAL CONTROL CENTER</span>
+            <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff;">Admin & Faculty User Registry</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">
+              Manage registered students, view their <strong>Student ID</strong> and <strong>Password</strong>, inspect assessment completion status, and generate psychological Kundali dossiers.
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" onclick="exportAdminCSV()">📥 Export Registry CSV</button>
+            <button class="btn btn-primary" onclick="showView('register')">+ Register New Student</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin KPIs -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+        <div class="glass-card" style="border-color: #6366f1; padding: 1.2rem;">
+          <div style="font-size: 0.8rem; color: #94a3b8; font-weight: 700;">TOTAL REGISTERED STUDENTS</div>
+          <div id="admin-total-users" style="font-size: 2rem; font-weight: 800; color: #818cf8; font-family: 'JetBrains Mono'; margin: 4px 0;">3</div>
+          <span style="font-size: 0.75rem; color: #cbd5e1;">Accounts with ID & Password stored</span>
+        </div>
+        <div class="glass-card" style="border-color: #ef4444; padding: 1.2rem;">
+          <div style="font-size: 0.8rem; color: #94a3b8; font-weight: 700;">ACUTE RISK TIERS (TIER 3)</div>
+          <div id="admin-acute-users" style="font-size: 2rem; font-weight: 800; color: #ef4444; font-family: 'JetBrains Mono'; margin: 4px 0;">1</div>
+          <span style="font-size: 0.75rem; color: #cbd5e1;">Flagged for urgent counseling</span>
+        </div>
+        <div class="glass-card" style="border-color: #10b981; padding: 1.2rem;">
+          <div style="font-size: 0.8rem; color: #94a3b8; font-weight: 700;">ASSESSMENTS COMPLETED</div>
+          <div id="admin-completed-users" style="font-size: 2rem; font-weight: 800; color: #34d399; font-family: 'JetBrains Mono'; margin: 4px 0;">3</div>
+          <span style="font-size: 0.75rem; color: #cbd5e1;">100% completed 1–5 psychometric test</span>
+        </div>
+      </div>
+
+      <!-- Registered Users Table with ID & Password -->
+      <div class="glass-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 800; color: #fff;">👥 Registered Student Credentials & Assessment Dossiers</h3>
+          <input type="text" id="admin-search" class="form-input" style="max-width: 260px;" placeholder="🔍 Search ID, Name, Branch..." oninput="filterAdminTable(this.value)" />
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Student ID / Roll</th>
+                <th>Student Name</th>
+                <th>Password (Admin View)</th>
+                <th>Branch & Sem</th>
+                <th>Demographics</th>
+                <th>Status</th>
+                <th>Dropout Risk</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-tbody">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // -----------------------------------------------------------------
+    // PERSISTENT DATA REPOSITORY (STORED USERS WITH ID & PASSWORD)
+    // -----------------------------------------------------------------
+    let registeredStudents = [
+      {
+        id: "2026UGCS086",
+        name: "Aarav Sharma",
+        email: "aarav.sharma@mnit.ac.in",
+        password: "Aarav@2026",
+        dept: "Computer Science & Eng (CSE)",
+        sem: "First Year (Semester 1)",
+        gender: "Male",
+        age: 19,
+        housing: "Hostel",
+        firstGen: "No",
+        priorGPA: "88.5%",
+        income: "Middle (5-10 LPA)",
+        status: "Under Advisor Counseling",
+        scores: {
+          "Academic Motivation": 3.8,
+          "Learning Behaviour": 2.2,
+          "Critical Thinking": 3.4,
+          "Creativity & Innovation": 3.2,
+          "Emotional Intelligence": 1.6, // High Panic
+          "Resilience & Adaptability": 2.0,
+          "Physical Wellness": 2.0,
+          "Time Management": 1.8,       // Low
+          "Focus & Attention": 1.9,
+          "Teamwork & Leadership": 2.8,
+          "Communication Skills": 2.5,
+          "Digital & AI Literacy": 3.6,
+          "Career Readiness": 2.0,
+          "Digital Well-Being": 1.6,     // Screen Deficit
+          "Campus Belonging": 2.4,
+          "Socioeconomic Stability": 2.6,
+          "LMS Usability": 2.8
+        }
+      },
+      {
+        id: "2026UGECE142",
+        name: "Ananya Verma",
+        email: "ananya.verma@mnit.ac.in",
+        password: "Ananya@Pass123",
+        dept: "Electronics & Comm (ECE)",
+        sem: "First Year (Semester 1)",
+        gender: "Female",
+        age: 18,
+        housing: "Day Scholar",
+        firstGen: "Yes (First Gen)",
+        priorGPA: "91.2%",
+        income: "Low (< 3 LPA)",
+        status: "Assessment Completed",
+        scores: {
+          "Academic Motivation": 3.0,
+          "Learning Behaviour": 3.0,
+          "Critical Thinking": 3.0,
+          "Creativity & Innovation": 3.0,
+          "Emotional Intelligence": 3.0,
+          "Resilience & Adaptability": 3.0,
+          "Physical Wellness": 3.0,
+          "Time Management": 3.0,
+          "Focus & Attention": 3.0,
+          "Teamwork & Leadership": 3.0,
+          "Communication Skills": 3.0,
+          "Digital & AI Literacy": 3.0,
+          "Career Readiness": 3.0,
+          "Digital Well-Being": 3.0,
+          "Campus Belonging": 3.0,
+          "Socioeconomic Stability": 3.0,
+          "LMS Usability": 3.0
+        }
+      },
+      {
+        id: "2026UGAI015",
+        name: "Devendra Joshi",
+        email: "devendra.j@mnit.ac.in",
+        password: "Dev@Star2026",
+        dept: "AI & Data Science (AI/DS)",
+        sem: "First Year (Semester 1)",
+        gender: "Male",
+        age: 19,
+        housing: "Hostel",
+        firstGen: "No",
+        priorGPA: "96.4%",
+        income: "High (> 15 LPA)",
+        status: "Active - Dean's List",
+        scores: {
+          "Academic Motivation": 4.8,
+          "Learning Behaviour": 4.6,
+          "Critical Thinking": 4.7,
+          "Creativity & Innovation": 4.5,
+          "Emotional Intelligence": 4.8,
+          "Resilience & Adaptability": 4.6,
+          "Physical Wellness": 4.2,
+          "Time Management": 4.7,
+          "Focus & Attention": 4.6,
+          "Teamwork & Leadership": 4.4,
+          "Communication Skills": 4.5,
+          "Digital & AI Literacy": 4.9,
+          "Career Readiness": 4.6,
+          "Digital Well-Being": 4.4,
+          "Campus Belonging": 4.6,
+          "Socioeconomic Stability": 4.8,
+          "LMS Usability": 4.7
+        }
+      }
+    ];
+
+    let currentStudent = registeredStudents[0];
+    let kdRadarChart = null;
+
+    const assessmentQuestions = [
+      { id: "q1", code: "AM", domain: "Academic Motivation", text: "I am deeply driven to master complex engineering and analytical subjects with high curiosity." },
+      { id: "q2", code: "LB", domain: "Learning Behaviour", text: "I maintain a structured daily revision routine and learn from instructor feedback." },
+      { id: "q3", code: "CTDM", domain: "Critical Thinking", text: "I analyze multi-step problems logically rather than memorizing formulas." },
+      { id: "q4", code: "CI", domain: "Creativity & Innovation", text: "I enjoy experimenting with creative solutions to challenging programming/design problems." },
+      { id: "q5", code: "EI", domain: "Emotional Intelligence", text: "During high-stakes timed exams, my mind remains calm and free from debilitating panic." },
+      { id: "q6", code: "RA", domain: "Resilience & Adaptability", text: "When I receive an unexpected low grade, I bounce back quickly with improved strategies." },
+      { id: "q7", code: "PAW", domain: "Physical Wellness", text: "I engage in regular physical exercise and maintain consistent mental wellness." },
+      { id: "q8", code: "TM", domain: "Time Management", text: "I plan a weekly study schedule in advance and submit assignments comfortably before deadlines." },
+      { id: "q9", code: "NEU", domain: "Focus & Attention", text: "I can sustain deep concentration on demanding tasks for 45+ minutes without distraction." },
+      { id: "q10", code: "LT", domain: "Teamwork & Leadership", text: "I collaborate effectively and take initiative in peer engineering project teams." },
+      { id: "q11", code: "CS", domain: "Communication Skills", text: "I articulate technical concepts confidently and actively participate in classroom discussions." },
+      { id: "q12", code: "DLR", domain: "Digital & AI Literacy", text: "I leverage modern AI tools, coding environments, and digital libraries proficiently." },
+      { id: "q13", code: "CR", domain: "Career Readiness", text: "I regularly build portfolio projects and prepare proactively for industry internships." },
+      { id: "q14", code: "SCR", domain: "Digital Well-Being", text: "I keep late-night smartphone screen time regulated and avoid screens 45 mins before sleep." },
+      { id: "q15", code: "BEL", domain: "Campus Belonging", text: "I feel a strong sense of community, peer support, and mentorship on campus." },
+      { id: "q16", code: "FIN", domain: "Socioeconomic Stability", text: "My academic focus is stable and not disrupted by acute socioeconomic stress." },
+      { id: "q17", code: "LMS", domain: "LMS Usability", text: "I actively utilize the institutional LMS for lecture notes, quizzes, and course tracking." }
+    ];
+
+    // Navigation Switcher
+    function showView(viewName) {
+      document.querySelectorAll('.section-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+      const target = document.getElementById(`view-${viewName}`);
+      const btn = document.getElementById(`btn-nav-${viewName}`);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
+
+      if (viewName === 'test') {
+        renderTestQuestions();
+      } else if (viewName === 'kundali') {
+        renderKundaliDossier(currentStudent);
+      } else if (viewName === 'admin') {
+        renderAdminTable();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Fill Preset User Details
+    function fillPresetUser(type) {
+      if (type === 'high_risk') {
+        document.getElementById("reg-name").value = "Aarav Sharma";
+        document.getElementById("reg-id").value = "2026UGCS086";
+        document.getElementById("reg-email").value = "aarav.sharma@mnit.ac.in";
+        document.getElementById("reg-password").value = "Aarav@2026";
+        document.getElementById("reg-dept").value = "Computer Science & Eng (CSE)";
+        document.getElementById("reg-firstgen").value = "No (Continuing-Generation)";
+      } else if (type === 'average') {
+        document.getElementById("reg-name").value = "Ananya Verma";
+        document.getElementById("reg-id").value = "2026UGECE142";
+        document.getElementById("reg-email").value = "ananya.verma@mnit.ac.in";
+        document.getElementById("reg-password").value = "Ananya@Pass123";
+        document.getElementById("reg-dept").value = "Electronics & Comm (ECE)";
+        document.getElementById("reg-firstgen").value = "Yes (First in Family)";
+      } else if (type === 'scholar') {
+        document.getElementById("reg-name").value = "Devendra Joshi";
+        document.getElementById("reg-id").value = "2026UGAI015";
+        document.getElementById("reg-email").value = "devendra.j@mnit.ac.in";
+        document.getElementById("reg-password").value = "Dev@Star2026";
+        document.getElementById("reg-dept").value = "AI & Data Science (AI/DS)";
+        document.getElementById("reg-firstgen").value = "No (Continuing-Generation)";
+      }
+    }
+
+    // Step 1: Submit Registration Form
+    function handleRegistrationSubmit(e) {
+      if (e && e.preventDefault) e.preventDefault();
+
+      const name = document.getElementById("reg-name").value.trim();
+      const id = document.getElementById("reg-id").value.trim();
+      const email = document.getElementById("reg-email").value.trim();
+      const password = document.getElementById("reg-password").value.trim();
+      const dept = document.getElementById("reg-dept").value;
+      const sem = document.getElementById("reg-sem").value;
+      const gender = document.getElementById("reg-gender").value;
+      const age = document.getElementById("reg-age").value;
+      const housing = document.getElementById("reg-housing").value;
+      const firstGen = document.getElementById("reg-firstgen").value;
+      const priorGPA = document.getElementById("reg-priorgpa").value;
+      const income = document.getElementById("reg-income").value;
+
+      // Check if user already exists
+      let existing = registeredStudents.find(s => s.id === id);
+      if (existing) {
+        existing.name = name;
+        existing.email = email;
+        existing.password = password;
+        existing.dept = dept;
+        existing.sem = sem;
+        currentStudent = existing;
+      } else {
+        const newUser = {
+          id,
+          name,
+          email,
+          password,
+          dept,
+          sem,
+          gender,
+          age,
+          housing,
+          firstGen,
+          priorGPA,
+          income,
+          status: "Pending",
+          scores: {}
+        };
+        assessmentQuestions.forEach(q => {
+          newUser.scores[q.domain] = 3.0;
+        });
+        registeredStudents.unshift(newUser);
+        currentStudent = newUser;
+      }
+
+      // Update test view header
+      document.getElementById("test-active-user-name").innerText = currentStudent.name;
+      document.getElementById("test-active-user-id").innerText = currentStudent.id;
+
+      // Proceed to Step 2: Assessment
+      showView('test');
+    }
+
+    // Step 2: Render 1-5 Questions
+    function renderTestQuestions() {
+      const wrapper = document.getElementById("test-questions-wrapper");
+      wrapper.innerHTML = "";
+
+      assessmentQuestions.forEach(q => {
+        const currentVal = currentStudent.scores[q.domain] || 3.0;
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="badge" style="background:rgba(99,102,241,0.2); color:#a5b4fc;">[${q.code}] ${q.domain}</span>
+            <span id="score-badge-${q.id}" style="font-size:0.8rem; font-weight:800; color:#38bdf8;">${currentVal.toFixed(1)}/5.0</span>
+          </div>
+          <div style="font-size:0.9rem; font-weight:600; color:#f1f5f9; line-height:1.4;">${q.text}</div>
+          <div class="likert-group" id="group-${q.id}">
+            <div class="likert-btn ${currentVal === 1 ? 'selected' : ''}" onclick="setLikertScore('${q.id}', '${q.domain}', 1)">
+              <span class="likert-val" style="color:#f87171;">1</span>
+              <span class="likert-label">Strongly Disagree</span>
+            </div>
+            <div class="likert-btn ${currentVal === 2 ? 'selected' : ''}" onclick="setLikertScore('${q.id}', '${q.domain}', 2)">
+              <span class="likert-val" style="color:#fb923c;">2</span>
+              <span class="likert-label">Disagree</span>
+            </div>
+            <div class="likert-btn ${currentVal === 3 ? 'selected' : ''}" onclick="setLikertScore('${q.id}', '${q.domain}', 3)">
+              <span class="likert-val" style="color:#cbd5e1;">3</span>
+              <span class="likert-label">Neutral</span>
+            </div>
+            <div class="likert-btn ${currentVal === 4 ? 'selected' : ''}" onclick="setLikertScore('${q.id}', '${q.domain}', 4)">
+              <span class="likert-val" style="color:#38bdf8;">4</span>
+              <span class="likert-label">Agree</span>
+            </div>
+            <div class="likert-btn ${currentVal === 5 ? 'selected' : ''}" onclick="setLikertScore('${q.id}', '${q.domain}', 5)">
+              <span class="likert-val" style="color:#34d399;">5</span>
+              <span class="likert-label">Strongly Agree</span>
+            </div>
+          </div>
+        `;
+        wrapper.appendChild(card);
+      });
+    }
+
+    function setLikertScore(qId, domain, val) {
+      currentStudent.scores[domain] = val;
+      document.getElementById(`score-badge-${qId}`).innerText = `${val}.0/5.0`;
+
+      const group = document.getElementById(`group-${qId}`);
+      if (group) {
+        const btns = group.querySelectorAll(".likert-btn");
+        btns.forEach((b, i) => {
+          b.classList.toggle("selected", i + 1 === val);
+        });
+      }
+    }
+
+    // Step 3: Run Model Prediction & Render Kundali
+    function submitAssessmentAnswers() {
+      currentStudent.status = "Completed";
+      showView('kundali');
+    }
+
+    function renderKundaliDossier(s) {
+      const scores = s.scores;
+      const vals = Object.values(scores);
+      const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+
+      // Model calculations
+      const examPanic = 5.0 - (scores["Emotional Intelligence"] || 3.0);
+      const timeDeficit = 5.0 - (scores["Time Management"] || 3.0);
+      const screenDeficit = 5.0 - (scores["Digital Well-Being"] || 3.0);
+
+      let hazard = 0.467 + (examPanic * 0.12) + (timeDeficit * 0.09) + (screenDeficit * 0.08) - ((mean - 3.0) * 0.28);
+      hazard = Math.max(0.08, Math.min(0.96, hazard));
+
+      let predictedCGPA = 4.0 + (mean / 5.0) * 5.8;
+      predictedCGPA = Math.max(4.2, Math.min(9.8, predictedCGPA));
+
+      // 4 Quadrants
+      const qCog = ((scores["Academic Motivation"] || 3) + (scores["Learning Behaviour"] || 3) + (scores["Critical Thinking"] || 3) + (scores["Creativity & Innovation"] || 3)) / 4;
+      const qAff = ((scores["Emotional Intelligence"] || 3) + (scores["Resilience & Adaptability"] || 3) + (scores["Physical Wellness"] || 3)) / 3;
+      const qSelf = ((scores["Time Management"] || 3) + (scores["Focus & Attention"] || 3) + (scores["Teamwork & Leadership"] || 3) + (scores["Communication Skills"] || 3)) / 4;
+      const qLife = ((scores["Digital Well-Being"] || 3) + (scores["Campus Belonging"] || 3) + (scores["Socioeconomic Stability"] || 3) + (scores["Career Readiness"] || 3) + (scores["Digital & AI Literacy"] || 3) + (scores["LMS Usability"] || 3)) / 6;
+
+      // Fill Kundali Header
+      document.getElementById("kd-name").innerText = s.name;
+      document.getElementById("kd-roll").innerText = s.id;
+      document.getElementById("kd-branch").innerText = s.dept;
+      document.getElementById("kd-firstgen").innerText = s.firstGen || "No";
+      document.getElementById("kd-avatar").innerText = s.name.split(" ").map(w => w[0]).join("").toUpperCase() || "ST";
+
+      const hazEl = document.getElementById("kd-hazard");
+      hazEl.innerText = `${(hazard * 100).toFixed(1)}%`;
+      hazEl.style.color = hazard >= 0.65 ? "#ef4444" : (hazard >= 0.40 ? "#f59e0b" : "#10b981");
+
+      document.getElementById("kd-hazard-sub").innerHTML = hazard >= 0.65 
+        ? `<span class="badge badge-high">Acute Triage</span> Urgent 1-on-1 counselor attention`
+        : (hazard >= 0.40 
+          ? `<span class="badge badge-med">Targeted Support</span> Peer study circle assigned`
+          : `<span class="badge badge-low">Safe Retention</span> On track for Dean's list`);
+
+      document.getElementById("kd-cgpa").innerText = `${predictedCGPA.toFixed(2)} / 10.0`;
+
+      // Strengths & Doshas
+      const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      const sBox = document.getElementById("kd-strengths-box");
+      sBox.innerHTML = "";
+      sorted.slice(0, 3).forEach(([dom, sc]) => {
+        sBox.innerHTML += `
+          <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#a7f3d0; background:rgba(16,185,129,0.1); padding:6px 10px; border-radius:6px;">
+            <span>• ${dom} (${sc}/5)</span>
+            <strong style="color:#34d399;">-${Math.round(sc*5)}% Risk</strong>
+          </div>
+        `;
+      });
+
+      const dBox = document.getElementById("kd-doshas-box");
+      dBox.innerHTML = "";
+      sorted.slice(-3).reverse().forEach(([dom, sc]) => {
+        dBox.innerHTML += `
+          <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#fca5a5; background:rgba(239,68,68,0.1); padding:6px 10px; border-radius:6px;">
+            <span>• ${dom} (${sc}/5)</span>
+            <strong style="color:#ef4444;">+${Math.round((5-sc)*6)}% Risk</strong>
+          </div>
+        `;
+      });
+
+      // Render Radar Chart
+      const ctx = document.getElementById("chart-kd-radar");
+      if (kdRadarChart) kdRadarChart.destroy();
+
+      kdRadarChart = new Chart(ctx, {
+        type: "radar",
+        data: {
+          labels: ["Cognitive (बौद्धिक)", "Affective (भावनात्मक)", "Self-Regulation (अनुशासन)", "Lifestyle (जीवनशैली)"],
+          datasets: [
+            {
+              label: "Student Profile (कुंडली)",
+              data: [qCog, qAff, qSelf, qLife],
+              backgroundColor: "rgba(168, 85, 247, 0.25)",
+              borderColor: "#c084fc",
+              borderWidth: 2.5,
+              pointBackgroundColor: "#a855f7",
+              pointRadius: 5
+            },
+            {
+              label: "Cohort Normal Median (मानक)",
+              data: [3, 3, 3, 3],
+              backgroundColor: "rgba(99, 102, 241, 0.08)",
+              borderColor: "rgba(99, 102, 241, 0.5)",
+              borderWidth: 1.5,
+              borderDash: [4, 4],
+              pointRadius: 3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 1,
+              max: 5,
+              ticks: { stepSize: 1, color: "#64748b", backdropColor: "transparent" },
+              grid: { color: "rgba(255, 255, 255, 0.08)" },
+              angleLines: { color: "rgba(255, 255, 255, 0.08)" },
+              pointLabels: { color: "#cbd5e1", font: { size: 11, weight: "bold" } }
+            }
+          },
+          plugins: { legend: { position: "top", labels: { boxWidth: 12, color: "#cbd5e1" } } }
+        }
+      });
+    }
+
+    // Step 4: Admin Portal (Showing Registered Users with ID & Password)
+    function renderAdminTable(filterQuery = "") {
+      const tbody = document.getElementById("admin-users-tbody");
+      tbody.innerHTML = "";
+
+      let filtered = registeredStudents;
+      if (filterQuery) {
+        const q = filterQuery.toLowerCase();
+        filtered = registeredStudents.filter(s => s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q) || s.dept.toLowerCase().includes(q));
+      }
+
+      filtered.forEach((s, idx) => {
+        const tr = document.createElement("tr");
+        
+        // Calculate hazard for badge
+        const vals = Object.values(s.scores);
+        const mean = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 3.0;
+        const examPanic = 5.0 - (s.scores["Emotional Intelligence"] || 3.0);
+        let hazard = 0.467 + (examPanic * 0.12) - ((mean - 3.0) * 0.28);
+        hazard = Math.max(0.08, Math.min(0.96, hazard));
+
+        const riskBadge = hazard >= 0.65 ? '<span class="badge badge-high">🚨 High Risk</span>' : (hazard >= 0.40 ? '<span class="badge badge-med">⚖️ Medium</span>' : '<span class="badge badge-low">✅ Safe</span>');
+
+        tr.innerHTML = `
+          <td><strong style="font-family:'JetBrains Mono'; color:#a5b4fc;">${s.id}</strong></td>
+          <td>
+            <div style="font-weight:700; color:#fff;">${s.name}</div>
+            <div style="font-size:0.75rem; color:#94a3b8;">${s.email}</div>
+          </td>
+          <td>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span id="pwd-${idx}" style="font-family:'JetBrains Mono'; color:#38bdf8; font-weight:bold;">${s.password}</span>
+              <button onclick="togglePasswordVisibility('${idx}')" class="btn btn-secondary" style="padding:2px 6px; font-size:0.7rem;">👁️</button>
+            </div>
+          </td>
+          <td>
+            <div style="font-size:0.85rem; color:#cbd5e1;">${s.dept}</div>
+            <div style="font-size:0.75rem; color:#64748b;">${s.sem}</div>
+          </td>
+          <td>
+            <div style="font-size:0.8rem; color:#cbd5e1;">FirstGen: ${s.firstGen || 'No'}</div>
+            <div style="font-size:0.75rem; color:#94a3b8;">GPA: ${s.priorGPA || 'N/A'}</div>
+          </td>
+          <td><span class="badge ${s.status === 'Completed' ? 'badge-low' : 'badge-med'}">${s.status}</span></td>
+          <td>${riskBadge} <span style="font-size:0.75rem; font-family:'JetBrains Mono'; color:#cbd5e1;">(${(hazard*100).toFixed(1)}%)</span></td>
+          <td>
+            <button class="btn btn-primary" onclick="viewKundaliFromAdmin('${s.id}')" style="padding:3px 8px; font-size:0.75rem;">
+              🔮 Kundali
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update KPI stats
+      document.getElementById("admin-total-users").innerText = registeredStudents.length;
+      document.getElementById("admin-completed-users").innerText = registeredStudents.filter(s => s.status === 'Completed').length;
+    }
+
+    function togglePasswordVisibility(idx) {
+      const el = document.getElementById(`pwd-${idx}`);
+      if (el.getAttribute('data-hidden') === 'true') {
+        el.innerText = registeredStudents[idx].password;
+        el.setAttribute('data-hidden', 'false');
+      } else {
+        el.innerText = '••••••••';
+        el.setAttribute('data-hidden', 'true');
+      }
+    }
+
+    function filterAdminTable(val) {
+      renderAdminTable(val);
+    }
+
+    function viewKundaliFromAdmin(studentId) {
+      const match = registeredStudents.find(s => s.id === studentId);
+      if (match) {
+        currentStudent = match;
+        showView('kundali');
+      }
+    }
+
+    function exportAdminCSV() {
+      let csv = "Student_ID,Name,Email,Password,Department,Semester,FirstGen,PriorGPA,Status\n";
+      registeredStudents.forEach(s => {
+        csv += `"${s.id}","${s.name}","${s.email}","${s.password}","${s.dept}","${s.sem}","${s.firstGen}","${s.priorGPA}","${s.status}"\n`;
+      });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Registered_Students_Credentials_Registry.csv";
+      link.click();
+    }
+
+    window.addEventListener("load", () => {
+      showView('register');
+    });
+  </script>
+
+</body>
+</html>

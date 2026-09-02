@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire-Driven Student-Support Decision Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0f1d;
+            --bg-card: rgba(18, 26, 47, 0.92);
+            --bg-card-hover: rgba(28, 38, 68, 0.98);
+            --border-color: rgba(255, 255, 255, 0.12);
+            --border-accent: rgba(0, 212, 255, 0.35);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-cyan: #00d4ff;
+            --accent-blue: #3b82f6;
+            --accent-purple: #a855f7;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --glow-cyan: rgba(0, 212, 255, 0.25);
+            --font-main: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            background-image: 
+                radial-gradient(circle at 12% 15%, rgba(0, 212, 255, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 88% 85%, rgba(168, 85, 247, 0.07) 0%, transparent 45%);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        /* Top Header */
+        header {
+            background: rgba(10, 15, 29, 0.96);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-badge {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: #fff;
+            box-shadow: 0 0 20px var(--glow-cyan);
+        }
+
+        .header-title h1 {
+            font-family: var(--font-main);
+            font-size: 19px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-tab {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            background: transparent;
+            font-family: var(--font-body);
+        }
+
+        .nav-tab.active {
+            background: var(--accent-cyan);
+            color: #0a0f1d;
+            box-shadow: 0 2px 10px var(--glow-cyan);
+        }
+
+        .dashboard-container {
+            max-width: 1440px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active-view {
+            display: block;
+        }
+
+        /* =========================================================================
+           VIEW 1: MENTOR DECISION SUPPORT VIEW
+           ========================================================================= */
+        .mentor-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 24px;
+        }
+
+        .sidebar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 18px;
+            height: calc(100vh - 130px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .student-list {
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-right: 4px;
+        }
+
+        .student-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .student-card:hover, .student-card.active {
+            background: rgba(0, 212, 255, 0.08);
+            border-color: var(--accent-cyan);
+            transform: translateX(4px);
+        }
+
+        /* 3-Layer Risk Profile Card */
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .hero-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-accent);
+            border-radius: 16px;
+            padding: 22px 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .banner-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .freshness-tag {
+            font-size: 12px;
+            color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .kpi-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 14px;
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .kpi-val {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        /* Layer Panels */
+        .layer-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px 24px;
+        }
+
+        .layer-title {
+            font-family: var(--font-main);
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Outcomes Table (Layer 2) */
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .outcome-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12.5px;
+        }
+
+        .outcome-item .status-avail {
+            color: var(--accent-red);
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .outcome-item .status-unavail {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 11.5px;
+        }
+
+        /* Support Map (Layer 3) */
+        .support-map-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .map-bar-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+
+        .map-bar-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            margin-bottom: 6px;
+        }
+
+        .map-bar-status {
+            font-weight: 600;
+            font-size: 11.5px;
+        }
+
+        .status-needs-review { color: #fca5a5; }
+        .status-moderate { color: #fcd34d; }
+        .status-discuss { color: #93c5fd; }
+
+        .progress-bar-mini {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            height: 7px;
+            overflow: hidden;
+        }
+
+        .progress-bar-mini-fill {
+            height: 100%;
+            border-radius: 6px;
+        }
+
+        /* Candidate Areas Table */
+        .candidate-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .candidate-table th {
+            text-align: left;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .candidate-table td {
+            padding: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            vertical-align: middle;
+        }
+
+        .prompt-box {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            color: #cbd5e1;
+            border-left: 3px solid var(--accent-cyan);
+            line-height: 1.4;
+        }
+
+        .locked-notice {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px dashed rgba(245, 158, 11, 0.35);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 12px;
+            color: #fde68a;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .mentor-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .btn-action {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-approve { background: #10b981; color: #fff; }
+        .btn-edit { background: #3b82f6; color: #fff; }
+        .btn-reject { background: #ef4444; color: #fff; }
+        .btn-defer { background: #f59e0b; color: #fff; }
+        .btn-survey { background: #8b5cf6; color: #fff; }
+        .btn-record { background: #0ea5e9; color: #fff; }
+
+        /* =========================================================================
+           VIEW 2: STUDENT SELF-CHECK & INTAKE PORTAL
+           ========================================================================= */
+        .student-portal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .support-banner {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(16, 185, 129, 0.15));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            font-size: 14px;
+            color: #e2e8f0;
+        }
+
+        .progress-container {
+            margin-bottom: 24px;
+        }
+
+        .progress-bar-bg {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            height: 100%;
+            width: 37.5%;
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .question-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .likert-group {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .likert-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 11.5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .likert-btn:hover, .likert-btn.selected {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: var(--accent-cyan);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .resource-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .resource-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 6px;
+        }
+
+        .resource-card p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* =========================================================================
+           VIEW 3: RESEARCH PROTOTYPE & BATCH ANALYSIS
+           ========================================================================= */
+        .research-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .upload-dropzone {
+            border: 2px dashed rgba(0, 212, 255, 0.4);
+            border-radius: 14px;
+            padding: 36px;
+            text-align: center;
+            background: rgba(0, 212, 255, 0.03);
+            cursor: pointer;
+            margin-bottom: 24px;
+        }
+
+        .metrics-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: rgba(18, 26, 47, 0.98);
+            border: 1px solid var(--accent-green);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            display: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-brand">
+            <div class="logo-badge">Q</div>
+            <div class="header-title">
+                <h1>Questionnaire-Driven Student-Support Decision Dashboard</h1>
+                <p>Survey-Based Academic-Risk Screening & Constraint-Aware Recourse System</p>
+            </div>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchView('mentor')">Mentor Decision-Support</button>
+            <button class="nav-tab" onclick="switchView('student')">Student Self-Check & Intake</button>
+            <button class="nav-tab" onclick="switchView('research')">Research Prototype</button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+
+        <!-- ===================================================================
+             VIEW 1: MENTOR DECISION-SUPPORT DASHBOARD
+             =================================================================== -->
+        <div id="view-mentor" class="view-section active-view">
+            <div class="mentor-grid">
+                <!-- Sidebar: Student Queue -->
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <h2 style="font-size: 14px; font-weight: 700;">Student Support Review Queue</h2>
+                        <span style="background: rgba(239, 68, 68, 0.2); color: #fca5a5; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700;">4 Reviews Pending</span>
+                    </div>
+                    <div class="student-list" id="studentList">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Main Panel: Student Support Risk Profile -->
+                <div class="profile-container">
+                    <!-- Hero Banner -->
+                    <div class="hero-banner">
+                        <div class="banner-header">
+                            <div>
+                                <h2 id="mStudentId" style="font-size: 22px; font-weight: 700; font-family: var(--font-main);">Student Support Risk Profile: STU-7B94C1</h2>
+                                <div class="freshness-tag">
+                                    <span>📋</span> Questionnaire completed: 01 September 2026 • Semester 4 (Survey Week 7) • Current Survey Response (225/225 Items)
+                                </div>
+                            </div>
+                            <div id="mRiskPill" style="background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); padding: 4px 10px; border-radius: 10px; font-size: 11px; font-weight: 700;">
+                                Academic Failure/Probation Support Review: High
+                            </div>
+                        </div>
+
+                        <div class="kpi-grid">
+                            <div class="kpi-box">
+                                <div class="kpi-label">Risk Status</div>
+                                <div class="kpi-val" style="color: var(--accent-red); font-size: 16px;">Review Recommended</div>
+                            </div>
+                            <div class="kpi-box">
+                                <div class="kpi-label">Risk Score / Alert Threshold</div>
+                                <div class="kpi-val" id="mRiskProb" style="color: var(--accent-red); font-size: 18px;">0.748 / 0.50</div>
+                            </div>
+                            <div class="kpi-box">
+                                <div class="kpi-label">Outcome Coverage</div>
+                                <div class="kpi-val" style="font-size: 12px; color: var(--text-muted); line-height: 1.3;">
+                                    Academic Risk: <span style="color: #6ee7b7; font-weight: 600;">Available</span><br>
+                                    Dropout Risk: <span style="color: #94a3b8; font-style: italic;">Not Modeled</span>
+                                </div>
+                            </div>
+                            <div class="kpi-box">
+                                <div class="kpi-label">Human Review Status</div>
+                                <div class="kpi-val" style="color: var(--accent-amber); font-size: 16px;">Required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LAYER 1: Validated Academic Outcome Status -->
+                    <div class="layer-panel">
+                        <div class="layer-title">
+                            <span>📊</span> Layer 1: Validated Academic Outcome Status
+                        </div>
+                        <div style="font-size: 13px; color: #cbd5e1; line-height: 1.5; margin-bottom: 8px;">
+                            • <strong>Academic Failure/Probation Risk:</strong> <span style="color: #f87171; font-weight: 700;">HIGH</span> (Score: 0.748, Threshold: 0.50, Model: <code>ccro-survey-v1.0</code>)<br>
+                            • <strong>Model Target:</strong> Semester-level academic risk (SGPA &lt; 5.0 or core course repetition need).
+                        </div>
+                        <p style="font-size: 11.5px; color: var(--text-muted); font-style: italic; border-left: 2px solid var(--accent-cyan); padding-left: 8px;">
+                            Important: This prediction is an academic support-review signal to structure advising discussions, not a final judgment about a student's ability or future outcome.
+                        </p>
+                    </div>
+
+                    <!-- LAYER 2: Student Continuation Outcomes (Clearly distinguished as unmodeled) -->
+                    <div class="layer-panel">
+                        <div class="layer-title">
+                            <span>🧭</span> Layer 2: Student Continuation Outcomes
+                        </div>
+                        <div class="outcomes-grid">
+                            <div class="outcome-item">
+                                <span>Academic failure/probation risk:</span>
+                                <span class="status-avail">High — model available</span>
+                            </div>
+                            <div class="outcome-item">
+                                <span>Course repetition risk:</span>
+                                <span class="status-unavail">Not separately modeled</span>
+                            </div>
+                            <div class="outcome-item">
+                                <span>Next-semester persistence risk:</span>
+                                <span class="status-unavail">Not currently modeled</span>
+                            </div>
+                            <div class="outcome-item">
+                                <span>Institutional retention status:</span>
+                                <span class="status-unavail">Not currently modeled</span>
+                            </div>
+                            <div class="outcome-item">
+                                <span>Dropout risk:</span>
+                                <span class="status-unavail">Not currently modeled</span>
+                            </div>
+                            <div class="outcome-item">
+                                <span>Degree-completion delay risk:</span>
+                                <span class="status-unavail">Not currently modeled</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LAYER 3: Questionnaire-Based Support Signals & Support Map -->
+                    <div class="layer-panel">
+                        <div class="layer-title">
+                            <span>🗺️</span> Layer 3: Questionnaire-Based Support Signals & Student Support Map
+                        </div>
+
+                        <div class="support-map-grid" id="supportMapGrid">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <div style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 18px; border-left: 2px solid var(--accent-amber); padding-left: 8px;">
+                            <strong>Contextual Information:</strong> Psychosocial questionnaire constructs (Resilience, Belonging, Coping, Financial Constraints) are not converted into automatic labels, referrals, or numerical improvement targets. They serve solely as human-reviewed support context.
+                        </div>
+
+                        <!-- Candidate Support Areas Table -->
+                        <h4 style="font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 10px;">CCRO Candidate Discussion Areas (Top $K_{\max} \le 3$ Dimensions)</h4>
+                        <table class="candidate-table">
+                            <thead>
+                                <tr>
+                                    <th>Candidate Support Area</th>
+                                    <th>Current Score</th>
+                                    <th>Candidate Target</th>
+                                    <th>Mentor Discussion Prompt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="candidateTableBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+
+                        <div class="locked-notice">
+                            <strong>Outcome interpretation:</strong> This dashboard currently estimates academic failure/probation risk using questionnaire and authorized demographic data. It does not predict dropout, institutional retention, next-semester enrollment, or degree completion unless separately trained and validated using verified enrollment outcome data.
+                        </div>
+
+                        <!-- 6 Mentor Action Buttons -->
+                        <h4 style="font-size: 13px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 10px;">Record Mentor Human-in-the-Loop Review:</h4>
+                        <div class="mentor-actions-grid">
+                            <button class="btn-action btn-approve" onclick="logMentorReview('Approve for discussion')">✓ [Approve for discussion]</button>
+                            <button class="btn-action btn-edit" onclick="logMentorReview('Edit wording')">✏️ [Edit wording]</button>
+                            <button class="btn-action btn-reject" onclick="logMentorReview('Not appropriate')">✕ [Not appropriate]</button>
+                            <button class="btn-action btn-defer" onclick="logMentorReview('Defer')">⏱️ [Defer]</button>
+                            <button class="btn-action btn-survey" onclick="logMentorReview('Request updated survey')">🔄 [Request updated survey]</button>
+                            <button class="btn-action btn-record" onclick="logMentorReview('Record support conversation')">📝 [Record support conversation]</button>
+                        </div>
+                    </div>
+
+                    <!-- Audit Trail -->
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px;">
+                        <h3 style="font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 12px;">Institutional Compliance Audit Trail</h3>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted); text-align: left;">
+                                    <th style="padding: 8px;">Timestamp</th>
+                                    <th style="padding: 8px;">Student ID</th>
+                                    <th style="padding: 8px;">Mentor Reviewer</th>
+                                    <th style="padding: 8px;">Action Logged</th>
+                                    <th style="padding: 8px;">Governance Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="auditBody">
+                                <tr>
+                                    <td style="padding: 8px;">2026-09-01 10:15:00 UTC</td>
+                                    <td style="padding: 8px;">STU-7B94C1</td>
+                                    <td style="padding: 8px;">Mentor_Advisory_Staff</td>
+                                    <td style="padding: 8px; color: #10b981; font-weight: 700;">Approve for discussion</td>
+                                    <td style="padding: 8px;">Human-Reviewed Decision</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 2: STUDENT SELF-CHECK & INTAKE PORTAL
+             =================================================================== -->
+        <div id="view-student" class="view-section">
+            <div class="student-portal-card">
+                <h2 style="font-size: 22px; font-weight: 700; font-family: var(--font-main); margin-bottom: 8px;">Student Self-Check & Study Planning Portal</h2>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Questionnaire version: CCRO-Student-Survey-v1.0 • Formatted into 8 manageable developmental modules</p>
+
+                <!-- Supportive Feedback Banner -->
+                <div class="support-banner">
+                    <strong>🌱 Academic Growth & Support Planning:</strong><br>
+                    Your current questionnaire responses indicate that additional academic support planning may be helpful. You may consider reviewing study scheduling, revision habits, and upcoming course deadlines with a faculty mentor.
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div style="display: flex; justify-content: space-between; font-size: 12.5px;">
+                        <span>Progress: <strong>Section 3 of 8 (Goal Orientation & Academic Purpose)</strong></span>
+                        <span>Completed: 65 / 225 Items</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Sample Survey Section Items -->
+                <div class="question-card">
+                    <div class="question-title">1. I break complex course laboratory projects into incremental, staged milestone deliverables.</div>
+                    <div class="likert-group">
+                        <div class="likert-btn" onclick="selectLikert(this)">1: Strongly Disagree</div>
+                        <div class="likert-btn" onclick="selectLikert(this)">2: Disagree</div>
+                        <div class="likert-btn selected" onclick="selectLikert(this)">3: Neutral / Undecided</div>
+                        <div class="likert-btn" onclick="selectLikert(this)">4: Agree</div>
+                        <div class="likert-btn" onclick="selectLikert(this)">5: Strongly Agree</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-title">2. I schedule two protected 90-minute study blocks weekly for core engineering tutorial sets.</div>
+                    <div class="likert-group">
+                        <div class="likert-btn" onclick="selectLikert(this)">1: Strongly Disagree</div>
+                        <div class="likert-btn" onclick="selectLikert(this)">2: Disagree</div>
+                        <div class="likert-btn" onclick="selectLikert(this)">3: Neutral / Undecided</div>
+                        <div class="likert-btn selected" onclick="selectLikert(this)">4: Agree</div>
+                        <div class="likert-btn" onclick="selectLikert(this)">5: Strongly Agree</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-title">3. I implement an evening digital curfew 60 minutes before sleep to reduce late-night screen fatigue.</div>
+                    <div class="likert-group">
+                        <div class="likert-btn" onclick="selectLikert(this)">1: Strongly Disagree</div>
+                        <div class="likert-btn selected" onclick="selectLikert(this)">2: Disagree</div>
+                        <div class="likert-btn" onclick="selectLikert(this)">3: Neutral / Undecided</div>
+                        <div class="likert-btn" onclick="selectLikert(this)">4: Agree</div>
+                        <div class="likert-btn" onclick="selectLikert(this)">5: Strongly Agree</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <button class="btn-action" style="background: rgba(255, 255, 255, 0.08); color: #fff;">💾 Save & Resume Later</button>
+                    <button class="btn-action btn-approve" onclick="alert('Section 3 submitted! Moving to Section 4.')">Next Section (4 of 8) ➔</button>
+                </div>
+
+                <!-- Self-Check Resource Directory -->
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h4>📅 Time-Management Worksheet</h4>
+                        <p>Download structured weekly study-block scheduling templates and assignment milestone decomposition worksheets.</p>
+                    </div>
+                    <div class="resource-card">
+                        <h4>🧠 Active Revision Planning Template</h4>
+                        <p>Access evidence-based retrieval practice schedules, concept mapping guides, and self-testing routines.</p>
+                    </div>
+                    <div class="resource-card">
+                        <h4>👥 Peer Study Group Directory</h4>
+                        <p>Connect with student-led collaborative tutorial study circles and departmental peer-learning cohorts.</p>
+                    </div>
+                    <div class="resource-card">
+                        <h4>👨‍🏫 Faculty Advisory Check-In</h4>
+                        <p>View faculty advisor office hours and request an informal academic support consultation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 3: RESEARCH PROTOTYPE & BATCH ANALYSIS
+             =================================================================== -->
+        <div id="view-research" class="view-section">
+            <div class="research-panel">
+                <h2 style="font-size: 22px; font-weight: 700; font-family: var(--font-main); margin-bottom: 6px;">Research Prototype & Offline Evaluation</h2>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Evaluate MT-DNN model calibration, CCRO sparsity ($K_{\max} \le 3$), and reverse-scoring pipelines on de-identified benchmark records.</p>
+
+                <div class="upload-dropzone" onclick="alert('Synthetic de-identified cohort CSV loaded (N=400 records).')">
+                    <div style="font-size: 32px; margin-bottom: 8px;">📁</div>
+                    <h3 style="font-size: 15px; font-weight: 700; color: #fff;">Upload De-Identified Questionnaire CSV</h3>
+                    <p style="font-size: 12px; color: var(--text-muted);">Supports batch psychometric construct scoring, reverse-coding, and MT-DNN evaluation.</p>
+                </div>
+
+                <div class="metrics-cards-grid">
+                    <div class="kpi-box">
+                        <div class="kpi-label">Cohort Size (10-Fold CV)</div>
+                        <div class="kpi-val" style="color: var(--accent-cyan);">N = 400</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-label">Recourse Validity Rate</div>
+                        <div class="kpi-val" style="color: var(--accent-green);">97.8% (88/90)</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-label">Mean Sparsity ($L_0$)</div>
+                        <div class="kpi-val" style="color: var(--accent-purple);">2.61 Coords</div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-label">Constraint Violations</div>
+                        <div class="kpi-val" style="color: var(--accent-green);">0.00% (0 / 90)</div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px;">
+                    <h4 style="font-size: 13px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 8px;">Actionability Taxonomy Parameter Breakdown:</h4>
+                    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+                        • <strong>Directly Actionable ($c_j \in [1.0, 1.1]$):</strong> Time Management (TM), Study Routine Consistency (SRC), Learning Strategies (LBH).<br>
+                        • <strong>Actionable with Support ($c_j \in [1.2, 1.4]$):</strong> Goal Planning (GOP), Wellness (PAW), Sleep/Screen (SCR), Creativity (CI), Critical Thinking (CTDM).<br>
+                        • <strong>Locked Psychosocial ($\Delta x_j = 0$):</strong> Resilience (RES), Belonging (BEL), Emotional Coping (EI), Financial Stress (FIN).<br>
+                        • <strong>Locked Demographics & History ($\Delta x_j = 0$):</strong> Gender, Category, Domicile, Department, Prior GPA.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="toast" id="toastMsg">Mentor action recorded in institutional compliance log!</div>
+
+    <script>
+        // Sample Student Cohort
+        const STUDENTS = [
+            {
+                id: "STU-7B94C1",
+                semester: "Semester 4 (Survey Week 7)",
+                completed_date: "01 September 2026",
+                risk_prob: 0.748,
+                map_scores: [
+                    { name: "Academic organization", score: 2.3, status: "Needs review", color: "#fca5a5" },
+                    { name: "Learning strategies", score: 2.6, status: "Needs review", color: "#fca5a5" },
+                    { name: "Study routine consistency", score: 2.1, status: "Needs review", color: "#fca5a5" },
+                    { name: "Goal planning", score: 2.8, status: "Moderate support need", color: "#fcd34d" },
+                    { name: "Sleep/screen routine", score: 2.4, status: "Discuss if relevant", color: "#93c5fd" },
+                    { name: "Wellness routine", score: 2.7, status: "Moderate support need", color: "#fcd34d" }
+                ],
+                areas: [
+                    { name: "Time management", current: 2.3, target: 3.4, prompt: "Discuss a weekly study plan and assignment calendar" },
+                    { name: "Learning strategies", current: 2.6, target: 3.5, prompt: "Discuss retrieval practice, self-testing, and revision scheduling" },
+                    { name: "Sleep/screen routine", current: 2.4, target: 3.1, prompt: "Discuss manageable evening routines during assessment periods" }
+                ]
+            },
+            {
+                id: "STU-8A2F19",
+                semester: "Semester 4 (Survey Week 7)",
+                completed_date: "01 September 2026",
+                risk_prob: 0.812,
+                map_scores: [
+                    { name: "Study routine consistency", score: 2.1, status: "Needs review", color: "#fca5a5" },
+                    { name: "Academic organization", score: 2.4, status: "Needs review", color: "#fca5a5" },
+                    { name: "Sleep/screen routine", score: 2.0, status: "Needs review", color: "#fca5a5" },
+                    { name: "Goal planning", score: 2.9, status: "Moderate support need", color: "#fcd34d" }
+                ],
+                areas: [
+                    { name: "Study Routine Consistency", current: 2.1, target: 3.3, prompt: "Establish regular daily study hours and tutorial preparation schedules" },
+                    { name: "Time management", current: 2.4, target: 3.3, prompt: "Structure protected study blocks ahead of laboratory checkpoints" }
+                ]
+            },
+            {
+                id: "STU-4C9E32",
+                semester: "Semester 4 (Survey Week 7)",
+                completed_date: "02 September 2026",
+                risk_prob: 0.685,
+                map_scores: [
+                    { name: "Goal planning", score: 2.2, status: "Needs review", color: "#fca5a5" },
+                    { name: "Wellness routine", score: 2.5, status: "Needs review", color: "#fca5a5" },
+                    { name: "Academic organization", score: 2.9, status: "Moderate support need", color: "#fcd34d" }
+                ],
+                areas: [
+                    { name: "Goal orientation", current: 2.2, target: 3.2, prompt: "Decompose course deliverables into progressive milestone targets" },
+                    { name: "Physical wellness", current: 2.5, target: 3.3, prompt: "Incorporate regular physical activity to reduce exam fatigue" }
+                ]
+            },
+            {
+                id: "STU-3D1B77",
+                semester: "Semester 4 (Survey Week 7)",
+                completed_date: "02 September 2026",
+                risk_prob: 0.620,
+                map_scores: [
+                    { name: "Learning strategies", score: 2.3, status: "Needs review", color: "#fca5a5" },
+                    { name: "Academic organization", score: 3.1, status: "Moderate support need", color: "#fcd34d" }
+                ],
+                areas: [
+                    { name: "Learning strategies", current: 2.3, target: 3.4, prompt: "Adopt concept mapping and peer tutorial discussion circles" }
+                ]
+            }
+        ];
+
+        let activeIdx = 0;
+
+        function renderStudentList() {
+            const list = document.getElementById("studentList");
+            list.innerHTML = "";
+            STUDENTS.forEach((s, idx) => {
+                const card = document.createElement("div");
+                card.className = `student-card ${idx === activeIdx ? 'active' : ''}`;
+                card.onclick = () => selectStudent(idx);
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <span style="font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--accent-cyan);">${s.id}</span>
+                        <span style="background: rgba(239, 68, 68, 0.2); color: #fca5a5; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px;">PENDING</span>
+                    </div>
+                    <div style="font-size: 11.5px; color: var(--text-muted);">${s.semester}</div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function selectStudent(idx) {
+            activeIdx = idx;
+            renderStudentList();
+            const s = STUDENTS[idx];
+            document.getElementById("mStudentId").innerText = `Student Support Risk Profile: ${s.id}`;
+            document.getElementById("mRiskProb").innerText = `${s.risk_prob.toFixed(3)} / 0.50`;
+
+            // Support Map (Layer 3)
+            const mapContainer = document.getElementById("supportMapGrid");
+            mapContainer.innerHTML = "";
+            s.map_scores.forEach(m => {
+                const item = document.createElement("div");
+                item.className = "map-bar-item";
+                const pct = ((m.score / 5.0) * 100).toFixed(0);
+                let statusClass = "status-needs-review";
+                if (m.status.includes("Moderate")) statusClass = "status-moderate";
+                if (m.status.includes("Discuss")) statusClass = "status-discuss";
+
+                item.innerHTML = `
+                    <div class="map-bar-header">
+                        <span style="font-weight: 600; color: #fff;">${m.name}</span>
+                        <span class="map-bar-status ${statusClass}">${m.status}</span>
+                    </div>
+                    <div class="progress-bar-mini">
+                        <div class="progress-bar-mini-fill" style="width: ${pct}%; background: ${m.color};"></div>
+                    </div>
+                `;
+                mapContainer.appendChild(item);
+            });
+
+            // Candidate Areas Table
+            const tbody = document.getElementById("candidateTableBody");
+            tbody.innerHTML = "";
+            s.areas.forEach(a => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td><strong>${a.name}</strong></td>
+                    <td style="font-family: var(--font-mono);">${a.current.toFixed(1)}</td>
+                    <td style="font-family: var(--font-mono); color: var(--accent-green); font-weight: 700;">${a.target.toFixed(1)}</td>
+                    <td><div class="prompt-box">${a.prompt}</div></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function switchView(viewName) {
+            document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".view-section").forEach(v => v.classList.remove("active-view"));
+
+            if (viewName === "mentor") {
+                document.querySelectorAll(".nav-tab")[0].classList.add("active");
+                document.getElementById("view-mentor").classList.add("active-view");
+            } else if (viewName === "student") {
+                document.querySelectorAll(".nav-tab")[1].classList.add("active");
+                document.getElementById("view-student").classList.add("active-view");
+            } else if (viewName === "research") {
+                document.querySelectorAll(".nav-tab")[2].classList.add("active");
+                document.getElementById("view-research").classList.add("active-view");
+            }
+        }
+
+        function logMentorReview(actionText) {
+            const s = STUDENTS[activeIdx];
+            const now = new Date().toISOString().replace('T', ' ').substring(0, 19) + " UTC";
+            const tbody = document.getElementById("auditBody");
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td style="padding: 8px;">${now}</td>
+                <td style="padding: 8px;">${s.id}</td>
+                <td style="padding: 8px;">Mentor_Advisory_Staff</td>
+                <td style="padding: 8px; color: #38bdf8; font-weight: 700;">${actionText}</td>
+                <td style="padding: 8px;">Human-Reviewed Decision</td>
+            `;
+            tbody.insertBefore(tr, tbody.firstChild);
+
+            const toast = document.getElementById("toastMsg");
+            toast.innerText = `Decision [${actionText}] for ${s.id} logged in compliance audit trail!`;
+            toast.style.display = "block";
+            setTimeout(() => { toast.style.display = "none"; }, 3000);
+        }
+
+        function selectLikert(el) {
+            const parent = el.parentElement;
+            parent.querySelectorAll(".likert-btn").forEach(b => b.classList.remove("selected"));
+            el.classList.add("selected");
+        }
+
+        // Init
+        renderStudentList();
+        selectStudent(0);
+    </script>
+</body>
+</html>
