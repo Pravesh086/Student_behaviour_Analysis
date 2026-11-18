@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Psychometric, Demographics & AI Counseling Analytics Dashboard</title>
+  <meta name="description" content="Executive Data Analytics, 17 Domains, 255 Questions, Demographics, 7 Behavioral Diagnostics, and AI Counseling Engine for 2,525 Students." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Executive Header -->
+    <header class="header-glass">
+      <div class="brand-section">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Student Assessment, Demographics & AI Counseling Dashboard</h1>
+          <p>
+            <span>2,525 Students</span> &bull; 
+            <span>17 Psychometric Domains</span> &bull; 
+            <span>255 Question Items</span> &bull;
+            <span>13 Demographic Attributes</span> &bull;
+            <span class="badge-pill">643,875 Data Points</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="student_portal.html" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: #fff; font-weight: 800;">
+          🎓 Open Student 1–5 Test & Kundali
+        </a>
+        <button id="btn-export-csv" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+        <button id="btn-print-report" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print PDF
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-container" id="main-tabs" role="tablist">
+      <button class="tab-btn active highlight-student-tab" data-tab="student-portal" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        🎓 Student Live Test (1–5)
+      </button>
+      <button class="tab-btn highlight-kundali-tab" data-tab="student-kundali" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        🔮 Student Kundali & Dossier
+      </button>
+      <button class="tab-btn highlight-admin-tab" data-tab="admin-portal" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M14 9l3 3-3 3"/></svg>
+        🛡️ Admin & Advisor Center
+      </button>
+      <button class="tab-btn" data-tab="overview" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        Executive Overview
+      </button>
+      <button class="tab-btn" data-tab="demographics" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Demographics & Cohorts
+      </button>
+      <button class="tab-btn" data-tab="diagnostics" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        7 Behavioral Diagnostics
+      </button>
+      <button class="tab-btn" data-tab="counseling" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        AI Counseling Center
+      </button>
+      <button class="tab-btn" data-tab="domains" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        17-Domain Deep-Dive
+      </button>
+      <button class="tab-btn" data-tab="questions" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        255-Item Psychometrics
+      </button>
+      <button class="tab-btn" data-tab="correlations" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        17x17 Correlation Heatmap
+      </button>
+      <button class="tab-btn" data-tab="students" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Student 360° Directory
+      </button>
+      <button class="tab-btn" data-tab="simulator" role="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M7 7l5 5-5 5M17 7l-5 5 5 5"/></svg>
+        What-If Simulator
+      </button>
+    </nav>
+
+    <!-- ======================================================== -->
+    <!-- TAB: STUDENT LIVE ASSESSMENT & INTAKE PORTAL (1-5 TEST) -->
+    <!-- ======================================================== -->
+    <main id="tab-student-portal" class="tab-content active">
+      
+      <!-- Student Intake Hero Card -->
+      <section class="glass-card" style="border: 1px solid rgba(99, 102, 241, 0.4); background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);">
+        <div class="card-title-row" style="flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); margin-bottom: 6px;">
+              <span style="width: 7px; height: 7px; background: #10b981; border-radius: 50%; display: inline-block;"></span>
+              Real-Time Client-Side Inference Engine (14.06 ms)
+            </div>
+            <h2 class="card-title" style="font-size: 1.4rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              Student Self-Assessment & Psychometric Intake Test
+            </h2>
+            <p class="card-subtitle">
+              Rate each statement on a scale of <strong>1 (Strongly Disagree)</strong> to <strong>5 (Strongly Agree)</strong>. The Multi-Task Deep Neural Network will calculate your multi-task predictions and generate your <strong>Holistic Psychological Kundali & AI Counseling Dossier</strong>.
+            </p>
+            
+            <!-- Launch Master 125-Item Battery Banner -->
+            <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.25) 100%); border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 12px; padding: 12px 18px; margin-top: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <div style="font-weight: 800; color: #fff; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 1.1rem;">🚀</span> Complete 125-Item Master Psychometric & Demographics Battery
+                </div>
+                <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 2px;">
+                  Includes all 22 Demographics/Academic Background fields (Cols 1–22) + 103 Diagnostic Survey Items (Cols 23–125) with real-time 17 Non-Cognitive Trait Valuation.
+                </div>
+              </div>
+              <a href="student_portal.html" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: #fff; font-weight: 800; padding: 8px 18px; font-size: 0.85rem; border-radius: 8px; text-decoration: none;">
+                Launch Dedicated 125-Item Portal ➔
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Quick Presets -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size: 0.78rem; font-weight: 700; color: #94a3b8;">Quick Demo Presets:</span>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadTestPreset('high_risk')" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4);">
+              🚨 At-Risk Student
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadTestPreset('average')" style="color: #fbbf24; border-color: rgba(245, 158, 11, 0.4);">
+              ⚖️ Average Student
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadTestPreset('scholar')" style="color: #34d399; border-color: rgba(16, 185, 129, 0.4);">
+              🌟 Star Scholar
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="loadTestPreset('random')">
+              🎲 Random
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="resetStudentTest()">
+              🧹 Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Student Registration Bar -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 16px; padding: 14px; background: rgba(0, 0, 0, 0.35); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Full Name</label>
+            <input type="text" id="inp-student-name" class="filter-select" style="width: 100%; margin-top: 4px;" value="Aarav Sharma" placeholder="Enter student name..." />
+          </div>
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Roll / Registration No.</label>
+            <input type="text" id="inp-student-roll" class="filter-select" style="width: 100%; margin-top: 4px; font-family: var(--font-mono);" value="2026UGCS086" placeholder="e.g. 2026UGCS086" />
+          </div>
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Branch / Program</label>
+            <select id="inp-student-branch" class="filter-select" style="width: 100%; margin-top: 4px;">
+              <option value="Computer Science & Eng (CSE)" selected>Computer Science & Eng (CSE)</option>
+              <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
+              <option value="Electrical Engineering (EE)">Electrical Engineering (EE)</option>
+              <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+              <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+              <option value="AI & Data Science (AI/DS)">AI & Data Science (AI/DS)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Current Semester</label>
+            <select id="inp-student-sem" class="filter-select" style="width: 100%; margin-top: 4px;">
+              <option value="Semester 1 (Freshman)" selected>Semester 1 (Freshman)</option>
+              <option value="Semester 2 (Freshman)">Semester 2 (Freshman)</option>
+              <option value="Semester 3 (Sophomore)">Semester 3 (Sophomore)</option>
+              <option value="Semester 4 (Sophomore)">Semester 4 (Sophomore)</option>
+              <option value="Semester 5 (Junior)">Semester 5 (Junior)</option>
+              <option value="Semester 6 (Junior)">Semester 6 (Junior)</option>
+              <option value="Semester 7 (Senior)">Semester 7 (Senior)</option>
+              <option value="Semester 8 (Senior)">Semester 8 (Senior)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Gender</label>
+            <select id="inp-student-gender" class="filter-select" style="width: 100%; margin-top: 4px;">
+              <option value="Male" selected>Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other / Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- 17-Domain Survey Assessment Questionnaire -->
+      <form id="form-student-assessment" onsubmit="handleStudentTestSubmit(event)">
+        
+        <!-- Cluster 1: Cognitive & Academic Competency -->
+        <section class="glass-card" style="margin-top: 18px;">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title" style="color: #818cf8;">
+                <span class="badge" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc;">CLUSTER 1</span>
+                Cognitive Aptitude, Motivation & Learning Rigor
+              </h3>
+              <p class="card-subtitle">Measures core academic drive, deep conceptual learning, and analytical problem solving.</p>
+            </div>
+          </div>
+          <div class="survey-items-container" id="cluster-1-items">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- Cluster 2: Affective & Emotional Resilience -->
+        <section class="glass-card" style="margin-top: 18px;">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title" style="color: #f87171;">
+                <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #fca5a5;">CLUSTER 2</span>
+                Affective Wellness, Exam Anxiety & Emotional Intelligence
+              </h3>
+              <p class="card-subtitle">Measures examination pressure tolerance, stress management, and emotional stability.</p>
+            </div>
+          </div>
+          <div class="survey-items-container" id="cluster-2-items">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- Cluster 3: Self-Regulation & Executive Functioning -->
+        <section class="glass-card" style="margin-top: 18px;">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title" style="color: #fbbf24;">
+                <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #fde68a;">CLUSTER 3</span>
+                Self-Regulation, Time Management & Focus Discipline
+              </h3>
+              <p class="card-subtitle">Measures weekly study scheduling, ADHD/distractibility resistance, and collaboration.</p>
+            </div>
+          </div>
+          <div class="survey-items-container" id="cluster-3-items">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- Cluster 4: Digital, Career & Socioeconomic Balance -->
+        <section class="glass-card" style="margin-top: 18px;">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title" style="color: #22d3ee;">
+                <span class="badge" style="background: rgba(6, 182, 212, 0.2); color: #a5f3fc;">CLUSTER 4</span>
+                Digital Well-Being, Career Readiness & Campus Support
+              </h3>
+              <p class="card-subtitle">Measures late-night screen time, sleep hygiene, peer community, and industry readiness.</p>
+            </div>
+          </div>
+          <div class="survey-items-container" id="cluster-4-items">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- Assessment Submission Bar -->
+        <section class="glass-card" style="position: sticky; bottom: 20px; z-index: 50; border: 2px solid #6366f1; background: rgba(13, 19, 38, 0.95); backdrop-filter: blur(16px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(99, 102, 241, 0.3);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <div style="font-size: 0.82rem; color: #94a3b8; font-weight: 600;">Completion Progress:</div>
+              <div style="font-size: 1.1rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px;">
+                <span id="test-progress-count">17 / 17 Domains Answered</span>
+                <span id="test-progress-badge" class="badge badge-excellent">100% Ready</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <button type="submit" class="btn btn-primary btn-pulse" style="padding: 12px 28px; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.3px;">
+                🔮 Run Neural Prediction & Generate Student Kundali ➔
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </form>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- TAB: STUDENT KUNDALI (कुंडली) & AI COUNSELING DOSSIER -->
+    <!-- ======================================================== -->
+    <main id="tab-student-kundali" class="tab-content">
+      
+      <!-- Student Dossier Header Banner -->
+      <section class="glass-card" style="border: 1px solid rgba(168, 85, 247, 0.4); background: linear-gradient(135deg, rgba(59, 7, 100, 0.5) 0%, rgba(15, 23, 42, 0.85) 100%);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 18px;">
+            <div id="kundali-avatar" style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; color: #fff; box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); border: 2px solid #fff;">
+              AS
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <h1 id="kundali-student-name" style="font-size: 1.8rem; font-weight: 800; color: #fff; margin: 0;">Aarav Sharma</h1>
+                <span id="kundali-risk-pill" class="badge badge-risk-high" style="font-size: 0.85rem; padding: 4px 10px;">🚨 Acute Triage (Tier 3)</span>
+              </div>
+              <p id="kundali-meta-text" style="color: #cbd5e1; font-size: 0.9rem; margin-top: 4px;">
+                Roll No: <span style="color:#fff; font-family: var(--font-mono);">2026UGCS086</span> &bull; 
+                Branch: <span style="color:#fff;">Computer Science & Eng (CSE)</span> &bull; 
+                Semester: <span style="color:#fff;">Semester 1</span> &bull; 
+                Assessment Date: <span id="kundali-timestamp" style="color: #38bdf8;">Today</span>
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button onclick="window.print()" class="btn btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Print / Save Kundali PDF
+            </button>
+            <button onclick="switchTab('student-portal')" class="btn btn-secondary" style="color: #a5b4fc; border-color: #6366f1;">
+              🔄 Retest / Edit Inputs
+            </button>
+            <button onclick="switchTab('admin-portal')" class="btn btn-primary">
+              🛡️ View in Admin Center
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tri-Task Master Predictions Grid -->
+      <section class="kpi-grid" style="margin-top: 18px;">
+        
+        <!-- Head 1: Dropout Hazard -->
+        <div class="kpi-card" id="kundali-card-hazard" style="--card-accent: #ef4444; border: 2px solid rgba(239, 68, 68, 0.4);">
+          <div class="kpi-header">
+            <span class="kpi-title" style="color: #f87171;">HEAD 1: DROPOUT ATTRITION HAZARD</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kundali-hazard-val" style="color: #ef4444; font-family: var(--font-mono);">84.5%</div>
+          <div class="kpi-sub" id="kundali-hazard-sub">
+            <span class="pill pill-danger">Acute Triage</span> Urgent 1-on-1 advisor counseling required
+          </div>
+        </div>
+
+        <!-- Head 2: Predicted Academic CGPA -->
+        <div class="kpi-card" id="kundali-card-cgpa" style="--card-accent: #f59e0b; border: 2px solid rgba(245, 158, 11, 0.4);">
+          <div class="kpi-header">
+            <span class="kpi-title" style="color: #fbbf24;">HEAD 2: PREDICTED ACADEMIC CGPA</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kundali-cgpa-val" style="color: #fbbf24; font-family: var(--font-mono);">5.42 / 10.0</div>
+          <div class="kpi-sub" id="kundali-cgpa-sub">
+            <span class="pill pill-warning">Tier 4 Probation</span> Projected range: 5.10 – 5.80 CGPA
+          </div>
+        </div>
+
+        <!-- Head 3: Career Placement Readiness -->
+        <div class="kpi-card" id="kundali-card-career" style="--card-accent: #06b6d4; border: 2px solid rgba(6, 182, 212, 0.4);">
+          <div class="kpi-header">
+            <span class="kpi-title" style="color: #22d3ee;">HEAD 3: CAREER PLACEMENT READINESS</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kundali-career-val" style="color: #06b6d4;">Tier 4 (Emerging)</div>
+          <div class="kpi-sub" id="kundali-career-sub">
+            <span class="pill pill-info">Requires Project Portfolio</span> Internship readiness score: 42/100
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Row 2: 4-Quadrant Kundali Radar & Strengths vs Doshas -->
+      <section class="grid-2col" style="margin-top: 18px;">
+        
+        <!-- 4-Quadrant Psychological Kundali Radar -->
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                4-Quadrant Psychological Kundali Radar
+              </h3>
+              <p class="card-subtitle">Student Profile vs. Cohort Normal Benchmark (Scale 1.0 - 5.0)</p>
+            </div>
+          </div>
+          <div class="chart-wrapper" style="min-height: 320px; max-height: 360px;">
+            <canvas id="chart-kundali-radar"></canvas>
+          </div>
+        </div>
+
+        <!-- Strengths (शुभ योग) vs Vulnerabilities (दोष) -->
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          
+          <!-- Mitigating Strengths Box -->
+          <div class="glass-card" style="border-left: 4px solid #10b981; padding: 16px;">
+            <h3 style="font-size: 1rem; color: #34d399; display: flex; align-items: center; gap: 8px;">
+              <span>✨</span> Key Mitigating Strengths (शुभ योग / Protective Factors)
+            </h3>
+            <div id="kundali-strengths-list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <!-- Doshas / Hazard Drivers Box -->
+          <div class="glass-card" style="border-left: 4px solid #ef4444; padding: 16px;">
+            <h3 style="font-size: 1rem; color: #f87171; display: flex; align-items: center; gap: 8px;">
+              <span>⚠️</span> Critical Vulnerabilities & Doshas (दोष / Hazard Drivers)
+            </h3>
+            <div id="kundali-doshas-list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Row 3: Personalized 4-Stage AI Counseling Prescription (परामर्श) -->
+      <section class="glass-card" style="margin-top: 18px; border: 1px solid rgba(16, 185, 129, 0.4);">
+        <div class="card-title-row">
+          <div>
+            <h3 class="card-title" style="color: #34d399;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              Personalized AI Counseling Protocol & Recourse Roadmap (परामर्श)
+            </h3>
+            <p class="card-subtitle">Actionable counterfactual recovery plan designed by Constrained Counterfactual Recourse Optimization (CCRO).</p>
+          </div>
+        </div>
+
+        <div class="grid-4col" id="kundali-counseling-stages" style="margin-top: 14px;">
+          <!-- 4 Stages Injected via JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- TAB: INSTITUTIONAL ADMIN & ADVISOR COMMAND CENTER -->
+    <!-- ======================================================== -->
+    <main id="tab-admin-portal" class="tab-content">
+      
+      <!-- Admin Executive KPIs -->
+      <section class="kpi-grid">
+        <div class="kpi-card" style="--card-accent: #6366f1;">
+          <div class="kpi-header">
+            <span class="kpi-title">Cohort Size & Live Submissions</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          </div>
+          <div class="kpi-value" id="admin-total-count">2,525</div>
+          <div class="kpi-sub"><span class="pill pill-info" id="admin-live-badge">+1 Live Today</span> Complete institutional coverage</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: #ef4444;">
+          <div class="kpi-header">
+            <span class="kpi-title">Acute Attrition Risk (Tier 3)</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          </div>
+          <div class="kpi-value" id="admin-acute-count" style="color: #ef4444;">1,180</div>
+          <div class="kpi-sub"><span class="pill pill-danger">Priority Triage</span> Immediate advisor action assigned</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: #f59e0b;">
+          <div class="kpi-header">
+            <span class="kpi-title">Targeted Academic Support (Tier 2)</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          </div>
+          <div class="kpi-value" id="admin-targeted-count" style="color: #fbbf24;">669</div>
+          <div class="kpi-sub"><span class="pill pill-warning">Peer Circles</span> Time management & study workshops</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: #10b981;">
+          <div class="kpi-header">
+            <span class="kpi-title">Universal Safe Retention (Tier 1)</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          </div>
+          <div class="kpi-value" id="admin-safe-count" style="color: #10b981;">676</div>
+          <div class="kpi-sub"><span class="pill pill-success">Dean's List / On Track</span> Regular semester curriculum</div>
+        </div>
+      </section>
+
+      <!-- Search, Department Filter & Roster Management -->
+      <section class="glass-card" style="margin-top: 18px;">
+        <div class="card-title-row" style="flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h3 class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M14 9l3 3-3 3"/></svg>
+              Master Student Roster & Live Triage Dashboard
+            </h3>
+            <p class="card-subtitle">Real-time student submissions, risk classification, and one-click psychological Kundali inspection.</p>
+          </div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <input type="text" id="admin-search-input" class="filter-select" style="min-width: 220px;" placeholder="🔍 Search Name or Roll No..." oninput="handleAdminSearch(this.value)" />
+            <select id="admin-dept-filter" class="filter-select" onchange="filterAdminRoster()">
+              <option value="ALL">All Departments</option>
+              <option value="Computer Science & Eng (CSE)">CSE</option>
+              <option value="Electronics & Comm (ECE)">ECE</option>
+              <option value="Electrical Engineering (EE)">EE</option>
+              <option value="Mechanical Engineering (ME)">ME</option>
+              <option value="Civil Engineering (CE)">Civil</option>
+            </select>
+            <select id="admin-risk-filter" class="filter-select" onchange="filterAdminRoster()">
+              <option value="ALL">All Risk Tiers</option>
+              <option value="High">🚨 High Risk (Acute)</option>
+              <option value="Medium">⚖️ Medium Risk</option>
+              <option value="Low">✅ Low Risk (Safe)</option>
+            </select>
+            <button onclick="exportAdminRosterCSV()" class="btn btn-secondary">
+              📥 Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Master Student Table -->
+        <div class="table-container" style="max-height: 480px; overflow-y: auto; margin-top: 14px;">
+          <table class="data-table" id="admin-roster-table">
+            <thead>
+              <tr>
+                <th>Student ID / Name</th>
+                <th>Branch & Sem</th>
+                <th>Overall Score (17D)</th>
+                <th>Dropout Hazard</th>
+                <th>Academic CGPA</th>
+                <th>Career Readiness</th>
+                <th>Risk Tier</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-roster-tbody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Advisor Counseling Intervention Action Log -->
+      <section class="glass-card" style="margin-top: 18px;">
+        <div class="card-title-row" style="flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h3 class="card-title" style="color: #a855f7;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Advisor Counseling Intervention Log & Case Notes
+            </h3>
+            <p class="card-subtitle">Chronological record of counseling appointments, peer buddy assignments, and longitudinal notes.</p>
+          </div>
+          <button onclick="openNewCounselorNoteModal()" class="btn btn-primary btn-sm">
+            + Log New Counseling Session
+          </button>
+        </div>
+
+        <div class="table-container" style="max-height: 280px; overflow-y: auto; margin-top: 14px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Student</th>
+                <th>Advisor Name</th>
+                <th>Intervention Type</th>
+                <th>Notes / Action Plan</th>
+                <th>Follow-up Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-counselor-notes-tbody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: EXECUTIVE OVERVIEW (ORIGINAL ANALYTICS) -->
+    <!-- ======================================================== -->
+    <main id="tab-overview" class="tab-content">
+      <section class="kpi-grid">
+        <div class="kpi-card" style="--card-accent: #6366f1;">
+          <div class="kpi-header">
+            <span class="kpi-title">Total Cohort</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kpi-total-students">2,525</div>
+          <div class="kpi-sub"><span class="pill pill-info">100% Active</span> 255 questions per student (17 domains)</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: #06b6d4;">
+          <div class="kpi-header">
+            <span class="kpi-title">Cohort Mean Score</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kpi-mean-score">3.00</div>
+          <div class="kpi-sub"><span class="pill pill-info">Std Dev: 0.52</span> Scale 1.0 - 5.0 (255 items)</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: #10b981;">
+          <div class="kpi-header">
+            <span class="kpi-title">Survey Reliability (Avg α)</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kpi-cronbach">0.840</div>
+          <div class="kpi-sub"><span class="pill pill-success">High Consistency</span> α > 0.82 across all 17 domains</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: #f59e0b;">
+          <div class="kpi-header">
+            <span class="kpi-title">High Retention Probability</span>
+            <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          </div>
+          <div class="kpi-value" id="kpi-retention-rate">53.3%</div>
+          <div class="kpi-sub"><span class="pill pill-warning">Low + Medium Risk</span> 1,345 low/medium risk students</div>
+        </div>
+      </section>
+
+      <!-- 7 Diagnostics Quick Banner -->
+      <section class="glass-card">
+        <div class="card-title-row">
+          <div>
+            <h2 class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              7 Core Behavioral Diagnostics & Risk Triggers
+            </h2>
+            <p class="card-subtitle">Prevalence across the cohort of 2,525 students</p>
+          </div>
+        </div>
+        <div class="diag-banner-grid" id="overview-diag-banner">
+          <!-- Injected via JS -->
+        </div>
+      </section>
+
+      <!-- Row 2: Success Radar & Tier Distribution -->
+      <section class="grid-2col">
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                17-Domain Profile by Success Tier
+              </h2>
+              <p class="card-subtitle">Mean domain trajectories including 5 newly integrated domains (FIN, BEL, NEU, SCR, LMS)</p>
+            </div>
+          </div>
+          <div class="chart-wrapper chart-wrapper-radar">
+            <canvas id="chart-radar-tiers"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                Cohort Distributions (Success & Risk)
+              </h2>
+              <p class="card-subtitle">Equal 20% success tier partition alongside dropout risk classifications</p>
+            </div>
+          </div>
+          <div class="grid-2col" style="gap: 12px;">
+            <div class="chart-wrapper" style="min-height: 240px; max-height: 270px;">
+              <canvas id="chart-donut-success"></canvas>
+            </div>
+            <div class="chart-wrapper" style="min-height: 240px; max-height: 270px;">
+              <canvas id="chart-donut-risk"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Row 3: Domain Rankings & Reliability -->
+      <section class="grid-1-2">
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">17-Domain Performance Leaderboard</h2>
+              <p class="card-subtitle">Ranked by cohort average score (out of 5.0)</p>
+            </div>
+          </div>
+          <div class="domain-leaderboard" id="domain-leaderboard-container">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">Overall Score Distribution (17 Domains)</h2>
+              <p class="card-subtitle">Cohort histogram with quartile benchmarks</p>
+            </div>
+          </div>
+          <div class="chart-wrapper chart-wrapper-tall">
+            <canvas id="chart-overall-hist"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- TAB 2: DEMOGRAPHICS & COHORTS -->
+    <section id="tab-demographics" class="tab-content">
+      <div class="grid-2col">
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">Academic Performance & Dropout Risk by Major</h2>
+              <p class="card-subtitle">8 Academic Departments across Engineering, Science, Business & Humanities</p>
+            </div>
+          </div>
+          <div class="chart-wrapper chart-wrapper-tall">
+            <canvas id="chart-demo-major"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">Socioeconomic Tier & Scholarship Impact</h2>
+              <p class="card-subtitle">Academic performance and retention distribution across family income tiers</p>
+            </div>
+          </div>
+          <div class="chart-wrapper chart-wrapper-tall">
+            <canvas id="chart-demo-income-work"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3col">
+        <div class="glass-card">
+          <h3 class="card-title" style="font-size: 0.95rem;">Admission Category (Reservation Quota)</h3>
+          <div class="chart-wrapper" style="min-height: 240px; max-height: 270px;">
+            <canvas id="chart-demo-firstgen"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h3 class="card-title" style="font-size: 0.95rem;">Hostel Status vs. Wellness</h3>
+          <div class="chart-wrapper" style="min-height: 240px; max-height: 270px;">
+            <canvas id="chart-demo-housing"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h3 class="card-title" style="font-size: 0.95rem;">Academic Year Breakdown</h3>
+          <div class="chart-wrapper" style="min-height: 240px; max-height: 270px;">
+            <canvas id="chart-demo-year"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: 7 BEHAVIORAL DIAGNOSTICS -->
+    <section id="tab-diagnostics" class="tab-content">
+      <div class="glass-card">
+        <div class="card-title-row">
+          <div>
+            <h2 class="card-title">Behavioral Risk Diagnostic Deep-Dive</h2>
+            <p class="card-subtitle">Prevalence, item psychometric linkages, and risk severity analysis</p>
+          </div>
+        </div>
+        <div class="chart-wrapper chart-wrapper-tall">
+          <canvas id="chart-diagnostics-bar"></canvas>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">7 Diagnostic Definitions & Psychometric Triggers</h2>
+              <p class="card-subtitle">Methodology and item combinations used to evaluate each condition</p>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.84rem; color: #cbd5e1;">
+            <div style="background: rgba(249, 115, 22, 0.1); border-left: 3px solid #f97316; padding: 10px 14px; border-radius: 4px;">
+              <strong style="color: #fdba74;">1. Lack of Academic Interest:</strong> Low Academic Motivation score (< 2.80) or poor intrinsic curiosity & coursework value (Q001, Q002, Q004).
+            </div>
+            <div style="background: rgba(168, 85, 247, 0.1); border-left: 3px solid #a855f7; padding: 10px 14px; border-radius: 4px;">
+              <strong style="color: #d8b4fe;">2. Collaboration Deficit:</strong> Deficit in Leadership & Teamwork, Communication, or Peer collaborative study (Q028, Q091, Q100).
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.1); border-left: 3px solid #f59e0b; padding: 10px 14px; border-radius: 4px;">
+              <strong style="color: #fde68a;">3. Chronic Procrastination:</strong> High delay in assignment submission, lack of task prioritization, and poor study pacing (Q032, Q033, Q038).
+            </div>
+            <div style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4; padding: 10px 14px; border-radius: 4px;">
+              <strong style="color: #67e8f9;">4. Screen Fatigue & Digital Strain:</strong> High digital workload paired with poor physical ergonomics and absence of micro-breaks (Q065, Q068, Q069, Q226-Q240).
+            </div>
+            <div style="background: rgba(236, 72, 153, 0.1); border-left: 3px solid #ec4899; padding: 10px 14px; border-radius: 4px;">
+              <strong style="color: #fbcfe8;">5. Chronic Skipping Risk:</strong> Irregular sleep-study rhythm, punctuality decay, and disengagement from live classroom sessions (Q044, Q013, Q021).
+            </div>
+            <div style="background: rgba(239, 68, 68, 0.1); border-left: 3px solid #ef4444; padding: 10px 14px; border-radius: 4px;">
+              <strong style="color: #fca5a5;">6. Mental Burnout & Emotional Overload:</strong> Concurrent deficits in Emotional Regulation, Exam Stress Tolerance, Physical Vitality, and Resilience (Q050, Q051, Q166).
+            </div>
+            <div style="background: rgba(220, 38, 38, 0.15); border-left: 3px solid #dc2626; padding: 10px 14px; border-radius: 4px;">
+              <strong style="color: #f87171;">7. Imminent Course Failure:</strong> Overall Mean < 2.60, classified in Bad/Poor success tiers, with High Dropout Risk.
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">Risk Co-Occurrence & Multi-Flag Matrix</h2>
+              <p class="card-subtitle">Students grouped by total number of active diagnostic risk flags</p>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-flags-distribution"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: AI COUNSELING CENTER -->
+    <section id="tab-counseling" class="tab-content">
+      <div class="counseling-container">
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Select Student for AI Counseling
+              </h2>
+              <p class="card-subtitle">Search by ID or pick from underperforming triage queue</p>
+            </div>
+          </div>
+
+          <div class="filter-bar" style="padding: 8px 12px; margin-bottom: 8px;">
+            <input type="text" id="input-counseling-search" class="search-input" placeholder="Search Student ID (e.g. STU-0003)..." />
+          </div>
+
+          <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 6px;">Priority Triage Queue (Critical / High Risk):</div>
+          <div id="counseling-student-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 480px; overflow-y: auto; padding-right: 4px;">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <div class="counseling-dossier" id="counseling-dossier-panel">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <h2 id="ai-dossier-id" style="font-size: 1.4rem; font-weight: 800; color: #fff;">STU-0003</h2>
+                <span id="ai-dossier-priority" class="badge" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">Critical Intervention Required</span>
+              </div>
+              <p id="ai-dossier-subtitle" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
+                Overall Score: 2.34 &bull; Success: Bad &bull; Dropout Risk: High
+              </p>
+            </div>
+            <button id="btn-copy-counseling" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">
+              Copy Counseling Dossier
+            </button>
+          </div>
+
+          <!-- Active Diagnostic Badges -->
+          <div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 6px;">Active Diagnostic Triggers:</div>
+            <div id="ai-dossier-flags" style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <!-- Flags -->
+            </div>
+          </div>
+
+          <!-- Root Cause Clinical Summary -->
+          <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.85rem; font-weight: 700; color: #67e8f9; margin-bottom: 6px;">Root Cause Clinical Analysis:</div>
+            <ul id="ai-dossier-root-causes" style="font-size: 0.82rem; color: #cbd5e1; padding-left: 18px; line-height: 1.6;">
+              <!-- Root causes -->
+            </ul>
+          </div>
+
+          <!-- 4-Week Action Plan -->
+          <div>
+            <div style="font-size: 0.9rem; font-weight: 700; color: #ffffff; margin-bottom: 12px;">Personalized 4-Week Academic Recovery Roadmap:</div>
+            <div id="ai-dossier-action-plan">
+              <!-- Steps -->
+            </div>
+          </div>
+
+          <!-- Counselor Dialogue Scripts -->
+          <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.25); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.85rem; font-weight: 700; color: #a5b4fc; margin-bottom: 6px;">Counselor 1-on-1 Dialogue & Facilitation Scripts:</div>
+            <ul id="ai-dossier-questions" style="font-size: 0.82rem; color: #cbd5e1; padding-left: 18px; line-height: 1.6;">
+              <!-- Questions -->
+            </ul>
+          </div>
+
+          <!-- 3x5 Daily Habit Stack -->
+          <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.85rem; font-weight: 700; color: #34d399; margin-bottom: 6px;">Prescribed 3x5 Daily Habit Stack:</div>
+            <ul id="ai-dossier-habits" style="font-size: 0.82rem; color: #cbd5e1; padding-left: 18px; line-height: 1.6;">
+              <!-- Habits -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: 17-DOMAIN DEEP-DIVE -->
+    <section id="tab-domains" class="tab-content">
+      <div class="glass-card">
+        <div class="card-title-row">
+          <div>
+            <h2 class="card-title">17-Domain Comparison & Benchmarking</h2>
+            <p class="card-subtitle">Detailed statistical breakdown across all 17 domains (15 questions each, 255 total)</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <select id="select-domain-metric" class="select-control">
+              <option value="mean">Mean Score (1 - 5)</option>
+              <option value="cronbach">Cronbach's Alpha (Reliability)</option>
+              <option value="std">Standard Deviation (Spread)</option>
+            </select>
+          </div>
+        </div>
+        <div class="chart-wrapper chart-wrapper-tall">
+          <canvas id="chart-domain-bar"></canvas>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">Domain Score Spread: Min, Q1, Median, Q3, Max</h2>
+              <p class="card-subtitle">Quartile range per domain showing cohort distribution variance</p>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-domain-spread"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">17-Domain Psychometric Summary Table</h2>
+              <p class="card-subtitle">Sample size N=2,525, 15 items per construct</p>
+            </div>
+          </div>
+          <div class="table-container" style="max-height: 380px;">
+            <table class="data-table" id="table-domain-summary">
+              <thead>
+                <tr>
+                  <th>Domain Name</th>
+                  <th>Questions</th>
+                  <th>Mean</th>
+                  <th>Std</th>
+                  <th>Cronbach's α</th>
+                  <th>Excl. vs Bad Gap</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-domain-summary">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: 255-ITEM PSYCHOMETRICS -->
+    <section id="tab-questions" class="tab-content">
+      <div class="glass-card">
+        <div class="card-title-row">
+          <div>
+            <h2 class="card-title">255-Question Psychometric Item Explorer</h2>
+            <p class="card-subtitle">Item difficulty index ($P$) vs. Item discrimination index ($r_{it}$) with Likert response frequencies</p>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="input-search-questions" class="search-input" placeholder="Search by question ID (e.g. Q042, Q195, Q241) or topic..." />
+          </div>
+
+          <select id="select-filter-domain" class="select-control">
+            <option value="ALL">All 17 Domains (255 Questions)</option>
+            <!-- Injected via JS -->
+          </select>
+
+          <select id="select-sort-questions" class="select-control">
+            <option value="number-asc">Sort: Item # (Q001 - Q255)</option>
+            <option value="mean-desc">Highest Mean Score</option>
+            <option value="mean-asc">Lowest Mean Score (Hardest)</option>
+            <option value="disc-desc">Highest Discrimination (r_it)</option>
+            <option value="std-desc">Highest Score Variance</option>
+          </select>
+        </div>
+
+        <div class="grid-2col">
+          <div class="glass-card" style="padding: 16px; background: rgba(0,0,0,0.2);">
+            <h3 style="font-size: 0.9rem; margin-bottom: 8px; color: #cbd5e1;">Item Difficulty vs. Discrimination Quadrant (255 Items)</h3>
+            <div class="chart-wrapper" style="min-height: 280px; max-height: 320px;">
+              <canvas id="chart-item-scatter"></canvas>
+            </div>
+          </div>
+
+          <div class="glass-card" style="padding: 16px; background: rgba(0,0,0,0.2);">
+            <h3 style="font-size: 0.9rem; margin-bottom: 8px; color: #cbd5e1;">Top 5 Highest vs. Lowest Performing Items</h3>
+            <div id="container-top-bottom-questions" style="display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem;">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table" id="table-questions">
+            <thead>
+              <tr>
+                <th>Item Code</th>
+                <th>Topic / Description</th>
+                <th>Domain</th>
+                <th>Mean</th>
+                <th>Std</th>
+                <th>Difficulty (0-1)</th>
+                <th>Discrimination (r)</th>
+                <th>Response Distribution (1★ to 5★)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-questions">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: 17x17 CORRELATION HEATMAP -->
+    <section id="tab-correlations" class="tab-content">
+      <div class="glass-card">
+        <div class="card-title-row">
+          <div>
+            <h2 class="card-title">17x17 Pearson Correlation Heatmap</h2>
+            <p class="card-subtitle">Pairwise correlation coefficients ($r$) between all 17 domains across 2,525 students</p>
+          </div>
+        </div>
+        <div class="heatmap-table-wrap">
+          <table class="heatmap-table" id="table-correlation-heatmap">
+            <!-- Injected via JS -->
+          </table>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">17 Domains Correlation with Overall Mean</h2>
+              <p class="card-subtitle">Identifying the strongest predictive pillars of overall student success</p>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-overall-corr"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">Psychometric & Analytical Takeaways</h2>
+              <p class="card-subtitle">Key structural properties of the expanded 17-domain instrument</p>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px; font-size: 0.88rem; color: #cbd5e1; line-height: 1.6;">
+            <div style="background: rgba(99, 102, 241, 0.1); border-left: 3px solid #6366f1; padding: 12px 16px; border-radius: 4px;">
+              <strong style="color: #a5b4fc;">Expanded Instrument Reliability:</strong> All 17 domains achieve Cronbach's Alpha $\ge 0.82$, confirming high measurement precision across both core and emerging dimensions.
+            </div>
+            <div style="background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4; padding: 12px 16px; border-radius: 4px;">
+              <strong style="color: #67e8f9;">Demographic & Structural Integration:</strong> Financial and belonging factors correlate strongly with retention, providing crucial early warning signals.
+            </div>
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 3px solid #10b981; padding: 12px 16px; border-radius: 4px;">
+              <strong style="color: #6ee7b7;">255-Item Scalability:</strong> The 255 items provide exhaustive item-level granularity for fine-grained diagnostic triage.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 8: STUDENT 360° DIRECTORY -->
+    <section id="tab-students" class="tab-content">
+      <div class="glass-card">
+        <div class="card-title-row">
+          <div>
+            <h2 class="card-title">Student 360° Profiler & Cohort Directory</h2>
+            <p class="card-subtitle">Search, filter by Demographics, Diagnostics & Performance (N=2,525)</p>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="input-search-student" class="search-input" placeholder="Search by ID (e.g. STU-0042), Major, or score..." />
+          </div>
+
+          <select id="select-filter-major" class="select-control">
+            <option value="ALL">All Majors (8 Departments)</option>
+            <!-- Injected via JS -->
+          </select>
+
+          <select id="select-filter-year" class="select-control">
+            <option value="ALL">All Academic Years</option>
+            <option value="First Year">First Year (1st Year)</option>
+            <option value="Second Year">Second Year (2nd Year)</option>
+            <option value="Third Year">Third Year (3rd Year)</option>
+            <option value="Final Year">Final Year (4th Year)</option>
+            <option value="Postgraduate">Postgraduate</option>
+          </select>
+
+          <select id="select-filter-firstgen" class="select-control">
+            <option value="ALL">Admission Category: All</option>
+            <option value="General (OPEN)">General (OPEN)</option>
+            <option value="OBC-NCL">OBC-NCL</option>
+            <option value="SC">SC</option>
+            <option value="EWS">EWS</option>
+            <option value="ST">ST</option>
+          </select>
+
+          <select id="select-filter-success" class="select-control">
+            <option value="ALL">All Success Tiers</option>
+            <option value="Excellent">Excellent</option>
+            <option value="Good">Good</option>
+            <option value="Average">Average</option>
+            <option value="Poor">Poor</option>
+            <option value="Bad">Bad</option>
+          </select>
+
+          <select id="select-filter-risk" class="select-control">
+            <option value="ALL">All Dropout Risks</option>
+            <option value="Low">Low Risk</option>
+            <option value="Medium">Medium Risk</option>
+            <option value="High">High Risk</option>
+          </select>
+
+          <select id="select-filter-diag" class="select-control">
+            <option value="ALL">All Diagnostic Flags</option>
+            <option value="interest">Flag: Disinterested</option>
+            <option value="collaboration">Flag: Collab Deficit</option>
+            <option value="procrastination">Flag: Procrastinating</option>
+            <option value="screenFatigue">Flag: Screen Fatigue</option>
+            <option value="chronicSkipping">Flag: Chronic Skipping</option>
+            <option value="mentalBurnout">Flag: Mental Burnout</option>
+            <option value="courseFailure">Flag: Course Failure Threat</option>
+          </select>
+
+          <select id="select-student-sort" class="select-control">
+            <option value="id-asc">Sort: Student ID (Asc)</option>
+            <option value="mean-desc">Overall Score (High -> Low)</option>
+            <option value="mean-asc">Overall Score (Low -> High)</option>
+            <option value="gpa-desc">Prior GPA (High -> Low)</option>
+          </select>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table" id="table-students">
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Major / Department</th>
+                <th>Year & Gender</th>
+                <th>Overall (17D)</th>
+                <th>Prior GPA</th>
+                <th>Success Tier</th>
+                <th>Dropout Risk</th>
+                <th>Diagnostic Flags</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-students">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination-row">
+          <span id="student-pagination-info">Showing 1 - 25 of 2,525 students</span>
+          <div class="page-buttons" id="student-pagination-btns">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 9: WHAT-IF SIMULATOR -->
+    <section id="tab-simulator" class="tab-content">
+      <div class="simulator-container">
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">Interactive Domain Score Simulator (17 Domains)</h2>
+              <p class="card-subtitle">Adjust domain slider values (1.0 - 5.0) to simulate cohort outcomes in real time</p>
+            </div>
+          </div>
+
+          <div class="sim-presets">
+            <span style="font-size: 0.8rem; color: var(--text-secondary); align-self: center;">Quick Archetype Presets:</span>
+            <button class="sim-preset-btn" data-preset="excellent">Top Scholar (4.2)</button>
+            <button class="sim-preset-btn" data-preset="good">Above Average (3.5)</button>
+            <button class="sim-preset-btn" data-preset="average">Class Average (3.0)</button>
+            <button class="sim-preset-btn" data-preset="tech">Tech Specialist</button>
+            <button class="sim-preset-btn" data-preset="leader">Student Leader</button>
+            <button class="sim-preset-btn" data-preset="risk">At-Risk Student (2.2)</button>
+          </div>
+
+          <div class="sliders-grid" id="simulator-sliders-container" style="max-height: 520px; overflow-y: auto; padding-right: 4px;">
+            <!-- 17 Sliders Injected via JS -->
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-title-row">
+            <div>
+              <h2 class="card-title">Simulated Real-Time Forecast</h2>
+              <p class="card-subtitle">Model inference based on synthetic cohort scoring boundaries</p>
+            </div>
+          </div>
+
+          <div class="prediction-card">
+            <div class="prediction-item">
+              <span class="prediction-label">Simulated Overall Mean (17D)</span>
+              <span class="prediction-val" id="sim-pred-mean" style="color: #67e8f9;">3.00 / 5.00</span>
+            </div>
+            <div class="prediction-item">
+              <span class="prediction-label">Predicted Success Tier</span>
+              <span class="prediction-val" id="sim-pred-success"><span class="badge badge-average">Average</span></span>
+            </div>
+            <div class="prediction-item">
+              <span class="prediction-label">Predicted Dropout Risk</span>
+              <span class="prediction-val" id="sim-pred-risk"><span class="badge badge-risk-medium">Medium</span></span>
+            </div>
+            <div class="prediction-item">
+              <span class="prediction-label">Predicted Career Readiness</span>
+              <span class="prediction-val" id="sim-pred-career"><span class="badge badge-career-mod">Moderately Ready</span></span>
+            </div>
+          </div>
+
+          <div class="chart-wrapper chart-wrapper-radar" style="margin-top: 12px;">
+            <canvas id="chart-sim-radar"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- STUDENT 360° MODAL -->
+  <div class="modal-overlay" id="student-modal" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="btn-close-modal" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="modal-header-section">
+        <div>
+          <h2 id="modal-student-id" style="font-size: 1.4rem; font-weight: 800; color: #fff;">STU-0001</h2>
+          <div id="modal-demographics-text" style="font-size: 0.84rem; color: #cbd5e1; margin-top: 4px;">
+            <!-- Demographics info -->
+          </div>
+          <div class="modal-badges" id="modal-student-badges">
+            <!-- Badges -->
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 0.8rem; color: var(--text-secondary);">Overall Score (17D)</div>
+          <div id="modal-overall-mean" style="font-size: 1.8rem; font-weight: 800; color: #67e8f9;">3.85</div>
+        </div>
+      </div>
+
+      <!-- 7 Diagnostic Pills in Modal -->
+      <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px 14px;">
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 6px;">7 Diagnostic Triggers:</div>
+        <div id="modal-diag-pills" style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <!-- Diag pills -->
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <div class="glass-card" style="padding: 16px; background: rgba(0,0,0,0.3);">
+          <h3 style="font-size: 0.9rem; margin-bottom: 8px;">17-Domain Competency Radar Profile vs. Cohort Average</h3>
+          <div class="chart-wrapper" style="min-height: 280px; max-height: 320px;">
+            <canvas id="chart-modal-radar"></canvas>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="student-strengths-box">
+            <div class="strength-pill">
+              <strong>Top Strengths</strong>
+              <ul id="modal-strengths-list" style="margin-top: 6px; padding-left: 18px;">
+                <!-- Strength Items -->
+              </ul>
+            </div>
+            <div class="growth-pill">
+              <strong>Growth Areas</strong>
+              <ul id="modal-growth-list" style="margin-top: 6px; padding-left: 18px;">
+                <!-- Growth Items -->
+              </ul>
+            </div>
+          </div>
+
+          <div class="glass-card" style="padding: 16px; background: rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <h3 style="font-size: 0.9rem; color: #a5b4fc;">AI Counseling Protocol Summary</h3>
+              <button id="btn-modal-open-counseling" class="btn btn-secondary" style="padding: 3px 8px; font-size: 0.74rem;">
+                Open Full Dossier
+              </button>
+            </div>
+            <p id="modal-recommendation-text" style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.5;">
+              <!-- Dynamic Recommendation -->
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domain Scores Breakdown -->
+      <div class="glass-card" style="padding: 16px; background: rgba(0,0,0,0.3);">
+        <h3 style="font-size: 0.9rem; margin-bottom: 12px;">17-Domain Score Breakdown</h3>
+        <div id="modal-domain-bars-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; max-height: 240px; overflow-y: auto;">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADVISOR COUNSELOR ACTION MODAL -->
+  <div class="modal-overlay" id="counselor-modal" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 600px;">
+      <button class="modal-close-btn" onclick="closeCounselorModal()" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="modal-header-section">
+        <div>
+          <h2 style="font-size: 1.3rem; font-weight: 800; color: #fff;">📝 Log Academic Counseling Session</h2>
+          <div style="font-size: 0.84rem; color: #cbd5e1; margin-top: 4px;">Record student intervention notes, prescribed action plans, and schedule follow-ups.</div>
+        </div>
+      </div>
+
+      <form onsubmit="saveCounselorNote(event)" style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Student ID / Name</label>
+          <input type="text" id="note-student-target" class="filter-select" style="width: 100%; margin-top: 4px;" placeholder="e.g. STU-0042 (Aarav Sharma)" required />
+        </div>
+
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Academic Advisor Name</label>
+          <input type="text" id="note-advisor-name" class="filter-select" style="width: 100%; margin-top: 4px;" value="Dr. Alok Verma / Academic Cell" required />
+        </div>
+
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Intervention Type</label>
+          <select id="note-intervention-type" class="filter-select" style="width: 100%; margin-top: 4px;">
+            <option value="1-on-1 Clinical Counseling (Acute Triage)">1-on-1 Clinical Counseling (Acute Triage)</option>
+            <option value="Academic Tutoring & Study Group Assignment">Academic Tutoring & Study Group Assignment</option>
+            <option value="Test Anxiety & Cognitive Reframing Session">Test Anxiety & Cognitive Reframing Session</option>
+            <option value="Sleep Hygiene & Digital Curfew Protocol">Sleep Hygiene & Digital Curfew Protocol</option>
+            <option value="Career Mentorship & Portfolio Review">Career Mentorship & Portfolio Review</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Session Notes & Prescribed Action Plan</label>
+          <textarea id="note-action-text" class="filter-select" style="width: 100%; height: 90px; margin-top: 4px; padding: 10px; resize: vertical;" placeholder="Discussed test anxiety reframing and agreed to 15-min mock timed test protocol. Scheduled peer study circle with CSE sophomores..." required></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+          <div>
+            <label style="font-size: 0.78rem; font-weight: 700; color: #94a3b8;">Follow-up Status:</label>
+            <select id="note-status-select" class="filter-select" style="margin-left: 8px;">
+              <option value="In Progress (Week 2 Review)">In Progress (Week 2 Review)</option>
+              <option value="Resolved (Tier Transition)">Resolved (Tier Transition)</option>
+              <option value="Escalated to Dean">Escalated to Dean</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            💾 Save Counseling Record
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Data & Logic Scripts -->
+  <script src="dashboard_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

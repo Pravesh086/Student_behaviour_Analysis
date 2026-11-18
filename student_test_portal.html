@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Self-Assessment Test & Psychological Kundali Generator</title>
+  <title>AcuLearn AI: Complete 125-Item Psychometric Intake, Assessment & 17-Trait Counseling System</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <style>
     :root {
-      --bg: #070b18;
-      --card: rgba(15, 23, 42, 0.85);
+      --bg: #070a16;
+      --card-bg: rgba(15, 23, 42, 0.85);
       --card-border: rgba(255, 255, 255, 0.08);
       --primary: #6366f1;
       --primary-hover: #4f46e5;
@@ -25,792 +25,1778 @@
       --warning: #f59e0b;
       --info: #06b6d4;
       --purple: #a855f7;
+      --gold: #f59e0b;
       --text: #f8fafc;
       --text-muted: #94a3b8;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #070b18 70%);
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #070a16 70%);
       color: var(--text);
       min-height: 100vh;
-      padding: 1.5rem 1rem 4rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 1.25rem 1rem 4rem 1rem;
     }
 
-    .header-box {
-      max-width: 950px;
+    /* Top Mode Switcher Bar */
+    .top-nav-bar {
+      max-width: 1250px;
       width: 100%;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .badge-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 0.9rem;
-      border-radius: 9999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      background: rgba(99, 102, 241, 0.15);
-      color: #a5b4fc;
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      margin-bottom: 0.6rem;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #818cf8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.4rem;
-    }
-
-    p.subtitle {
-      color: var(--text-muted);
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    .main-container {
-      max-width: 1050px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .glass-card {
-      background: var(--card);
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 1.5rem;
+      border-radius: 16px;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(12px);
     }
 
-    /* Preset Buttons */
-    .preset-bar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-top: 0.8rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.55rem 1.1rem;
-      border-radius: 8px;
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 9999px;
       font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
-      border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       transition: all 0.2s ease;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      border-color: transparent;
       color: #fff;
       box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
-    }
-
-    .btn-secondary {
-      background: rgba(30, 41, 59, 0.8);
-      color: #e2e8f0;
-      border-color: #334155;
-    }
-
-    .btn-secondary:hover {
-      background: #334155;
-      color: #fff;
-    }
-
-    /* Registration Input Row */
-    .reg-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-top: 1rem;
-    }
-
-    .input-group label {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 4px;
-      display: block;
-    }
-
-    .form-input {
+    .main-container {
+      max-width: 1250px;
       width: 100%;
-      background: #090d1a;
-      border: 1px solid #1e293b;
-      border-radius: 8px;
-      color: #fff;
-      padding: 0.6rem 0.8rem;
-      font-size: 0.88rem;
-      outline: none;
-    }
-
-    .form-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 10px var(--primary);
-    }
-
-    /* Question Cards Grid */
-    .cluster-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
       display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .questions-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1rem;
-    }
-
-    .q-card {
-      background: rgba(11, 15, 25, 0.8);
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 1rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 0.75rem;
-      transition: all 0.2s;
-    }
-
-    .q-card:hover {
-      border-color: #6366f1;
-      background: rgba(20, 27, 45, 0.9);
-    }
-
-    .q-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .q-badge {
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: rgba(99, 102, 241, 0.2);
-      color: #a5b4fc;
-    }
-
-    .q-text {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #f1f5f9;
-      line-height: 1.4;
-    }
-
-    /* 1 to 5 Likert Buttons */
-    .likert-group {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .likert-btn {
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 6px 2px;
-      text-align: center;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      transition: all 0.15s ease;
-      user-select: none;
-    }
-
-    .likert-btn:hover {
-      background: #1e293b;
-      border-color: #64748b;
-    }
-
-    .likert-btn.selected {
-      background: #1e1b4b;
-      border-color: #818cf8;
-      box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
-    }
-
-    .likert-val {
-      font-size: 1.05rem;
-      font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .likert-label {
-      font-size: 0.62rem;
-      color: #94a3b8;
-      line-height: 1.1;
-    }
-
-    /* Submission Sticky Bar */
-    .sticky-submit-bar {
-      position: sticky;
-      bottom: 20px;
-      z-index: 100;
-      border: 2px solid #6366f1;
-      background: rgba(13, 19, 38, 0.95);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(99, 102, 241, 0.3);
-      border-radius: 16px;
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    /* Kundali Dossier View */
-    .kundali-view-section {
-      display: none;
       flex-direction: column;
       gap: 1.5rem;
     }
 
-    .kundali-view-section.active {
-      display: flex;
+    .section-view {
+      display: none;
     }
 
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
+    .section-view.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
     }
 
-    .kpi-card {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      border-radius: 14px;
-      padding: 1.25rem;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      margin-bottom: 1.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-primary { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); }
+    .badge-high { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .badge-med { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-low { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-purple { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.4); }
+    .badge-cyan { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.4); }
+
+    .btn {
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      color: #fff;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 4px 18px rgba(99, 102, 241, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      color: #fff;
+    }
+
+    /* Form Fields */
+    .field-group {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 6px;
     }
 
-    .kpi-num {
-      font-size: 2rem;
+    .field-group label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .field-group input, .field-group select, .field-group textarea {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field-group input:focus, .field-group select:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+    }
+
+    /* Questions Styling */
+    .survey-section-header {
+      background: rgba(30, 41, 59, 0.6);
+      border-left: 4px solid var(--primary);
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .question-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 1.1rem;
+      margin-bottom: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .question-card:hover {
+      border-color: rgba(99, 102, 241, 0.35);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .scale-options {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .scale-option-label {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 8px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .scale-option-label:hover {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .scale-option-label input[type="radio"] {
+      margin: 0;
+      accent-color: #6366f1;
+    }
+
+    .scale-option-label.selected {
+      background: rgba(99, 102, 241, 0.3);
+      border-color: #6366f1;
+      color: #fff;
+    }
+
+    .scale-val {
+      font-size: 1rem;
       font-weight: 800;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
+    }
+
+    .scale-text {
+      font-size: 0.68rem;
+      color: #94a3b8;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    /* 17 Trait Value Cards */
+    .trait-quadrant-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 1.5rem;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .trait-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .trait-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.15rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .trait-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .trait-progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .trait-progress-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.6s ease;
+    }
+
+    /* Sticky Section Bar */
+    .sticky-control-bar {
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      border-radius: 12px;
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1.25rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Quick jump pills */
+    .pills-scroll-row {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+      max-width: 100%;
+    }
+
+    .jump-pill {
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .jump-pill:hover {
+      background: rgba(99, 102, 241, 0.25);
+      border-color: #6366f1;
+      color: #fff;
+    }
+
+    /* Admin Table */
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .admin-table th {
+      background: rgba(30, 41, 59, 0.8);
+      color: #cbd5e1;
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .admin-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+    }
+
+    .admin-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Print styles */
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      .top-nav-bar, .sticky-control-bar, .btn, .no-print { display: none !important; }
+      .glass-card { background: #fff !important; border: 1px solid #ccc !important; color: #000 !important; box-shadow: none !important; }
+      .trait-card { background: #f8fafc !important; border: 1px solid #e2e8f0 !important; color: #000 !important; }
+      .badge { border: 1px solid #999 !important; color: #000 !important; }
     }
   </style>
 </head>
 <body>
 
-  <div class="header-box">
-    <div class="badge-pill">
-      <span>●</span> Multi-Task Tabular Deep Learning Inference Engine
+  <!-- Top Mode Switcher Bar -->
+  <header class="top-nav-bar">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg, #6366f1, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 800; color: #fff;">
+        Ψ
+      </div>
+      <div>
+        <h1 style="font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: -0.3px;">
+          AcuLearn AI <span style="font-size: 0.78rem; font-weight: 600; color: #818cf8; background: rgba(99, 102, 241, 0.2); padding: 2px 8px; border-radius: 6px; margin-left: 6px;">125-Item Master Engine</span>
+        </h1>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+          Complete 22 Demographics + 103 Diagnostic Survey Items &bull; 17 Non-Cognitive Trait Kundali Scoring
+        </p>
+      </div>
     </div>
-    <h1>AcuLearn AI: Student Self-Assessment & Kundali Portal</h1>
-    <p class="subtitle">Rate each statement from <strong>1 (Strongly Disagree)</strong> to <strong>5 (Strongly Agree)</strong>. Our neural network calculates your predictions and generates your <strong>Holistic Psychological Kundali & AI Counseling Plan</strong>.</p>
-  </div>
 
-  <div class="main-container">
+    <!-- Navigation Tabs -->
+    <nav style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button class="nav-btn active" id="btn-nav-register" onclick="showView('register')">
+        <span>📋</span> Step 1: Demographics (Cols 1–22)
+      </button>
+      <button class="nav-btn" id="btn-nav-test" onclick="showView('test')">
+        <span>📝</span> Step 2: Assessment (Cols 23–125)
+      </button>
+      <button class="nav-btn" id="btn-nav-kundali" onclick="showView('kundali')">
+        <span>🔮</span> Step 3: 17 Traits & Kundali
+      </button>
+      <button class="nav-btn" id="btn-nav-admin" onclick="showView('admin')">
+        <span>🛡️</span> Step 4: Admin Center
+      </button>
+    </nav>
+  </header>
 
-    <!-- ======================================================= -->
-    <!-- SECTION 1: INTAKE QUESTIONNAIRE (1-5 SCALE) -->
-    <!-- ======================================================= -->
-    <div id="section-intake-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- ======================================================== -->
+    <!-- VIEW 1: COMPLETE DEMOGRAPHICS & ACADEMIC INTAKE (COLS 1-22) -->
+    <!-- ======================================================== -->
+    <div id="view-register" class="section-view active">
       
-      <!-- Student Bio & Quick Presets -->
-      <div class="glass-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-          <h2 style="font-size: 1.25rem; font-weight: 800; color: #fff;">🎓 Student Profile & Presets</h2>
-          <div class="preset-bar">
-            <span style="font-size: 0.8rem; font-weight: 700; color: #94a3b8;">Load Demo Profile:</span>
-            <button type="button" class="btn btn-secondary" onclick="loadPreset('high_risk')" style="color: #f87171; border-color: rgba(239,68,68,0.4);">
-              🚨 At-Risk Student
+      <!-- Top Overview Card -->
+      <div class="glass-card" style="border: 1px solid rgba(99, 102, 241, 0.4); background: linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 1rem;">
+          <div>
+            <span class="badge badge-primary">STEP 1 OF 3: MASTER INTAKE</span>
+            <h2 style="font-size: 1.45rem; font-weight: 800; color: #fff; margin-top: 6px;">
+              New Student Registration & Comprehensive Demographics (Cols 1–22)
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">
+              Enter the student's administrative, socio-demographic, and academic baseline parameters from <code>Master_Dataset_Clean.xlsx</code>.
+            </p>
+          </div>
+
+          <!-- Quick Presets -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size: 0.78rem; font-weight: 700; color: #94a3b8;">Quick Presets:</span>
+            <button type="button" class="btn btn-secondary" onclick="loadStudentPreset('at_risk')" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4); font-size: 0.8rem; padding: 6px 12px;">
+              🚨 At-Risk Hosteler
             </button>
-            <button type="button" class="btn btn-secondary" onclick="loadPreset('average')" style="color: #fbbf24; border-color: rgba(245,158,11,0.4);">
-              ⚖️ Average Student
+            <button type="button" class="btn btn-secondary" onclick="loadStudentPreset('average')" style="color: #fbbf24; border-color: rgba(245, 158, 11, 0.4); font-size: 0.8rem; padding: 6px 12px;">
+              ⚖️ Average Day Scholar
             </button>
-            <button type="button" class="btn btn-secondary" onclick="loadPreset('scholar')" style="color: #34d399; border-color: rgba(16,185,129,0.4);">
+            <button type="button" class="btn btn-secondary" onclick="loadStudentPreset('scholar')" style="color: #34d399; border-color: rgba(16, 185, 129, 0.4); font-size: 0.8rem; padding: 6px 12px;">
               🌟 Star Scholar
             </button>
-            <button type="button" class="btn btn-secondary" onclick="loadPreset('random')">
-              🎲 Random
+            <button type="button" class="btn btn-secondary" onclick="resetDemographicsForm()" style="font-size: 0.8rem; padding: 6px 12px;">
+              🧹 Reset
             </button>
           </div>
         </div>
 
-        <div class="reg-grid">
-          <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" id="stu-name" class="form-input" value="Aarav Sharma" />
+        <form id="form-demographics" onsubmit="handleDemographicsSubmit(event)">
+          
+          <!-- SUB-CARD A: Administrative & Cryptographic Audit Identifiers (Cols 1-7, 17-18) -->
+          <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 0.95rem; font-weight: 800; color: #818cf8; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <span>🔑</span> Administrative Identifiers & Security (Cols 1–7, 17–18)
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+              <div class="field-group">
+                <label>Col 1: Student ID (Primary Key)</label>
+                <input type="text" id="demo-student-id" value="2026UGCS086" required style="font-family: var(--font-mono); color: #38bdf8;" />
+              </div>
+              <div class="field-group">
+                <label>Col 2: University / Institution</label>
+                <input type="text" id="demo-university" value="MNIT Jaipur" required />
+              </div>
+              <div class="field-group">
+                <label>Col 3: Timestamp</label>
+                <input type="text" id="demo-timestamp" value="2026-11-18 10:30:00" required style="font-family: var(--font-mono);" />
+              </div>
+              <div class="field-group">
+                <label>Col 4: Username</label>
+                <input type="text" id="demo-username" value="aarav.sharma26" required style="font-family: var(--font-mono);" />
+              </div>
+              <div class="field-group">
+                <label>Col 5: Platform Intake Score</label>
+                <input type="number" id="demo-total-score" value="82" min="0" max="100" />
+              </div>
+              <div class="field-group">
+                <label>Col 6: Student Full Name</label>
+                <input type="text" id="demo-name" value="Aarav Sharma" required />
+              </div>
+              <div class="field-group">
+                <label>Col 7: University Roll Number</label>
+                <input type="text" id="demo-roll" value="2026UGCS086" required style="font-family: var(--font-mono);" />
+              </div>
+              <div class="field-group">
+                <label>Col 17: Official Institute Email</label>
+                <input type="email" id="demo-email" value="aarav.sharma@mnit.ac.in" required />
+              </div>
+              <div class="field-group">
+                <label>Col 18: Contact / Counselor Phone</label>
+                <input type="text" id="demo-contact" value="+91 98765 43210" required />
+              </div>
+              <div class="field-group">
+                <label>Portal Access Password</label>
+                <input type="text" id="demo-password" value="Aarav@2026" required style="font-family: var(--font-mono); color: #f59e0b;" />
+              </div>
+            </div>
           </div>
-          <div class="input-group">
-            <label>Roll Number / ID</label>
-            <input type="text" id="stu-roll" class="form-input" style="font-family: 'JetBrains Mono';" value="2026UGCS086" />
+
+          <!-- SUB-CARD B: Socio-Demographics & Parental Capital (Cols 8-13, 19-20) -->
+          <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 0.95rem; font-weight: 800; color: #34d399; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <span>🏡</span> Socio-Demographics & Parental Background (Cols 8–13, 19–20)
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+              <div class="field-group">
+                <label>Col 8: Student Program Tier</label>
+                <select id="demo-student-type">
+                  <option value="Undergraduate B.Tech" selected>Undergraduate B.Tech</option>
+                  <option value="Postgraduate M.Tech">Postgraduate M.Tech</option>
+                  <option value="Dual Degree / Ph.D.">Dual Degree / Ph.D.</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>Col 9: Gender</label>
+                <select id="demo-gender">
+                  <option value="Male" selected>Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other / Prefer not to say</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>Col 19: Chronological Age</label>
+                <input type="number" id="demo-age" value="19" min="16" max="30" />
+              </div>
+              <div class="field-group">
+                <label>Col 10: Annual Family Income</label>
+                <select id="demo-family-income">
+                  <option value="< 3 LPA (Economically Weaker Section)">Low (&lt; 3 LPA)</option>
+                  <option value="3 - 6 LPA (Lower Middle)" selected>3 - 6 LPA (Lower Middle)</option>
+                  <option value="6 - 10 LPA (Middle Income)">6 - 10 LPA (Middle Income)</option>
+                  <option value="10 - 15 LPA (Upper Middle)">10 - 15 LPA (Upper Middle)</option>
+                  <option value="> 15 LPA (High Income)">&gt; 15 LPA (High Income)</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>Col 11: Father's Occupation</label>
+                <select id="demo-father-occ">
+                  <option value="Government Service">Government Service</option>
+                  <option value="Private Sector / IT" selected>Private Sector / IT</option>
+                  <option value="Business / Self-Employed">Business / Self-Employed</option>
+                  <option value="Agriculture / Farming">Agriculture / Farming</option>
+                  <option value="Professional (Doctor/Lawyer/Prof)">Professional (Doctor/Lawyer/Prof)</option>
+                  <option value="Other / Retired">Other / Retired</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>Col 12: Residential City & State (Hometown)</label>
+                <input type="text" id="demo-hometown" value="Bikaner, Rajasthan" placeholder="e.g. Jaipur, Rajasthan" />
+              </div>
+              <div class="field-group">
+                <label>Col 13: Father's Highest Education</label>
+                <select id="demo-father-edu" onchange="updateFirstGenStatus()">
+                  <option value="High School (10th / 12th)">High School (10th / 12th)</option>
+                  <option value="Bachelor's Degree (Graduate)" selected>Bachelor's Degree (Graduate)</option>
+                  <option value="Master's Degree (Post Graduate)">Master's Degree (Post Graduate)</option>
+                  <option value="Doctorate / Ph.D.">Doctorate / Ph.D.</option>
+                  <option value="No Formal Schooling">No Formal Schooling</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>First-Generation College Student?</label>
+                <input type="text" id="demo-firstgen" value="No" readonly style="background: rgba(255,255,255,0.05); color: #38bdf8;" />
+              </div>
+              <div class="field-group">
+                <label style="color: #fbbf24; font-weight: 800;">Col 20: Residential Status (CRITICAL)</label>
+                <select id="demo-housing" style="border-color: rgba(245, 158, 11, 0.5);">
+                  <option value="Hosteler" selected>Hosteler (Campus Residence)</option>
+                  <option value="Day Scholar">Day Scholar (Local Resident)</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div class="input-group">
-            <label>Department / Branch</label>
-            <select id="stu-dept" class="form-input">
-              <option value="Computer Science & Eng (CSE)" selected>Computer Science & Eng (CSE)</option>
-              <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
-              <option value="Electrical Engineering (EE)">Electrical Engineering (EE)</option>
-              <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
-              <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
-              <option value="AI & Data Science (AI/DS)">AI & Data Science (AI/DS)</option>
-            </select>
+
+          <!-- SUB-CARD C: Prior Academic Ability & Educational History (Cols 14-16, 21-22) -->
+          <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+            <h3 style="font-size: 0.95rem; font-weight: 800; color: #a855f7; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <span>🎓</span> Prior Academic Ability & College Progress (Cols 14–16, 21–22)
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+              <div class="field-group">
+                <label>Col 14: Engineering Branch / Discipline</label>
+                <select id="demo-branch">
+                  <option value="Computer Science & Eng (CSE)" selected>Computer Science & Eng (CSE)</option>
+                  <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
+                  <option value="Electrical Engineering (EE)">Electrical Engineering (EE)</option>
+                  <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+                  <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+                  <option value="Chemical Engineering (CHE)">Chemical Engineering (CHE)</option>
+                  <option value="Metallurgical & Materials (MME)">Metallurgical & Materials (MME)</option>
+                  <option value="AI & Data Science (AI/DS)">AI & Data Science (AI/DS)</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>Col 15: Current Semester</label>
+                <select id="demo-semester">
+                  <option value="Semester 1 (Freshman)" selected>Semester 1 (Freshman)</option>
+                  <option value="Semester 2 (Freshman)">Semester 2 (Freshman)</option>
+                  <option value="Semester 3 (Sophomore)">Semester 3 (Sophomore)</option>
+                  <option value="Semester 4 (Sophomore)">Semester 4 (Sophomore)</option>
+                  <option value="Semester 5 (Junior)">Semester 5 (Junior)</option>
+                  <option value="Semester 6 (Junior)">Semester 6 (Junior)</option>
+                  <option value="Semester 7 (Senior)">Semester 7 (Senior)</option>
+                  <option value="Semester 8 (Senior)">Semester 8 (Senior)</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label>Col 21: High School (10th) Board %</label>
+                <input type="number" step="0.1" id="demo-10th" value="91.4" min="40" max="100" />
+              </div>
+              <div class="field-group">
+                <label>Col 22: Senior Secondary (12th PCM) Board %</label>
+                <input type="number" step="0.1" id="demo-12th" value="86.8" min="40" max="100" />
+              </div>
+              <div class="field-group">
+                <label style="color: #67e8f9; font-weight: 800;">Col 16: Current College CGPA (0.00 - 10.00)</label>
+                <input type="number" step="0.01" id="demo-cgpa" value="7.12" min="0" max="10" style="font-family: var(--font-mono); color: #67e8f9; font-weight: 800;" />
+              </div>
+            </div>
           </div>
-          <div class="input-group">
-            <label>Academic Year & Semester</label>
-            <select id="stu-sem" class="form-input">
-              <option value="First Year (Semester 1)" selected>First Year (Semester 1)</option>
-              <option value="First Year (Semester 2)">First Year (Semester 2)</option>
-              <option value="Second Year (Semester 3)">Second Year (Semester 3)</option>
-              <option value="Second Year (Semester 4)">Second Year (Semester 4)</option>
-              <option value="Third Year (Semester 5)">Third Year (Semester 5)</option>
-              <option value="Third Year (Semester 6)">Third Year (Semester 6)</option>
-              <option value="Fourth Year (Semester 7)">Fourth Year (Semester 7)</option>
-              <option value="Fourth Year (Semester 8)">Fourth Year (Semester 8)</option>
-            </select>
+
+          <!-- Bottom Action Buttons -->
+          <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px;">
+            <button type="submit" class="btn btn-primary" style="padding: 12px 28px; font-size: 1rem;">
+              <span>Proceed to 103-Item Assessment (Cols 23–125)</span> ➔
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 2: COMPLETE 103 LIKERT SURVEY ITEMS (COLS 23-125) -->
+    <!-- ======================================================== -->
+    <div id="view-test" class="section-view">
+      
+      <!-- Sticky Navigation & Answer Tracker -->
+      <div class="sticky-control-bar">
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <div>
+            <span id="test-student-tag" style="font-weight: 800; color: #fff; font-size: 0.95rem;">Aarav Sharma (2026UGCS086)</span>
+            <div style="font-size: 0.75rem; color: #94a3b8; font-family: var(--font-mono);" id="test-answered-counter">
+              103 of 103 Items Answered (100%)
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div style="width: 140px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 9999px; overflow: hidden;">
+            <div id="test-progress-fill" style="width: 100%; height: 100%; background: linear-gradient(90deg, #6366f1, #10b981); transition: width 0.3s ease;"></div>
           </div>
         </div>
-      </div>
 
-      <!-- Cluster 1: Cognitive Competency -->
-      <div class="glass-card">
-        <div class="cluster-title" style="color: #818cf8;">
-          <span style="background: rgba(99,102,241,0.2); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">CLUSTER 1</span>
-          Cognitive Aptitude, Academic Motivation & Deep Learning
-        </div>
-        <div class="questions-grid" id="q-container-1"></div>
-      </div>
-
-      <!-- Cluster 2: Affective Wellness -->
-      <div class="glass-card">
-        <div class="cluster-title" style="color: #f87171;">
-          <span style="background: rgba(239,68,68,0.2); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">CLUSTER 2</span>
-          Affective Wellness, Exam Anxiety & Emotional Stability
-        </div>
-        <div class="questions-grid" id="q-container-2"></div>
-      </div>
-
-      <!-- Cluster 3: Self-Regulation & Focus -->
-      <div class="glass-card">
-        <div class="cluster-title" style="color: #fbbf24;">
-          <span style="background: rgba(245,158,11,0.2); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">CLUSTER 3</span>
-          Self-Regulation, Time Management & Study Discipline
-        </div>
-        <div class="questions-grid" id="q-container-3"></div>
-      </div>
-
-      <!-- Cluster 4: Lifestyle & Career -->
-      <div class="glass-card">
-        <div class="cluster-title" style="color: #06b6d4;">
-          <span style="background: rgba(6,182,212,0.2); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">CLUSTER 4</span>
-          Digital Screen Health, Sleep Hygiene & Career Readiness
-        </div>
-        <div class="questions-grid" id="q-container-4"></div>
-      </div>
-
-      <!-- Sticky Submit Bar -->
-      <div class="sticky-submit-bar">
-        <div>
-          <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Assessment Status:</div>
-          <div style="font-size: 1.1rem; font-weight: 800; color: #fff;">17 of 17 Domains Answered (100% Ready)</div>
-        </div>
-        <div style="display: flex; gap: 12px; align-items: center;">
-          <button type="button" class="btn btn-primary" onclick="submitAssessment()" style="padding: 12px 28px; font-size: 1.05rem; font-weight: 800;">
-            🔮 Generate My Psychological Kundali ➔
+        <!-- 1-Click Profile Answers Fillers -->
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+          <button type="button" class="btn btn-secondary" onclick="fillTestAnswersPreset('at_risk')" style="padding: 4px 10px; font-size: 0.75rem; color: #f87171; border-color: rgba(239,68,68,0.3);">
+            🚨 Fill At-Risk
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="fillTestAnswersPreset('average')" style="padding: 4px 10px; font-size: 0.75rem; color: #fbbf24; border-color: rgba(245,158,11,0.3);">
+            ⚖️ Fill Average
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="fillTestAnswersPreset('scholar')" style="padding: 4px 10px; font-size: 0.75rem; color: #34d399; border-color: rgba(16,185,129,0.3);">
+            🌟 Fill Scholar
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="fillTestAnswersPreset('random')" style="padding: 4px 10px; font-size: 0.75rem;">
+            🎲 Random
+          </button>
+          <button type="button" class="btn btn-primary" onclick="submitAssessmentAnswers()" style="padding: 6px 14px; font-size: 0.82rem;">
+            🔮 Compute 17 Traits ➔
           </button>
         </div>
       </div>
 
+      <!-- Quick Jump Section Pills -->
+      <div class="glass-card" style="padding: 0.85rem 1.25rem; margin-bottom: 1rem;">
+        <div style="font-size: 0.78rem; font-weight: 700; color: #94a3b8; margin-bottom: 6px;">
+          QUICK JUMP TO DIAGNOSTIC DOMAIN (COLS 23 TO 125):
+        </div>
+        <div class="pills-scroll-row" id="section-jump-pills">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Search & Filter Bar -->
+      <div style="margin-bottom: 1rem; display: flex; gap: 10px;">
+        <input type="text" id="question-search-input" placeholder="🔍 Search question by keyword or column number (e.g. 'sports', 'parents', 'Col 33')..." oninput="filterQuestions(this.value)" style="width: 100%; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 0.88rem;" />
+      </div>
+
+      <!-- Container for all 103 questions grouped by section -->
+      <form id="form-all-questions" onsubmit="event.preventDefault(); submitAssessmentAnswers();">
+        <div id="questions-master-container">
+          <!-- Injected dynamically via JS from bundle -->
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="showView('register')">
+            ⏮ Back to Demographics (Cols 1–22)
+          </button>
+          <button type="button" class="btn btn-primary" onclick="submitAssessmentAnswers()" style="padding: 12px 30px; font-size: 1.05rem; font-weight: 800;">
+            🔮 Calculate 17 Traits & Generate Psychological Kundali ➔
+          </button>
+        </div>
+      </form>
+
     </div>
 
-    <!-- ======================================================= -->
-    <!-- SECTION 2: STUDENT KUNDALI (कुंडली) & COUNSELING DOSSIER -->
-    <!-- ======================================================= -->
-    <div id="section-kundali-dossier" class="kundali-view-section">
+    <!-- ======================================================== -->
+    <!-- VIEW 3: 17 TRAIT VALUES & PSYCHOLOGICAL KUNDALI DOSSIER -->
+    <!-- ======================================================== -->
+    <div id="view-kundali" class="section-view">
       
-      <!-- Dossier Header -->
+      <!-- Student Dossier Header -->
       <div class="glass-card" style="border: 2px solid #a855f7; background: linear-gradient(135deg, rgba(59, 7, 100, 0.5) 0%, rgba(15, 23, 42, 0.85) 100%);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
           <div style="display: flex; align-items: center; gap: 16px;">
-            <div id="k-avatar" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; border: 2px solid #fff;">
+            <div id="kd-avatar" style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #a855f7); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; border: 2px solid #fff;">
               AS
             </div>
             <div>
-              <h2 id="k-name" style="font-size: 1.8rem; font-weight: 800; color: #fff;">Aarav Sharma</h2>
-              <p id="k-meta" style="font-size: 0.9rem; color: #cbd5e1; margin-top: 4px;">
-                Roll No: <span id="k-roll" style="color: #fff; font-family: 'JetBrains Mono';">2026UGCS086</span> &bull; 
-                Branch: <span id="k-branch" style="color: #fff;">Computer Science</span>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <h2 id="kd-name" style="font-size: 1.7rem; font-weight: 800; color: #fff;">Aarav Sharma</h2>
+                <span id="kd-risk-badge" class="badge badge-med">Moderate Risk (46.8%)</span>
+              </div>
+              <p id="kd-meta" style="font-size: 0.88rem; color: #cbd5e1; margin-top: 4px;">
+                Roll No: <span id="kd-roll" style="color: #fff; font-family: var(--font-mono); font-weight: bold;">2026UGCS086</span> &bull; 
+                Branch: <span id="kd-branch" style="color: #fff;">Computer Science & Eng</span> &bull; 
+                Semester: <span id="kd-sem" style="color: #fff;">Sem 1</span> &bull; 
+                Housing: <span id="kd-housing" style="color: #fbbf24;">Hosteler</span> &bull; 
+                CGPA: <span id="kd-cgpa" style="color: #38bdf8; font-family: var(--font-mono); font-weight: bold;">7.12</span>
               </p>
             </div>
           </div>
 
           <div style="display: flex; gap: 10px; align-items: center;">
-            <button onclick="window.print()" class="btn btn-secondary">
-              🖨️ Print Kundali PDF
-            </button>
-            <button onclick="retakeTest()" class="btn btn-primary">
-              🔄 Retake Test / Edit
-            </button>
-            <a href="index.html" class="btn btn-secondary" style="color: #38bdf8; border-color: #06b6d4;">
-              🛡️ Open Admin Center ➔
-            </a>
+            <button onclick="window.print()" class="btn btn-secondary">🖨️ Print Kundali PDF</button>
+            <button onclick="exportKundaliJSON()" class="btn btn-secondary">📥 Export JSON</button>
+            <button onclick="showView('test')" class="btn btn-primary">✏️ Retake 103 Items</button>
           </div>
         </div>
       </div>
 
-      <!-- Tri-Task Prediction KPI Cards -->
-      <div class="kpi-grid">
-        <div class="kpi-card" style="border: 2px solid #ef4444;">
-          <span style="font-size: 0.8rem; font-weight: 800; color: #f87171;">HEAD 1: DROPOUT HAZARD</span>
-          <div class="kpi-num" id="k-hazard" style="color: #ef4444;">84.5%</div>
-          <span style="font-size: 0.8rem; color: #cbd5e1;" id="k-hazard-desc">🚨 Acute Triage Tier (Urgent Advisor Attention)</span>
-        </div>
-
-        <div class="kpi-card" style="border: 2px solid #f59e0b;">
-          <span style="font-size: 0.8rem; font-weight: 800; color: #fbbf24;">HEAD 2: PREDICTED ACADEMIC CGPA</span>
-          <div class="kpi-num" id="k-cgpa" style="color: #fbbf24;">5.42 / 10.0</div>
-          <span style="font-size: 0.8rem; color: #cbd5e1;" id="k-cgpa-desc">Probation Risk (Projected 5.10 - 5.80 CGPA)</span>
-        </div>
-
-        <div class="kpi-card" style="border: 2px solid #06b6d4;">
-          <span style="font-size: 0.8rem; font-weight: 800; color: #22d3ee;">HEAD 3: CAREER READINESS</span>
-          <div class="kpi-num" id="k-career" style="color: #06b6d4;">Tier 4 (Emerging)</div>
-          <span style="font-size: 0.8rem; color: #cbd5e1;">Aptitude Score: 42 / 100</span>
+      <!-- Clinical Distress Emergency Banner (Triggered when Col 75 >= 3 or distress mean >= 3.5) -->
+      <div id="clinical-alert-banner" style="display: none; background: rgba(220, 38, 38, 0.25); border: 2px solid #ef4444; border-radius: 14px; padding: 1.25rem; margin-bottom: 1.5rem; animation: pulse 2s infinite;">
+        <div style="display: flex; align-items: flex-start; gap: 14px;">
+          <div style="font-size: 2rem;">🚨</div>
+          <div>
+            <h3 style="color: #f87171; font-weight: 800; font-size: 1.1rem;">
+              URGENT CLINICAL SAFETY ESCALATION & COUNSELING OVERRIDE (DSM-5 CS GATE TRIGGERED)
+            </h3>
+            <p style="color: #fecaca; font-size: 0.88rem; margin-top: 4px;">
+              Elevated indicators detected on Clinical Distress Screening items (Cols 75, 117–125). In accordance with MNIT Jaipur mental health protocol, immediate non-punitive supportive intervention is required.
+            </p>
+            <div style="margin-top: 10px; display: flex; gap: 12px; flex-wrap: wrap;">
+              <span class="badge" style="background: rgba(0,0,0,0.5); color: #fff;">📞 24x7 Counselor Helpline: +91 141 2713374</span>
+              <span class="badge" style="background: rgba(0,0,0,0.5); color: #fff;">🏥 Campus Health Center: Dispensary Ext 3300</span>
+              <span class="badge" style="background: rgba(0,0,0,0.5); color: #fff;">🛡️ Dean of Student Welfare: dsw@mnit.ac.in</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Row: 4-Quadrant Radar & Strengths vs Doshas -->
-      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
-        
-        <!-- Radar Chart -->
-        <div class="glass-card">
-          <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.75rem; color: #c084fc;">
-            🔮 4-Quadrant Psychological Kundali Radar (कुंडली)
+      <!-- Tri-Task Multi-Head Prediction Banner -->
+      <div class="glass-card" style="padding: 1.25rem; margin-bottom: 1.5rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; align-items: center;">
+          
+          <!-- Head 1: Dropout Hazard -->
+          <div style="background: rgba(0,0,0,0.35); border-radius: 12px; padding: 1rem; border-left: 4px solid #ef4444;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Task 1: Predicted Dropout Hazard</div>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 4px;">
+              <span id="kd-hazard-val" style="font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); color: #f87171;">46.8%</span>
+              <span id="kd-hazard-tier" style="font-size: 0.8rem; font-weight: 700; color: #fca5a5;">Elevated Watch Tier</span>
+            </div>
+            <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">Derived from BeNet shared GLU backbone</div>
+          </div>
+
+          <!-- Head 2: Next SGPA Prediction -->
+          <div style="background: rgba(0,0,0,0.35); border-radius: 12px; padding: 1rem; border-left: 4px solid #38bdf8;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Task 2: Predicted Next SGPA</div>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 4px;">
+              <span id="kd-pred-sgpa" style="font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); color: #38bdf8;">7.34</span>
+              <span id="kd-sgpa-delta" style="font-size: 0.8rem; font-weight: 700; color: #34d399;">+0.22 vs Current</span>
+            </div>
+            <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">Non-cognitive trait adjusted trajectory</div>
+          </div>
+
+          <!-- Head 3: Placement Readiness Tier -->
+          <div style="background: rgba(0,0,0,0.35); border-radius: 12px; padding: 1rem; border-left: 4px solid #10b981;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Task 3: Placement Readiness Tier</div>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 4px;">
+              <span id="kd-placement-tier" style="font-size: 1.5rem; font-weight: 800; color: #10b981;">Tier 2</span>
+              <span style="font-size: 0.8rem; font-weight: 700; color: #6ee7b7;">Core Engineering & Tech</span>
+            </div>
+            <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">Cognitive-metacognitive parcel rating</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- THE 17-TRAIT VALUES DASHBOARD (CORE USER REQUIREMENT) -->
+      <!-- ======================================================== -->
+      <div class="glass-card" style="border: 1px solid rgba(99, 102, 241, 0.3);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1.25rem;">
+          <div>
+            <span class="badge badge-purple">CALCULATED NON-COGNITIVE VALUES</span>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px;">
+              Complete 17 Non-Cognitive Trait Valuation Dashboard
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">
+              Calculated from all 103 items of the active student assessment, automatically reverse-coding negatively keyed questions.
+            </p>
+          </div>
+          <div style="font-size: 0.8rem; color: #a5b4fc; font-family: var(--font-mono);">
+            Scale: 1.00 (Critically Depleted) to 5.00 (Optimal Master)
+          </div>
+        </div>
+
+        <!-- QUADRANT 1: Mindset & Autonomous Drive -->
+        <div class="trait-quadrant-header">
+          <span style="font-size: 1.2rem;">🧠</span>
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #818cf8;">
+            Quadrant 1: Mindset & Autonomous Drive (AM, ASE, EI, GM)
           </h3>
-          <div style="height: 320px;">
-            <canvas id="chart-kundali-radar"></canvas>
+          <span class="badge badge-primary" style="margin-left: auto;">Subtotal Weight: 28.4%</span>
+        </div>
+        <div class="trait-cards-grid" id="grid-quadrant-1"></div>
+
+        <!-- QUADRANT 2: Executive Regulation & Study Routine -->
+        <div class="trait-quadrant-header">
+          <span style="font-size: 1.2rem;">⏱</span>
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #fbbf24;">
+            Quadrant 2: Executive Regulation & Study Routine (TM, SRC, PRM, MM)
+          </h3>
+          <span class="badge badge-med" style="margin-left: auto;">Subtotal Weight: 31.2%</span>
+        </div>
+        <div class="trait-cards-grid" id="grid-quadrant-2"></div>
+
+        <!-- QUADRANT 3: Emotional & Somatic Stability -->
+        <div class="trait-quadrant-header">
+          <span style="font-size: 1.2rem;">🧘</span>
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #f87171;">
+            Quadrant 3: Emotional & Somatic Stability (AAR, SQCR, SCR, PAW, SDA)
+          </h3>
+          <span class="badge badge-high" style="margin-left: auto;">Subtotal Weight: 26.6%</span>
+        </div>
+        <div class="trait-cards-grid" id="grid-quadrant-3"></div>
+
+        <!-- QUADRANT 4: Social Capital & Relational Environment -->
+        <div class="trait-quadrant-header">
+          <span style="font-size: 1.2rem;">🤝</span>
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #34d399;">
+            Quadrant 4: Social Capital & Relational Environment (BEL, PCL, FAM, FSI)
+          </h3>
+          <span class="badge badge-low" style="margin-left: auto;">Subtotal Weight: 16.8%</span>
+        </div>
+        <div class="trait-cards-grid" id="grid-quadrant-4"></div>
+
+        <!-- CLINICAL SAFETY GATE: DSM-5 Distress Screener -->
+        <div class="trait-quadrant-header">
+          <span style="font-size: 1.2rem;">🩺</span>
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #ef4444;">
+            Clinical Safety Screener (CS Gate: Cols 75, 117–125)
+          </h3>
+          <span class="badge badge-high" style="margin-left: auto;">Safety Gate Flag</span>
+        </div>
+        <div class="trait-cards-grid" id="grid-quadrant-cs"></div>
+
+      </div>
+
+      <!-- Kundali Radar Chart & Counterfactuals -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+        
+        <!-- 17-Axis Psychological Kundali Radar -->
+        <div class="glass-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff;">17-Axis Psychological Kundali Chart</h3>
+              <p style="font-size: 0.78rem; color: #94a3b8;">Plotted against MNIT Jaipur Institute Cohort Benchmark (3.25)</p>
+            </div>
+            <span class="badge badge-primary">Chart.js Radar</span>
+          </div>
+          <div style="position: relative; height: 420px; width: 100%;">
+            <canvas id="kdRadarChart"></canvas>
           </div>
         </div>
 
-        <!-- Strengths vs Doshas -->
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div class="glass-card" style="border-left: 4px solid #10b981; padding: 1.2rem;">
-            <h4 style="font-size: 0.95rem; font-weight: 800; color: #34d399; margin-bottom: 8px;">
-              ✨ Mitigating Strengths (शुभ योग / Protective Factors)
-            </h4>
-            <div id="k-strengths" style="display: flex; flex-direction: column; gap: 6px;"></div>
+        <!-- Actionable Counterfactual Recourse (CCRO) -->
+        <div class="glass-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff;">Actionable Algorithmic Recourse (CCRO)</h3>
+              <p style="font-size: 0.78rem; color: #94a3b8;">High-leverage intervention targets to reduce Attrition Hazard below 20%</p>
+            </div>
+            <span class="badge badge-low">L1 Cost Optimized</span>
           </div>
 
-          <div class="glass-card" style="border-left: 4px solid #ef4444; padding: 1.2rem;">
-            <h4 style="font-size: 0.95rem; font-weight: 800; color: #f87171; margin-bottom: 8px;">
-              ⚠️ Critical Vulnerabilities (दोष / Hazard Drivers)
-            </h4>
-            <div id="k-doshas" style="display: flex; flex-direction: column; gap: 6px;"></div>
+          <div id="kd-recourse-container" style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Injected via JS -->
+          </div>
+
+          <!-- Counselor Notes -->
+          <div style="margin-top: 1.5rem; background: rgba(0,0,0,0.3); border-radius: 10px; padding: 12px; border: 1px solid rgba(255,255,255,0.06);">
+            <div style="font-size: 0.78rem; font-weight: 700; color: #cbd5e1; margin-bottom: 6px;">
+              Counselor Case Note & Guidance Action Plan:
+            </div>
+            <textarea id="kd-counselor-notes" rows="3" style="width: 100%; background: transparent; border: none; color: #e2e8f0; font-size: 0.85rem; outline: none; resize: vertical;" placeholder="Type confidential counselor observations here...">Student displays high intrinsic technical aptitude but suffers from transition shock and nocturnal smartphone sleep fragmentation. Recommend peer study group pairing and circadian schedule counseling.</textarea>
           </div>
         </div>
 
       </div>
 
-      <!-- 4-Stage Prescriptive Counseling Roadmap -->
-      <div class="glass-card" style="border: 1px solid #10b981;">
-        <h3 style="font-size: 1.15rem; font-weight: 800; color: #34d399; margin-bottom: 1rem;">
-          📋 Personalized AI Counseling Protocol & Roadmap (परामर्श)
-        </h3>
-        <div class="kpi-grid">
-          <div class="kpi-card" style="border-color: #ef4444;">
-            <span style="font-size: 0.75rem; font-weight: 800; color: #ef4444;">STAGE 1: WEEKS 1–2 (IMMEDIATE)</span>
-            <strong style="color: #fff; font-size: 1.05rem;">Cognitive Anxiety Reframing</strong>
-            <p style="font-size: 0.8rem; color: #cbd5e1;">Two 15-minute mock timed tests under zero stakes to desensitize exam panic triggers.</p>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 4: ADMIN CENTER & REGISTERED STUDENTS REGISTRY -->
+    <!-- ======================================================== -->
+    <div id="view-admin" class="section-view">
+      
+      <div class="glass-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 1.25rem;">
+          <div>
+            <span class="badge badge-primary">ADMINISTRATIVE AUDIT ROSTER</span>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px;">
+              Student Credentials & 17-Trait Assessment Registry
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">
+              Full database of registered students with ID, Username, Email, Password, Branch, Housing, and Calculated 17-Trait Scores.
+            </p>
           </div>
-          <div class="kpi-card" style="border-color: #f59e0b;">
-            <span style="font-size: 0.75rem; font-weight: 800; color: #fbbf24;">STAGE 2: WEEKS 3–4 (STABILIZE)</span>
-            <strong style="color: #fff; font-size: 1.05rem;">Screen Curfew & Sleep Hygiene</strong>
-            <p style="font-size: 0.8rem; color: #cbd5e1;">Implement 45-min pre-bed digital screen curfew to ensure 7.5 hours of restorative sleep.</p>
+
+          <div style="display: flex; gap: 8px;">
+            <button onclick="exportAdminCSV()" class="btn btn-secondary">📥 Export Registry CSV</button>
+            <button onclick="showView('register')" class="btn btn-primary">➕ Register New Student</button>
           </div>
-          <div class="kpi-card" style="border-color: #06b6d4;">
-            <span style="font-size: 0.75rem; font-weight: 800; color: #22d3ee;">STAGE 3: WEEKS 5–8 (ACADEMIC)</span>
-            <strong style="color: #fff; font-size: 1.05rem;">Peer Mentorship Buddy</strong>
-            <p style="font-size: 0.8rem; color: #cbd5e1;">3 hours/week structured study circle with departmental peer mentors.</p>
-          </div>
-          <div class="kpi-card" style="border-color: #10b981;">
-            <span style="font-size: 0.75rem; font-weight: 800; color: #34d399;">STAGE 4: WEEKS 12–14 (RECOVERY)</span>
-            <strong style="color: #fff; font-size: 1.05rem;">Trajectory Transition</strong>
-            <p style="font-size: 0.8rem; color: #cbd5e1;">Recalculate retention index. Projected hazard drops from 84.5% to 18.2% (Safe Retention Tier).</p>
-          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div style="margin-bottom: 1rem; display: flex; gap: 10px; flex-wrap: wrap;">
+          <input type="text" id="admin-search" placeholder="Filter by Name, Roll No, Branch, or Email..." oninput="filterAdminTable(this.value)" style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px 12px; color: #fff; font-size: 0.88rem;" />
+        </div>
+
+        <!-- Registry Table -->
+        <div style="overflow-x: auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Student ID / Roll</th>
+                <th>Name & Email</th>
+                <th>Password</th>
+                <th>Branch & Sem</th>
+                <th>Housing & FirstGen</th>
+                <th>Current CGPA</th>
+                <th>Top Trait Scores</th>
+                <th>Attrition Hazard</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-tbody">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
         </div>
       </div>
 
     </div>
 
-  </div>
+  </main>
 
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT MASTER LOGIC & DATA ENGINE -->
+  <!-- ======================================================== -->
   <script>
-    const questions = [
-      // Cluster 1
-      { id: "q1", cluster: 1, code: "AM", domain: "Academic Motivation", text: "I am deeply driven to master complex engineering and analytical subjects." },
-      { id: "q2", cluster: 1, code: "LB", domain: "Learning Behaviour", text: "I maintain a structured daily revision routine and learn from assignment feedback." },
-      { id: "q3", cluster: 1, code: "CTDM", domain: "Critical Thinking", text: "I analyze multi-step problems methodically rather than memorizing formulas." },
-      { id: "q4", cluster: 1, code: "CI", domain: "Creativity & Innovation", text: "I enjoy experimenting with creative solutions to technical engineering challenges." },
-      
-      // Cluster 2
-      { id: "q5", cluster: 2, code: "EI", domain: "Emotional Intelligence", text: "During high-stakes timed exams, my mind remains calm and free from panic." },
-      { id: "q6", cluster: 2, code: "RA", domain: "Resilience & Adaptability", text: "When I receive an unexpected low grade, I bounce back with improved strategies." },
-      { id: "q7", cluster: 2, code: "PAW", domain: "Physical Wellness", text: "I maintain regular physical exercise, healthy nutrition, and mental wellness." },
-      
-      // Cluster 3
-      { id: "q8", cluster: 3, code: "TM", domain: "Time Management", text: "I plan a weekly study schedule and submit assignments comfortably before deadlines." },
-      { id: "q9", cluster: 3, code: "NEU", domain: "Focus & Attention", text: "I can sustain deep concentration on demanding tasks for 45+ minutes without distraction." },
-      { id: "q10", cluster: 3, code: "LT", domain: "Teamwork & Leadership", text: "I collaborate effectively and take initiative in peer engineering project teams." },
-      { id: "q11", cluster: 3, code: "CS", domain: "Communication Skills", text: "I articulate technical concepts confidently and actively participate in discussions." },
+    // -----------------------------------------------------------------
+    // 1. EMBEDDED MASTER BUNDLE: ALL 125 ITEMS & 17 TRAIT DEFINITIONS
+    // -----------------------------------------------------------------
+    const bundleData = {"demographics": [{"col": 1, "text": "Student_ID", "domain": "Administrative", "polarity": "Direct Scored", "is_reverse": false, "notes": "Anonymized primary key ensuring research pseudonymization."}, {"col": 2, "text": "University", "domain": "Administrative", "polarity": "Direct Scored", "is_reverse": false, "notes": "Institution name (MNIT Jaipur) establishing multi-campus provenance."}, {"col": 3, "text": "Timestamp", "domain": "Administrative", "polarity": "Direct Scored", "is_reverse": false, "notes": "Time-tracking feature used to identify survey speed-traps (<8 min)."}, {"col": 4, "text": "Username", "domain": "Administrative", "polarity": "Direct Scored", "is_reverse": false, "notes": "Portal username, decoupled before model ingestion."}, {"col": 5, "text": "Total score", "domain": "Administrative", "polarity": "Direct Scored", "is_reverse": false, "notes": "Raw platform intake verification score."}, {"col": 6, "text": "Name of the student", "domain": "Administrative", "polarity": "Direct Scored", "is_reverse": false, "notes": "Student legal name, stripped via SHA-256 for DPDP Act 2023 compliance."}, {"col": 7, "text": "University Roll number", "domain": "Administrative", "polarity": "Direct Scored", "is_reverse": false, "notes": "Institutional roll number, decoupled into cryptographic research ID."}, {"col": 8, "text": "Student Type", "domain": "Demographics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Programme tier verifying undergraduate engineering population."}, {"col": 9, "text": "Gender", "domain": "Demographics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Gender balance verification and multi-group fairness auditing."}, {"col": 10, "text": "Family Income", "domain": "Demographics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Family economic capital; indicates financial distress vulnerability."}, {"col": 11, "text": "Father Occupation", "domain": "Demographics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Paternal professional stability and parental occupation background."}, {"col": 12, "text": "Residential city and State", "domain": "Demographics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Hometown location; measures geographic displacement and relocation shock."}, {"col": 13, "text": "Fathers Highest Education", "domain": "Demographics", "polarity": "Direct Scored", "is_reverse": false, "notes": "First-generation college status indicator (Bean & Metzner model)."}, {"col": 14, "text": "Branch", "domain": "Academic History", "polarity": "Direct Scored", "is_reverse": false, "notes": "Engineering branch; benchmarks discipline-specific workload pressures."}, {"col": 15, "text": "Current Semester", "domain": "Academic History", "polarity": "Direct Scored", "is_reverse": false, "notes": "Longitudinal stage; distinguishes freshman transition from senior stress."}, {"col": 16, "text": "Current CGPA", "domain": "Academic History", "polarity": "Direct Scored", "is_reverse": false, "notes": "Current CGPA ground truth for continuous trajectory prediction."}, {"col": 17, "text": "Emailid", "domain": "Administrative", "polarity": "Direct Scored", "is_reverse": false, "notes": "Student contact channel for voluntary opt-in counseling alerts."}, {"col": 18, "text": "Contact Number", "domain": "Administrative", "polarity": "Direct Scored", "is_reverse": false, "notes": "Emergency counselor escalation contact, strictly access-controlled."}, {"col": 19, "text": "Age", "domain": "Demographics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Chronological age; controls for gap years and coaching repetitions."}, {"col": 20, "text": "Are you Hosteler or not?", "domain": "Transition", "polarity": "Direct Scored", "is_reverse": false, "notes": "CRITICAL: Hosteler vs Day Scholar. Captures residential shock and mess diet."}, {"col": 21, "text": "Highschool (10th) percentage", "domain": "Academic History", "polarity": "Direct Scored", "is_reverse": false, "notes": "Secondary school academic foundation and baseline aptitude."}, {"col": 22, "text": "12th percentage", "domain": "Academic History", "polarity": "Direct Scored", "is_reverse": false, "notes": "Senior secondary PCM board marks (shows weak r=0.14 correlation with retention)."}], "likert": [{"col": 23, "text": "Sports is equally important as academic subjects.", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Somatic belief: measures valuation of physical balance alongside academics.", "traits": ["PAW"]}, {"col": 24, "text": "Sports should be a part of evaluation of grades in your academic result.", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Institutional alignment: support for holistic grading vs pure rote tests.", "traits": ["PAW"]}, {"col": 25, "text": "You feel that if your favorite game is part of exam then you will top this exam?", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Playfulness & passion: captures intrinsic energy and recreational drive.", "traits": ["PAW"]}, {"col": 26, "text": "You can play your favorite sports without any time bound?", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Autonomous recreation: willingness to play without rigid schedule constraints.", "traits": ["PAW"]}, {"col": 27, "text": "You cannot assume your life without sports?", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Recreational identity: sports as an essential non-negotiable life pillar.", "traits": ["PAW"]}, {"col": 28, "text": "Do you plan to continue participating in sports activities in the future?", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Future somatic commitment: intent to sustain exercise throughout college.", "traits": ["PAW"]}, {"col": 29, "text": "Have you ever received encouragement or support from your peers or instructors to participate in sports activities?", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Peer/faculty sports encouragement: social support for physical wellness.", "traits": ["PAW"]}, {"col": 30, "text": "How important do you think promoting sports culture is in educational institutions?", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Institutional sports climate: perceived institutional focus on health.", "traits": ["PAW"]}, {"col": 31, "text": "rate your interest in participating in sports activities.", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Self-rated sports enthusiasm: baseline recreational motivation level.", "traits": ["PAW"]}, {"col": 32, "text": "How often do you engage in sports activities?", "domain": "Sports & Vitality", "polarity": "Direct Scored", "is_reverse": false, "notes": "Physical exercise frequency: concrete behavioral manifestation of fitness.", "traits": ["PAW"]}, {"col": 33, "text": "Your parents forcefully admitted you in the engineering?", "domain": "Academic Motivation", "polarity": "Reverse Scored", "is_reverse": true, "notes": "CRITICAL: Parental coercion in engineering choice. Strongest early-dropout driver!", "traits": ["AM"]}, {"col": 34, "text": "You don’t know why you are studying all these things and didn’t enjoy?", "domain": "Academic Motivation", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Academic anhedonia: lack of conceptual enjoyment and perceived study futility.", "traits": ["AM"]}, {"col": 35, "text": "You want to get a job so that you can go in some another interest course?", "domain": "Academic Motivation", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Escapist career intent: viewing degree merely as a bridge to unrelated courses.", "traits": ["AM"]}, {"col": 36, "text": "This course is your favorite.", "domain": "Academic Motivation", "polarity": "Direct Scored", "is_reverse": false, "notes": "Intrinsic passion: genuine interest in the engineering curriculum.", "traits": ["AM", "EI"]}, {"col": 37, "text": "You see your career in this field only?", "domain": "Academic Motivation", "polarity": "Direct Scored", "is_reverse": false, "notes": "Long-term professional vision: commitment to engineering career trajectory.", "traits": ["AM", "EI"]}, {"col": 38, "text": "The resources (labs, equipment, software) required for your engineering studies are easily accessible", "domain": "Academic Motivation", "polarity": "Direct Scored", "is_reverse": false, "notes": "Perceived resource adequacy: lab equipment, computing, and software accessibility.", "traits": ["AM"]}, {"col": 39, "text": "How often do you collaborate with peers on engineering projects or studies?", "domain": "Academic Motivation", "polarity": "Direct Scored", "is_reverse": false, "notes": "Peer technical collaboration: active engagement in engineering project teams.", "traits": ["PCL"]}, {"col": 40, "text": "your instructors are supportive in guiding and encouraging your interest in engineering?", "domain": "Academic Motivation", "polarity": "Direct Scored", "is_reverse": false, "notes": "Faculty mentorship support: accessibility of instructors for technical guidance.", "traits": ["FSI"]}, {"col": 41, "text": "You plan to pursue a career in engineering after graduation?", "domain": "Academic Motivation", "polarity": "Direct Scored", "is_reverse": false, "notes": "Post-graduation engineering aspiration: persistence into technical industry.", "traits": ["AM", "EI"]}, {"col": 42, "text": "You feel confident in identifying engineering problems and developing effective solutions?", "domain": "Academic Motivation", "polarity": "Direct Scored", "is_reverse": false, "notes": "Engineering problem-solving self-efficacy: confidence in designing solutions.", "traits": ["ASE"]}, {"col": 43, "text": "You want to study but you don’t know where to start?", "domain": "Study Habits", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Executive dysfunction: cognitive paralysis on where to initiate study.", "traits": ["SRC", "PRM"]}, {"col": 44, "text": "You don’t get interest in study because you think that whenever new semester will start then only you will study?", "domain": "Study Habits", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Chronic semester-delay rationalization: postponing study until next semester.", "traits": ["GM", "SRC", "PRM"]}, {"col": 45, "text": "You feel that other students are very intelligent?", "domain": "Study Habits", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Imposter Syndrome: feeling peers are inherently superior/more intelligent.", "traits": ["GM", "AAR"]}, {"col": 46, "text": "In a semester so many times you make your schedule of study.", "domain": "Study Habits", "polarity": "Direct Scored", "is_reverse": false, "notes": "Intention-action gap: repeated attempts to formulate study timetables.", "traits": ["TM", "MM"]}, {"col": 47, "text": "After each semester you feel very guilty that you didn’t gave your 100%?", "domain": "Study Habits", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Post-semester guilt cycle: chronic regret over suboptimal effort investment.", "traits": ["SRC", "MM"]}, {"col": 48, "text": "You are confident in setting and achieving your personal and academic goals?", "domain": "Study Habits", "polarity": "Direct Scored", "is_reverse": false, "notes": "Goal self-efficacy: confidence in setting and executing academic milestones.", "traits": ["PRM"]}, {"col": 49, "text": "You are   confident in social interactions with peers and instructors?", "domain": "Self-Esteem", "polarity": "Direct Scored", "is_reverse": false, "notes": "Social self-efficacy: ease in interacting with professors and peer classmates.", "traits": ["ASE"]}, {"col": 50, "text": "rate your agreement with the statement: \"I have high self-esteem.\"", "domain": "Self-Esteem", "polarity": "Direct Scored", "is_reverse": false, "notes": "Global self-esteem: Rosenburg-style self-worth and intellectual confidence.", "traits": ["ASE"]}, {"col": 51, "text": "You have some past experiences (failures or successes) that influenced your current level of self-confidence?", "domain": "Self-Esteem", "polarity": "Direct Scored", "is_reverse": false, "notes": "Attributional resilience: learning from past setbacks without ego collapse.", "traits": ["ASE", "GM", "SCR"]}, {"col": 52, "text": "you are comfortable with trying new activities or taking on new challenges.", "domain": "Self-Esteem", "polarity": "Direct Scored", "is_reverse": false, "notes": "Novelty challenge tolerance: comfort with new, open-ended technical tasks.", "traits": ["ASE", "MM", "FSI"]}, {"col": 53, "text": "You believe in friendship very much?", "domain": "Peer Dynamics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Relational valuation: importance placed on collegiate peer friendships.", "traits": ["PCL"]}, {"col": 54, "text": "Your friends are same as you in each manner either in study or other things?", "domain": "Peer Dynamics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Peer homophily: perceived similarity with peer circle in study and values.", "traits": ["PCL"]}, {"col": 55, "text": "Your most of the time is spend with your friends?", "domain": "Peer Dynamics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Social immersion: volume of daily waking hours spent with friend group.", "traits": ["PCL"]}, {"col": 56, "text": "You want to spend your time with your friends only in vacations also?", "domain": "Peer Dynamics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Peer dependency: desire to remain with college friends during vacation.", "traits": ["PCL"]}, {"col": 57, "text": "Rate your agreement with the statement: \"My friends have a positive influence on my academic and personal life.\"", "domain": "Peer Dynamics", "polarity": "Direct Scored", "is_reverse": false, "notes": "Positive peer scaffolding: constructive influence on academic discipline.", "traits": ["PCL"]}, {"col": 58, "text": "How often do your friends distract you from your studies?", "domain": "Peer Dynamics", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Toxic peer distraction: friends actively pulling student away from study.", "traits": ["PCL"]}, {"col": 59, "text": "you feel pressured by your friends to engage in activities that you are uncomfortable with?", "domain": "Peer Dynamics", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Coercive peer pressure: feeling compelled to engage in uncomfortable acts.", "traits": ["PCL"]}, {"col": 60, "text": "the approval of your friends is important   in your decision-making process.", "domain": "Peer Dynamics", "polarity": "Reverse Scored", "is_reverse": true, "notes": "External social approval dependency: inability to make independent choices.", "traits": ["PCL"]}, {"col": 61, "text": "do you participate in risky behaviors due to influence from friends?", "domain": "Peer Dynamics", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Peer-induced risk-taking: reckless behavior driven by social conformity.", "traits": ["PCL"]}, {"col": 62, "text": "you feel your friends impact your mental health?", "domain": "Peer Dynamics", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Relational mental strain: emotional distress and toxicity in peer group.", "traits": ["PCL"]}, {"col": 63, "text": "rate your agreement with the statement: \"I am generally in good health.\"", "domain": "Physical Health", "polarity": "Direct Scored", "is_reverse": false, "notes": "General physical health status: self-rated biological vitality baseline.", "traits": ["PAW"]}, {"col": 64, "text": "How does the quality and variety of food available to you impact your overall well-being in college?", "domain": "Physical Health", "polarity": "Direct Scored", "is_reverse": false, "notes": "Campus nutritional adequacy: impact of mess food variety on well-being.", "traits": ["PAW"]}, {"col": 65, "text": "How often do you eat meals in the campus dining halls or other food facilities?", "domain": "Physical Health", "polarity": "Direct Scored", "is_reverse": false, "notes": "Campus dining regularity: consistency of eating meals in hostel mess.", "traits": ["PAW"]}, {"col": 66, "text": "How often do you engage in physical activity or exercise?", "domain": "Physical Health", "polarity": "Direct Scored", "is_reverse": false, "notes": "Routine physical exercise: frequency of cardiovascular workout/sports.", "traits": ["PAW"]}, {"col": 67, "text": "How would you rate your overall physical and mental health?", "domain": "Physical Health", "polarity": "Direct Scored", "is_reverse": false, "notes": "Holistic health perception: combined physical and mental vitality score.", "traits": ["PAW"]}, {"col": 68, "text": "do you experience health-related issues that affect your daily activities?", "domain": "Physical Health", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Somatic disability: health ailments directly interfering with daily routine.", "traits": ["PAW"]}, {"col": 69, "text": "do health issues affect your academic performance?", "domain": "Physical Health", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Health-induced academic decline: medical issues causing low exam scores.", "traits": ["PAW"]}, {"col": 70, "text": "do you feel supported by friends, family, and instructors when dealing with health issues?", "domain": "Physical Health", "polarity": "Direct Scored", "is_reverse": false, "notes": "Health support network: perceived care from family/friends during sickness.", "traits": ["PAW"]}, {"col": 71, "text": "You never like mess food?", "domain": "Hostel Life", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Mess food aversion: chronic dissatisfaction with campus residential dining.", "traits": ["SCR", "BEL"]}, {"col": 72, "text": "All the time you feel very tired and lazy.", "domain": "Hostel Life", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Chronic fatigue syndrome: feeling lethargic, unrefreshed, and exhausted.", "traits": ["AAR", "SQCR"]}, {"col": 73, "text": "This environment doesn’t suit you.", "domain": "Hostel Life", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Environmental mismatch: feeling the collegiate institutional climate is toxic.", "traits": ["BEL"]}, {"col": 74, "text": "At home you are very energetic but not in college?", "domain": "Hostel Life", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Home-campus energy divergence: energetic at home but depleted at college.", "traits": ["BEL"]}, {"col": 75, "text": "You don’t get good sleep?", "domain": "Hostel Life", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Nocturnal sleep deficiency: inability to attain deep, restorative sleep.", "traits": ["CS"]}, {"col": 76, "text": "Your parents always want you to improve more and never satisfies with your performance?", "domain": "Family Pressure", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Parental perfectionism: parents never satisfied with academic marks.", "traits": ["FAM"]}, {"col": 77, "text": "How satisfied are you with the resources available on campus for managing and coping with family pressure?", "domain": "Family Pressure", "polarity": "Direct Scored", "is_reverse": false, "notes": "Campus coping resources: awareness of institutional counseling for stress.", "traits": ["FAM"]}, {"col": 78, "text": "How does Family stress or difficulty impact your academic performance and well-being?", "domain": "Family Pressure", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Family conflict spillover: domestic problems impairing concentration.", "traits": ["FAM"]}, {"col": 79, "text": "Your parents never motivate you like other parents?", "domain": "Family Pressure", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Comparative parental criticism: feeling parents compare student unfavorably.", "traits": ["FAM"]}, {"col": 80, "text": "Have you ever discussed this pressure with your family or anyone else for support?", "domain": "Family Pressure", "polarity": "Direct Scored", "is_reverse": false, "notes": "Family emotional dialogue: willingness to discuss stress openly with parents.", "traits": ["FAM"]}, {"col": 81, "text": "You never achieve the expectations of your parents?", "domain": "Family Pressure", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Chronic failure feeling: perceived permanent inability to meet expectations.", "traits": ["FAM"]}, {"col": 82, "text": "You don’t want to talk your parents?", "domain": "Family Pressure", "polarity": "Reverse Scored", "is_reverse": true, "notes": "CRITICAL: Parental emotional estrangement. Reluctance to speak to parents.", "traits": ["FAM"]}, {"col": 83, "text": "You think that your parents don’t support you like other parents do?", "domain": "Family Pressure", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Perceived lack of parental support: feeling isolated compared to peers.", "traits": ["FAM"]}, {"col": 84, "text": "do you feel your parents' aspirations influence your own life goals and ambitions?", "domain": "Family Pressure", "polarity": "Direct Scored", "is_reverse": false, "notes": "Parental vicarious ambition: parental goals substituting personal drive.", "traits": ["FAM"]}, {"col": 85, "text": "rate your agreement with the statement: \"I feel pressure from my family to meet certain expectations.\"", "domain": "Family Pressure", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Family expectation burden: acute pressure to attain high-paying placements.", "traits": ["AAR", "FAM"]}, {"col": 86, "text": "rate your agreement with the statement: \"I frequently engage in activities that I consider to be bad habits.\"", "domain": "Maladaptive Habits", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Self-acknowledged bad habits: engaging in addictive or harmful routines.", "traits": ["SCR"]}, {"col": 87, "text": "How effective have interventions (counseling, support groups, therapy) been in helping you manage or quit your bad habits?", "domain": "Maladaptive Habits", "polarity": "Direct Scored", "is_reverse": false, "notes": "Therapeutic intervention efficacy: responsiveness to past counseling.", "traits": ["SCR", "FSI"]}, {"col": 88, "text": "You enjoy the late-night parties with your friends?", "domain": "Maladaptive Habits", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Nocturnal partying: late-night escapism disrupting circadian rhythms.", "traits": ["SCR"]}, {"col": 89, "text": "How do you feel about the resources available on campus for addressing bad habits or addiction?", "domain": "Maladaptive Habits", "polarity": "Direct Scored", "is_reverse": false, "notes": "Campus de-addiction awareness: perception of university counseling support.", "traits": ["SCR"]}, {"col": 90, "text": "How has your academic performance been impacted by any bad habits or addiction?", "domain": "Maladaptive Habits", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Habit-induced academic damage: performance collapse due to addictions.", "traits": ["SCR"]}, {"col": 91, "text": "Study is your first priority in exams.", "domain": "Study Priorities", "polarity": "Direct Scored", "is_reverse": false, "notes": "Exam priority focus: placing academic study above social distractions.", "traits": ["TM", "SRC"]}, {"col": 92, "text": "If you get less score in exams, your friends are the main reason of your less score?", "domain": "Study Priorities", "polarity": "Reverse Scored", "is_reverse": true, "notes": "External locus of control: blaming peer group for personal low marks.", "traits": ["PCL"]}, {"col": 93, "text": "Your daily routine is not fix?", "domain": "Study Priorities", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Circadian chaos: complete lack of structured daily study/sleep schedule.", "traits": ["TM", "SQCR"]}, {"col": 94, "text": "rate your agreement with the statement: \"I frequently feel homesick.\"", "domain": "Homesickness", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Acute homesickness frequency: persistent emotional pull toward home.", "traits": ["BEL"]}, {"col": 95, "text": "You visit home as often as you can?", "domain": "Homesickness", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Frequent home transit: fleeing campus on weekends, hurting study groups.", "traits": ["BEL"]}, {"col": 96, "text": "How satisfied are you with the resources available on campus for addressing homesickness?", "domain": "Homesickness", "polarity": "Direct Scored", "is_reverse": false, "notes": "Campus transition support: satisfaction with institutional orientation.", "traits": ["BEL"]}, {"col": 97, "text": "How often do you stay in touch with family and friends from home?", "domain": "Homesickness", "polarity": "Direct Scored", "is_reverse": false, "notes": "Home contact frequency: healthy communication with family support system.", "traits": ["BEL"]}, {"col": 98, "text": "You hardly ever think about home?", "domain": "Homesickness", "polarity": "Direct Scored", "is_reverse": false, "notes": "Campus independence: emotional stability without compulsive home longing.", "traits": ["BEL"]}, {"col": 99, "text": "You call your family so many times during a day?", "domain": "Homesickness", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Compulsive parental calling: calling home multiple times daily due to anxiety.", "traits": ["BEL"]}, {"col": 100, "text": "You hate this place?", "domain": "Homesickness", "polarity": "Reverse Scored", "is_reverse": true, "notes": "CRITICAL: Acute institutional rejection. Stating 'You hate this place'.", "traits": ["BEL"]}, {"col": 101, "text": "You are very excited when vocation is there?", "domain": "Homesickness", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Vacation fixation: mental disengagement from campus during semester.", "traits": ["BEL"]}, {"col": 102, "text": "How significantly does homesickness affect your mental health?", "domain": "Homesickness", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Homesickness psychological toll: homesickness inducing depressive affect.", "traits": ["BEL"]}, {"col": 103, "text": "How actively do you participate in campus activities to feel more connected?", "domain": "Homesickness", "polarity": "Direct Scored", "is_reverse": false, "notes": "Campus activity engagement: participating in clubs to build belonging.", "traits": ["BEL"]}, {"col": 104, "text": "You spend so much time on your mobile?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Excessive screen time: compulsive hours spent on mobile devices.", "traits": ["SDA"]}, {"col": 105, "text": "your academic performance has been impacted by any Social media addiction?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Social media academic impairment: grades declining due to online apps.", "traits": ["SDA"]}, {"col": 106, "text": "Without any message also you scroll down the screen of your mobile for social media.", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Phantom scrolling: mindlessly scrolling feeds even without notifications.", "traits": ["SDA"]}, {"col": 107, "text": "You cannot assume your life without social media sites or apps?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Digital dependency: expressing life is unimaginable without social apps.", "traits": ["SDA"]}, {"col": 108, "text": "Your friends comment on your photo or story matter for you a lot?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Social validation addiction: excessive anxiety over post likes/comments.", "traits": ["SDA"]}, {"col": 109, "text": "You share every happy and sad moment with your friends by posting?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Compulsive life broadcasting: sharing every emotional event online.", "traits": ["SDA"]}, {"col": 110, "text": "How significantly does your use of mobile phones or social media affect your physical health (e.g., eye strain, posture problems)?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Digital somatic toll: eye strain, neck posture, and physical discomfort.", "traits": ["SDA"]}, {"col": 111, "text": "rate your agreement with the statement: \"My use of mobile phones or social media disrupts my daily life and activities.\"", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Daily routine disruption: screen time delaying meals, study, and sleep.", "traits": ["SQCR", "SDA"]}, {"col": 112, "text": "How often does your use of mobile phones or social media negatively impact your academic performance?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Study distraction: social media interrupts homework and revision.", "traits": ["SDA"]}, {"col": 113, "text": "How significantly does your use of mobile phones or social media affect your productivity in academic or personal tasks?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Cognitive productivity decline: inability to sustain deep focused work.", "traits": ["SDA"]}, {"col": 114, "text": "Have you ever tried to reduce your use of mobile phones or social media?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Failed digital detox: attempted reduction of phone usage and failed.", "traits": ["SDA"]}, {"col": 115, "text": "How anxious do you feel when you are unable to access your mobile phone or social media?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Nomophobia & withdrawal: severe anxiety when mobile access is denied.", "traits": ["SDA"]}, {"col": 116, "text": "How often do you use your mobile phone or social media during classes or study sessions?", "domain": "Digital Addiction", "polarity": "Reverse Scored", "is_reverse": true, "notes": "In-class digital distraction: using smartphone apps during live lectures.", "traits": ["SDA"]}, {"col": 117, "text": "Are you sleeping more or less then you normally sleep?", "domain": "Clinical Screening", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Sleep architecture disruption: insomnia or excessive vegetative hypersomnia.", "traits": ["SQCR", "CS"]}, {"col": 118, "text": "Do you feel tired, no matter how much you sleep?", "domain": "Clinical Screening", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Unrefreshing sleep: persistent exhaustion regardless of sleep duration.", "traits": ["SQCR", "CS"]}, {"col": 119, "text": "Are you enjoying the things right now happening in your life?", "domain": "Clinical Screening", "polarity": "Direct Scored", "is_reverse": false, "notes": "Anhedonia marker: ability to experience joy in current daily events.", "traits": ["CS"]}, {"col": 120, "text": "You don’t like interaction with anybody?", "domain": "Clinical Screening", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Social withdrawal & isolation: aversion to interacting with all humans.", "traits": ["CS"]}, {"col": 121, "text": "Have you noticed any changes in your physical appearance, such as bloodshot eyes, unusual odors, or sudden weight loss or gain in the past month?", "domain": "Clinical Screening", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Somatic physical breakdown: bloodshot eyes, drastic weight fluctuations.", "traits": ["CS"]}, {"col": 122, "text": "It is difficult for you to talk with your friends also.", "domain": "Clinical Screening", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Relational shutdown: inability to converse even with closest friends.", "traits": ["CS"]}, {"col": 123, "text": "Have you noticed any changes in your sleeping patterns or appetite recently?", "domain": "Clinical Screening", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Vegetative somatic shifts: acute appetite loss or erratic circadian shifts.", "traits": ["CS"]}, {"col": 124, "text": "Have you noticed any changes in your academic performance or behavior, such as missing classes or assignments, arriving late, or engaging in disruptive behavior in the past month?", "domain": "Clinical Screening", "polarity": "Reverse Scored", "is_reverse": true, "notes": "Behavioral disinhibition: unexcused absenteeism, chronic late arrivals.", "traits": ["CS"]}, {"col": 125, "text": "How often have you felt disoriented or confused in the past month?", "domain": "Clinical Screening", "polarity": "Reverse Scored", "is_reverse": true, "notes": "CRITICAL: Cognitive disorientation, severe confusion, and acute crisis.", "traits": ["CS"]}], "traits": {"AM": {"code": "AM", "name": "Academic Motivation", "weight": "8.8%", "weightNum": 8.8, "quadrant": "Mindset & Autonomous Drive", "effect": "Protective", "cols": [33, 34, 35, 36, 37, 38, 41], "desc": "Autonomous academic purpose, intrinsic drive, and rejection of forced enrollment."}, "ASE": {"code": "ASE", "name": "Academic Self-Efficacy", "weight": "7.6%", "weightNum": 7.6, "quadrant": "Mindset & Autonomous Drive", "effect": "Protective", "cols": [42, 49, 50, 51, 52], "desc": "Confidence in mastering complex technical coursework and solving engineering challenges."}, "EI": {"code": "EI", "name": "Engineering Identity", "weight": "6.2%", "weightNum": 6.2, "quadrant": "Mindset & Autonomous Drive", "effect": "Protective", "cols": [36, 37, 41], "desc": "Intrinsic alignment with the engineering profession and seeing long-term career in tech."}, "GM": {"code": "GM", "name": "Growth Mindset", "weight": "5.8%", "weightNum": 5.8, "quadrant": "Mindset & Autonomous Drive", "effect": "Protective", "cols": [44, 45, 51], "desc": "Perception of intelligence as expandable, viewing academic setbacks as learning inputs."}, "TM": {"code": "TM", "name": "Time Management", "weight": "10.4%", "weightNum": 10.4, "quadrant": "Executive Regulation & Study Routine", "effect": "Protective", "cols": [46, 91, 93], "desc": "Deliberate scheduling, proactive milestone tracking, and resisting nocturnal study chaos."}, "SRC": {"code": "SRC", "name": "Study Consistency", "weight": "8.6%", "weightNum": 8.6, "quadrant": "Executive Regulation & Study Routine", "effect": "Protective", "cols": [43, 44, 47, 91], "desc": "Daily revision discipline, absence of start-stop cycles, and sustained study momentum."}, "PRM": {"code": "PRM", "name": "Procrastination Management", "weight": "6.4%", "weightNum": 6.4, "quadrant": "Executive Regulation & Study Routine", "effect": "Protective", "cols": [43, 44, 48], "desc": "Overcoming assignment delays, task paralysis, and post-exam regret."}, "MM": {"code": "MM", "name": "Metacognitive Regulation", "weight": "5.8%", "weightNum": 5.8, "quadrant": "Executive Regulation & Study Routine", "effect": "Protective", "cols": [46, 47, 52], "desc": "Self-monitoring of learning comprehension and calibrating study effort to performance."}, "AAR": {"code": "AAR", "name": "Academic Test Anxiety", "weight": "8.2%", "weightNum": 8.2, "quadrant": "Emotional & Somatic Stability", "effect": "Risk Factor", "cols": [45, 72, 85], "desc": "Tolerance of timed high-stakes exams and cognitive calm during assessments."}, "SQCR": {"code": "SQCR", "name": "Sleep Quality & Circadian Rhythm", "weight": "7.1%", "weightNum": 7.1, "quadrant": "Emotional & Somatic Stability", "effect": "Protective", "cols": [72, 93, 111, 117, 118], "desc": "Consistent 7+ hour circadian schedule, nocturnal rhythm regularity, and low fatigue."}, "SCR": {"code": "SCR", "name": "Stress Coping Resilience", "weight": "4.8%", "weightNum": 4.8, "quadrant": "Emotional & Somatic Stability", "effect": "Protective", "cols": [51, 71, 86, 87, 88, 89, 90], "desc": "Adaptive coping under engineering workload, low substance reliance, and emotional recovery."}, "PAW": {"code": "PAW", "name": "Physical Activity & Somatics", "weight": "3.5%", "weightNum": 3.5, "quadrant": "Emotional & Somatic Stability", "effect": "Protective", "cols": [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 63, 64, 65, 66, 67, 68, 69, 70], "desc": "Sports engagement, somatic energy, physical fitness, and mess food adaptation."}, "SDA": {"code": "SDA", "name": "Screen Time & Digital Focus", "weight": "3.0%", "weightNum": 3.0, "quadrant": "Emotional & Somatic Stability", "effect": "Protective", "cols": [104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116], "desc": "Controlled mobile screen time, resistance to in-class phone distraction and doomscrolling."}, "BEL": {"code": "BEL", "name": "Campus Belonging & Transition", "weight": "5.4%", "weightNum": 5.4, "quadrant": "Social Capital & Relational Environment", "effect": "Protective", "cols": [71, 73, 74, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103], "desc": "Hostel community adjustment, overcoming homesickness and relocation shock."}, "PCL": {"code": "PCL", "name": "Peer Group Collaboration", "weight": "4.6%", "weightNum": 4.6, "quadrant": "Social Capital & Relational Environment", "effect": "Protective", "cols": [39, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 92], "desc": "Study group participation, collaborative homework, and resilience to negative peer influence."}, "FAM": {"code": "FAM", "name": "Family Autonomy & Low Coercion", "weight": "4.2%", "weightNum": 4.2, "quadrant": "Social Capital & Relational Environment", "effect": "Risk Factor", "cols": [76, 77, 78, 79, 80, 81, 82, 83, 84, 85], "desc": "Freedom from hyper-critical parental perfectionism, comparative pressure, and guilt."}, "FSI": {"code": "FSI", "name": "Faculty Seeking & Guidance", "weight": "2.6%", "weightNum": 2.6, "quadrant": "Social Capital & Relational Environment", "effect": "Protective", "cols": [40, 52, 87], "desc": "Proactive instructor consultation, attending office hours, and counseling openness."}, "CS": {"code": "CS", "name": "Clinical Distress Safety Screener", "weight": "Gate", "weightNum": 0.0, "quadrant": "Clinical Safety Gate", "effect": "Emergency", "cols": [75, 117, 118, 119, 120, 121, 122, 123, 124, 125], "desc": "Screening for severe somatic exhaustion, vegetative disruption, disorientation, and acute crisis."}}};
+    const demographicsList = bundleData.demographics;
+    const allQuestions = bundleData.likert;
+    const traitDefs = bundleData.traits;
+    const sectionDefs = [{"id": "sec-sports", "title": "Sports, Somatic Vitality & Physical Recreation", "icon": "🏃", "cols": [23, 24, 25, 26, 27, 28, 29, 30, 31, 32], "desc": "Assesses sports engagement, somatic vitality, recreational habits, and institution sports culture."}, {"id": "sec-motivation", "title": "Academic Motivation, Autonomous Choice & Parental Coercion", "icon": "🎯", "cols": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], "desc": "Assesses engineering choice autonomy, parental coercion, intrinsic passion, and engineering career vision."}, {"id": "sec-study-habits", "title": "Study Habits, Metacognition & Procrastination Guilt", "icon": "📚", "cols": [43, 44, 45, 46, 47, 48], "desc": "Assesses executive function, timetable planning, imposter syndrome, and post-semester guilt."}, {"id": "sec-self-esteem", "title": "Self-Esteem, Self-Efficacy & Confidence", "icon": "💡", "cols": [49, 50, 51, 52], "desc": "Assesses academic self-esteem, public speaking confidence, resilience against failure, and guidance seeking."}, {"id": "sec-peer-dynamics", "title": "Peer Dynamics, Social Influence & Distraction", "icon": "👥", "cols": [53, 54, 55, 56, 57, 58, 59, 60, 61, 62], "desc": "Assesses peer study groups, academic competition, peer distraction, and blame attribution."}, {"id": "sec-mess-food", "title": "Mess Food, Nutrition & Somatic Health", "icon": "🍲", "cols": [63, 64, 65, 66, 67, 68, 69, 70], "desc": "Assesses hostel dining adaptation, meal regularity, nutritional energy, and somatization."}, {"id": "sec-hostel-life", "title": "Hostel Life & Transition Shock", "icon": "🏠", "cols": [71, 72, 73, 74, 75], "desc": "Assesses hostel adjustment, sleep environment, institutional connection, and acute crisis screening."}, {"id": "sec-family-pressure", "title": "Family Pressure & Parental Expectations", "icon": "👨‍👩‍👧", "cols": [76, 77, 78, 79, 80, 81, 82, 83, 84, 85], "desc": "Assesses parental comparison, perfectionist expectations, guilt conditioning, and emotional strain."}, {"id": "sec-maladaptive", "title": "Maladaptive Habits, Nocturnal Culture & Daily Routine", "icon": "🌙", "cols": [86, 87, 88, 89, 90], "desc": "Assesses late-night parties, nocturnal schedule disruption, counseling openness, and peer habits."}, {"id": "sec-priorities", "title": "Study Priorities & Academic Rhythm", "icon": "⏱", "cols": [91, 92, 93], "desc": "Assesses study priority management, peer academic reliance, and nocturnal study cycles."}, {"id": "sec-homesickness", "title": "Relocation Shock & Homesickness Adjustment", "icon": "🧳", "cols": [94, 95, 96, 97, 98, 99, 100, 101, 102, 103], "desc": "Assesses geographic displacement, hometown attachment, longing for home, and emotional loneliness."}, {"id": "sec-digital", "title": "Smartphone & Social Media Digital Addiction", "icon": "📱", "cols": [104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116], "desc": "Assesses compulsive screen time, in-class phone distraction, social media withdrawal anxiety, and doomscrolling."}, {"id": "sec-clinical", "title": "Clinical Depressive Screening & Somatic Distress", "icon": "🩺", "cols": [117, 118, 119, 120, 121, 122, 123, 124, 125], "desc": "Assesses vegetative sleep shifts, acute somatic disorientation, social withdrawal, and crisis flags."}];
 
-      // Cluster 4
-      { id: "q12", cluster: 4, code: "DLR", domain: "Digital & AI Literacy", text: "I leverage modern AI tools, coding environments, and digital libraries proficiently." },
-      { id: "q13", cluster: 4, code: "CR", domain: "Career Readiness", text: "I regularly build portfolio projects and prepare proactively for career internships." },
-      { id: "q14", cluster: 4, code: "SCR", domain: "Digital Well-Being", text: "I keep late-night smartphone screen time regulated and avoid screens before sleep." },
-      { id: "q15", cluster: 4, code: "BEL", domain: "Campus Belonging", text: "I feel a strong sense of community, peer support, and mentorship on campus." },
-      { id: "q16", cluster: 4, code: "FIN", domain: "Socioeconomic Stability", text: "My academic focus is stable and not disrupted by acute socioeconomic stress." },
-      { id: "q17", cluster: 4, code: "LMS", domain: "LMS Usability", text: "I actively utilize the institutional LMS for lecture notes, quizzes, and course tracking." }
+    // Current State
+    let currentStudent = {
+      id: "2026UGCS086",
+      university: "MNIT Jaipur",
+      timestamp: "2026-11-18 10:30:00",
+      username: "aarav.sharma26",
+      totalScore: 82,
+      name: "Aarav Sharma",
+      roll: "2026UGCS086",
+      email: "aarav.sharma@mnit.ac.in",
+      contact: "+91 98765 43210",
+      password: "Aarav@2026",
+      studentType: "Undergraduate B.Tech",
+      gender: "Male",
+      age: 19,
+      familyIncome: "3 - 6 LPA (Lower Middle)",
+      fatherOcc: "Private Sector / IT",
+      hometown: "Bikaner, Rajasthan",
+      fatherEdu: "Bachelor's Degree (Graduate)",
+      firstGen: "No",
+      housing: "Hosteler",
+      branch: "Computer Science & Eng (CSE)",
+      sem: "Semester 1 (Freshman)",
+      tenthPct: 91.4,
+      twelfthPct: 86.8,
+      cgpa: 7.12,
+      status: "Assessment In Progress"
+    };
+
+    let studentAnswers = {}; // col -> 1..5
+    let calculatedTraits = {}; // traitCode -> score (1.0 to 5.0)
+    let kdRadarChartInstance = null;
+
+    // Registered students roster
+    let registeredStudents = [
+      {
+        ...currentStudent,
+        status: "Completed",
+        calculatedTraits: {
+          "AM": 2.85, "ASE": 3.10, "EI": 3.00, "GM": 2.70,
+          "TM": 2.10, "SRC": 2.30, "PRM": 2.20, "MM": 2.50,
+          "AAR": 2.20, "SQCR": 2.10, "SCR": 2.40, "PAW": 3.10, "SDA": 1.90,
+          "BEL": 2.40, "PCL": 3.00, "FAM": 2.20, "FSI": 2.60, "CS": 3.20
+        },
+        hazard: 0.468,
+        predSGPA: 7.34,
+        placementTier: "Tier 2"
+      },
+      {
+        id: "2026UGECE142",
+        university: "MNIT Jaipur",
+        timestamp: "2026-11-17 14:15:00",
+        username: "ananya.verma26",
+        totalScore: 88,
+        name: "Ananya Verma",
+        roll: "2026UGECE142",
+        email: "ananya.verma@mnit.ac.in",
+        contact: "+91 98234 56789",
+        password: "Ananya@Pass123",
+        studentType: "Undergraduate B.Tech",
+        gender: "Female",
+        age: 18,
+        familyIncome: "< 3 LPA (Economically Weaker Section)",
+        fatherOcc: "Agriculture / Farming",
+        hometown: "Jaipur, Rajasthan",
+        fatherEdu: "High School (10th / 12th)",
+        firstGen: "Yes",
+        housing: "Day Scholar",
+        branch: "Electronics & Comm (ECE)",
+        sem: "Semester 1 (Freshman)",
+        tenthPct: 93.6,
+        twelfthPct: 91.2,
+        cgpa: 7.85,
+        status: "Completed",
+        calculatedTraits: {
+          "AM": 3.75, "ASE": 3.50, "EI": 3.60, "GM": 3.40,
+          "TM": 3.30, "SRC": 3.60, "PRM": 3.20, "MM": 3.30,
+          "AAR": 3.10, "SQCR": 3.50, "SCR": 3.40, "PAW": 3.20, "SDA": 3.40,
+          "BEL": 3.80, "PCL": 3.50, "FAM": 3.40, "FSI": 3.50, "CS": 1.20
+        },
+        hazard: 0.224,
+        predSGPA: 8.10,
+        placementTier: "Tier 1"
+      },
+      {
+        id: "2026UGAI015",
+        university: "MNIT Jaipur",
+        timestamp: "2026-11-16 09:20:00",
+        username: "devendra.joshi26",
+        totalScore: 96,
+        name: "Devendra Joshi",
+        roll: "2026UGAI015",
+        email: "devendra.j@mnit.ac.in",
+        contact: "+91 94140 12345",
+        password: "Dev@Star2026",
+        studentType: "Undergraduate B.Tech",
+        gender: "Male",
+        age: 19,
+        familyIncome: "> 15 LPA (High Income)",
+        fatherOcc: "Professional (Doctor/Lawyer/Prof)",
+        hometown: "Jaipur, Rajasthan",
+        fatherEdu: "Doctorate / Ph.D.",
+        firstGen: "No",
+        housing: "Hosteler",
+        branch: "AI & Data Science (AI/DS)",
+        sem: "Semester 1 (Freshman)",
+        tenthPct: 97.2,
+        twelfthPct: 96.4,
+        cgpa: 9.42,
+        status: "Completed",
+        calculatedTraits: {
+          "AM": 4.80, "ASE": 4.70, "EI": 4.85, "GM": 4.60,
+          "TM": 4.65, "SRC": 4.75, "PRM": 4.50, "MM": 4.60,
+          "AAR": 4.50, "SQCR": 4.40, "SCR": 4.60, "PAW": 4.30, "SDA": 4.40,
+          "BEL": 4.60, "PCL": 4.50, "FAM": 4.70, "FSI": 4.50, "CS": 1.00
+        },
+        hazard: 0.082,
+        predSGPA: 9.55,
+        placementTier: "Tier 1"
+      }
     ];
 
-    let userScores = {};
-    let radarChart = null;
+    // Navigation Switcher
+    function showView(viewName) {
+      document.querySelectorAll('.section-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
-    function initQuestions() {
-      for (let c = 1; c <= 4; c++) {
-        const container = document.getElementById(`q-container-${c}`);
-        container.innerHTML = "";
-        const cQuestions = questions.filter(q => q.cluster === c);
+      const target = document.getElementById(`view-${viewName}`);
+      const btn = document.getElementById(`btn-nav-${viewName}`);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
 
-        cQuestions.forEach(q => {
-          userScores[q.domain] = 3.0; // Default Neutral 3
-          const card = document.createElement("div");
-          card.className = "q-card";
-          card.innerHTML = `
-            <div class="q-header">
-              <span class="q-badge">[${q.code}] ${q.domain}</span>
-              <span id="score-badge-${q.id}" style="font-size: 0.8rem; font-weight: 800; color: #38bdf8;">3.0/5.0</span>
-            </div>
-            <div class="q-text">${q.text}</div>
-            <div class="likert-group" id="group-${q.id}">
-              <div class="likert-btn" onclick="selectLikert('${q.id}', '${q.domain}', 1)">
-                <span class="likert-val" style="color: #f87171;">1</span>
-                <span class="likert-label">Strongly Disagree</span>
-              </div>
-              <div class="likert-btn" onclick="selectLikert('${q.id}', '${q.domain}', 2)">
-                <span class="likert-val" style="color: #fb923c;">2</span>
-                <span class="likert-label">Disagree</span>
-              </div>
-              <div class="likert-btn selected" onclick="selectLikert('${q.id}', '${q.domain}', 3)">
-                <span class="likert-val" style="color: #cbd5e1;">3</span>
-                <span class="likert-label">Neutral</span>
-              </div>
-              <div class="likert-btn" onclick="selectLikert('${q.id}', '${q.domain}', 4)">
-                <span class="likert-val" style="color: #38bdf8;">4</span>
-                <span class="likert-label">Agree</span>
-              </div>
-              <div class="likert-btn" onclick="selectLikert('${q.id}', '${q.domain}', 5)">
-                <span class="likert-val" style="color: #34d399;">5</span>
-                <span class="likert-label">Strongly Agree</span>
-              </div>
-            </div>
-          `;
-          container.appendChild(card);
+      if (viewName === 'test') {
+        renderTestQuestions();
+      } else if (viewName === 'kundali') {
+        renderKundaliDossier();
+      } else if (viewName === 'admin') {
+        renderAdminTable();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Update First-Gen status based on father's education
+    function updateFirstGenStatus() {
+      const edu = document.getElementById("demo-father-edu").value;
+      const isFirstGen = (edu.includes("High School") || edu.includes("No Formal"));
+      document.getElementById("demo-firstgen").value = isFirstGen ? "Yes (First-Generation College Student)" : "No";
+    }
+
+    // Load Student Demographic Presets
+    function loadStudentPreset(type) {
+      if (type === 'at_risk') {
+        document.getElementById("demo-student-id").value = "2026UGCS086";
+        document.getElementById("demo-name").value = "Aarav Sharma";
+        document.getElementById("demo-roll").value = "2026UGCS086";
+        document.getElementById("demo-email").value = "aarav.sharma@mnit.ac.in";
+        document.getElementById("demo-contact").value = "+91 98765 43210";
+        document.getElementById("demo-password").value = "Aarav@2026";
+        document.getElementById("demo-gender").value = "Male";
+        document.getElementById("demo-age").value = "19";
+        document.getElementById("demo-family-income").value = "3 - 6 LPA (Lower Middle)";
+        document.getElementById("demo-father-occ").value = "Private Sector / IT";
+        document.getElementById("demo-hometown").value = "Bikaner, Rajasthan";
+        document.getElementById("demo-father-edu").value = "Bachelor's Degree (Graduate)";
+        document.getElementById("demo-housing").value = "Hosteler";
+        document.getElementById("demo-branch").value = "Computer Science & Eng (CSE)";
+        document.getElementById("demo-semester").value = "Semester 1 (Freshman)";
+        document.getElementById("demo-10th").value = "91.4";
+        document.getElementById("demo-12th").value = "86.8";
+        document.getElementById("demo-cgpa").value = "7.12";
+      } else if (type === 'average') {
+        document.getElementById("demo-student-id").value = "2026UGECE142";
+        document.getElementById("demo-name").value = "Ananya Verma";
+        document.getElementById("demo-roll").value = "2026UGECE142";
+        document.getElementById("demo-email").value = "ananya.verma@mnit.ac.in";
+        document.getElementById("demo-contact").value = "+91 98234 56789";
+        document.getElementById("demo-password").value = "Ananya@Pass123";
+        document.getElementById("demo-gender").value = "Female";
+        document.getElementById("demo-age").value = "18";
+        document.getElementById("demo-family-income").value = "< 3 LPA (Economically Weaker Section)";
+        document.getElementById("demo-father-occ").value = "Agriculture / Farming";
+        document.getElementById("demo-hometown").value = "Jaipur, Rajasthan";
+        document.getElementById("demo-father-edu").value = "High School (10th / 12th)";
+        document.getElementById("demo-housing").value = "Day Scholar";
+        document.getElementById("demo-branch").value = "Electronics & Comm (ECE)";
+        document.getElementById("demo-semester").value = "Semester 1 (Freshman)";
+        document.getElementById("demo-10th").value = "93.6";
+        document.getElementById("demo-12th").value = "91.2";
+        document.getElementById("demo-cgpa").value = "7.85";
+      } else if (type === 'scholar') {
+        document.getElementById("demo-student-id").value = "2026UGAI015";
+        document.getElementById("demo-name").value = "Devendra Joshi";
+        document.getElementById("demo-roll").value = "2026UGAI015";
+        document.getElementById("demo-email").value = "devendra.j@mnit.ac.in";
+        document.getElementById("demo-contact").value = "+91 94140 12345";
+        document.getElementById("demo-password").value = "Dev@Star2026";
+        document.getElementById("demo-gender").value = "Male";
+        document.getElementById("demo-age").value = "19";
+        document.getElementById("demo-family-income").value = "> 15 LPA (High Income)";
+        document.getElementById("demo-father-occ").value = "Professional (Doctor/Lawyer/Prof)";
+        document.getElementById("demo-hometown").value = "Jaipur, Rajasthan";
+        document.getElementById("demo-father-edu").value = "Doctorate / Ph.D.";
+        document.getElementById("demo-housing").value = "Hosteler";
+        document.getElementById("demo-branch").value = "AI & Data Science (AI/DS)";
+        document.getElementById("demo-semester").value = "Semester 1 (Freshman)";
+        document.getElementById("demo-10th").value = "97.2";
+        document.getElementById("demo-12th").value = "96.4";
+        document.getElementById("demo-cgpa").value = "9.42";
+      }
+      updateFirstGenStatus();
+    }
+
+    function resetDemographicsForm() {
+      document.getElementById("form-demographics").reset();
+      updateFirstGenStatus();
+    }
+
+    // Step 1: Submit Demographics and proceed to Step 2
+    function handleDemographicsSubmit(e) {
+      if (e) e.preventDefault();
+
+      currentStudent = {
+        id: document.getElementById("demo-student-id").value.trim(),
+        university: document.getElementById("demo-university").value.trim(),
+        timestamp: document.getElementById("demo-timestamp").value.trim(),
+        username: document.getElementById("demo-username").value.trim(),
+        totalScore: parseFloat(document.getElementById("demo-total-score").value) || 0,
+        name: document.getElementById("demo-name").value.trim(),
+        roll: document.getElementById("demo-roll").value.trim(),
+        email: document.getElementById("demo-email").value.trim(),
+        contact: document.getElementById("demo-contact").value.trim(),
+        password: document.getElementById("demo-password").value.trim(),
+        studentType: document.getElementById("demo-student-type").value,
+        gender: document.getElementById("demo-gender").value,
+        age: parseInt(document.getElementById("demo-age").value) || 18,
+        familyIncome: document.getElementById("demo-family-income").value,
+        fatherOcc: document.getElementById("demo-father-occ").value,
+        hometown: document.getElementById("demo-hometown").value.trim(),
+        fatherEdu: document.getElementById("demo-father-edu").value,
+        firstGen: document.getElementById("demo-firstgen").value.includes("Yes") ? "Yes" : "No",
+        housing: document.getElementById("demo-housing").value,
+        branch: document.getElementById("demo-branch").value,
+        sem: document.getElementById("demo-semester").value,
+        tenthPct: parseFloat(document.getElementById("demo-10th").value) || 0,
+        twelfthPct: parseFloat(document.getElementById("demo-12th").value) || 0,
+        cgpa: parseFloat(document.getElementById("demo-cgpa").value) || 0,
+        status: "Demographics Registered"
+      };
+
+      showView('test');
+    }
+
+    // -----------------------------------------------------------------
+    // 2. RENDER ALL 103 LIKERT QUESTIONS IN SECTION ACCORDIONS
+    // -----------------------------------------------------------------
+    let hasRenderedQuestions = false;
+
+    function renderTestQuestions() {
+      // Update top student tag
+      document.getElementById("test-student-tag").innerText = `${currentStudent.name} (${currentStudent.roll || currentStudent.id})`;
+
+      if (hasRenderedQuestions) {
+        updateAnswerProgress();
+        return;
+      }
+
+      // 1. Render Jump Pills
+      const pillsContainer = document.getElementById("section-jump-pills");
+      pillsContainer.innerHTML = "";
+      sectionDefs.forEach(sec => {
+        const a = document.createElement("a");
+        a.className = "jump-pill";
+        a.href = `#${sec.id}`;
+        a.innerHTML = `${sec.icon} ${sec.title.split(',')[0].split('&')[0].trim()} (${sec.cols[0]}-${sec.cols[sec.cols.length-1]})`;
+        pillsContainer.appendChild(a);
+      });
+
+      // 2. Render Master Questions Container
+      const container = document.getElementById("questions-master-container");
+      container.innerHTML = "";
+
+      // Initialize default answers if empty
+      if (Object.keys(studentAnswers).length === 0) {
+        // default to realistic answers
+        allQuestions.forEach(q => {
+          studentAnswers[q.col] = 3; // neutral default
         });
       }
 
-      loadPreset('high_risk');
-    }
+      sectionDefs.forEach((sec, sIdx) => {
+        const secDiv = document.createElement("div");
+        secDiv.id = sec.id;
+        secDiv.style.marginBottom = "2rem";
 
-    function selectLikert(qId, domain, val) {
-      userScores[domain] = val;
-      document.getElementById(`score-badge-${qId}`).innerText = `${val}.0/5.0`;
-      
-      const group = document.getElementById(`group-${qId}`);
-      const btns = group.querySelectorAll(".likert-btn");
-      btns.forEach((b, i) => {
-        b.classList.toggle("selected", i + 1 === val);
+        secDiv.innerHTML = `
+          <div class="survey-section-header">
+            <div>
+              <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 800; color: #a5b4fc;">
+                DIAGNOSTIC SECTION ${sIdx + 1} OF ${sectionDefs.length} &bull; COLS ${sec.cols[0]}–${sec.cols[sec.cols.length - 1]}
+              </div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff; margin-top: 4px;">
+                ${sec.icon} ${sec.title}
+              </h3>
+              <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 2px;">
+                ${sec.desc}
+              </p>
+            </div>
+            <div style="font-size: 0.78rem; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.15); padding: 4px 10px; border-radius: 8px;">
+              ${sec.cols.length} Items
+            </div>
+          </div>
+          <div class="section-questions-list" id="${sec.id}-list"></div>
+        `;
+
+        container.appendChild(secDiv);
+        const listDiv = secDiv.querySelector(`#${sec.id}-list`);
+
+        sec.cols.forEach(colNum => {
+          const q = allQuestions.find(item => item.col === colNum);
+          if (!q) return;
+
+          const qCard = document.createElement("div");
+          qCard.className = "question-card";
+          qCard.id = `qcard-col-${q.col}`;
+
+          const polarityBadge = q.is_reverse 
+            ? `<span class="badge" style="background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3);">Reverse Scored</span>`
+            : `<span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3);">Direct Scored</span>`;
+
+          const currentVal = studentAnswers[q.col] || 3;
+
+          qCard.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 800; color: #a5b4fc; background: rgba(99, 102, 241, 0.2); padding: 2px 8px; border-radius: 6px;">
+                  Col ${q.col}
+                </span>
+                <span style="font-size: 0.78rem; color: #94a3b8; font-weight: 600;">${q.domain}</span>
+                ${polarityBadge}
+              </div>
+              <div style="font-size: 0.75rem; color: #cbd5e1; font-family: var(--font-mono);">
+                Trait: <strong style="color: #38bdf8;">${q.traits ? q.traits.join(', ') : 'General'}</strong>
+              </div>
+            </div>
+
+            <div style="font-size: 0.95rem; font-weight: 600; color: #f8fafc; margin-top: 8px; line-height: 1.45;">
+              ${q.text}
+            </div>
+
+            ${q.notes ? `<div style="font-size: 0.75rem; color: #64748b; margin-top: 4px; font-style: italic;">Focus: ${q.notes}</div>` : ''}
+
+            <div class="scale-options">
+              ${[1, 2, 3, 4, 5].map(val => `
+                <label class="scale-option-label ${currentVal === val ? 'selected' : ''}" id="lbl-col-${q.col}-val-${val}" onclick="selectAnswer(${q.col}, ${val})">
+                  <input type="radio" name="col_${q.col}" value="${val}" ${currentVal === val ? 'checked' : ''} />
+                  <span class="scale-val">${val}</span>
+                  <span class="scale-text">${getScaleLabel(val)}</span>
+                </label>
+              `).join('')}
+            </div>
+          `;
+
+          listDiv.appendChild(qCard);
+        });
       });
+
+      hasRenderedQuestions = true;
+      updateAnswerProgress();
     }
 
-    function loadPreset(type) {
-      if (type === 'high_risk') {
-        document.getElementById("stu-name").value = "Aarav Sharma";
-        document.getElementById("stu-roll").value = "2026UGCS086";
-        
-        userScores["Academic Motivation"] = 4;
-        userScores["Emotional Intelligence"] = 1; // High Exam Panic
-        userScores["Time Management"] = 2;       // Low Time Mgmt
-        userScores["Focus & Attention"] = 2;
-        userScores["Digital Well-Being"] = 1;     // High Screen Distraction
-        userScores["Physical Wellness"] = 2;
-      } else if (type === 'average') {
-        document.getElementById("stu-name").value = "Ananya Verma";
-        document.getElementById("stu-roll").value = "2026UGECE142";
-        questions.forEach(q => { userScores[q.domain] = 3; });
-      } else if (type === 'scholar') {
-        document.getElementById("stu-name").value = "Devendra Joshi";
-        document.getElementById("stu-roll").value = "2026UGAI015";
-        questions.forEach(q => { userScores[q.domain] = 5; });
-        userScores["Emotional Intelligence"] = 5;
-      } else if (type === 'random') {
-        const names = ["Ishaan Nair", "Kavya Reddy", "Rohan Mehra", "Tanvi Sengupta", "Aditya Rao"];
-        document.getElementById("stu-name").value = names[Math.floor(Math.random() * names.length)];
-        document.getElementById("stu-roll").value = `2026UGCS${Math.floor(100 + Math.random() * 900)}`;
-        questions.forEach(q => { userScores[q.domain] = Math.floor(1 + Math.random() * 5); });
+    function getScaleLabel(val) {
+      switch(val) {
+        case 1: return "Strongly Disagree";
+        case 2: return "Disagree";
+        case 3: return "Neutral / Mod";
+        case 4: return "Agree";
+        case 5: return "Strongly Agree";
+        default: return "";
       }
+    }
 
-      // Sync UI selection classes
-      questions.forEach(q => {
-        const val = userScores[q.domain] || 3;
-        const badge = document.getElementById(`score-badge-${q.id}`);
-        if (badge) badge.innerText = `${val}.0/5.0`;
-
-        const group = document.getElementById(`group-${q.id}`);
-        if (group) {
-          const btns = group.querySelectorAll(".likert-btn");
-          btns.forEach((b, i) => {
-            b.classList.toggle("selected", i + 1 === val);
-          });
+    function selectAnswer(col, val) {
+      studentAnswers[col] = val;
+      [1, 2, 3, 4, 5].forEach(v => {
+        const lbl = document.getElementById(`lbl-col-${col}-val-${v}`);
+        if (lbl) {
+          if (v === val) lbl.classList.add('selected');
+          else lbl.classList.remove('selected');
         }
       });
+      updateAnswerProgress();
     }
 
-    function submitAssessment() {
-      const vals = Object.values(userScores);
-      const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+    function updateAnswerProgress() {
+      const total = allQuestions.length;
+      const answered = Object.keys(studentAnswers).length;
+      const pct = Math.round((answered / total) * 100);
 
-      // Multi-Task Predictions
-      const examPanic = 5.0 - (userScores["Emotional Intelligence"] || 3.0);
-      const timeDeficit = 5.0 - (userScores["Time Management"] || 3.0);
-      const screenDeficit = 5.0 - (userScores["Digital Well-Being"] || 3.0);
+      document.getElementById("test-answered-counter").innerText = `${answered} of ${total} Items Answered (${pct}%)`;
+      document.getElementById("test-progress-fill").style.width = `${pct}%`;
+    }
 
-      let hazard = 0.467 + (examPanic * 0.12) + (timeDeficit * 0.09) + (screenDeficit * 0.08) - ((mean - 3.0) * 0.28);
-      hazard = Math.max(0.08, Math.min(0.96, hazard));
+    // Filter questions by search text
+    function filterQuestions(query) {
+      const qLower = query.toLowerCase().trim();
+      allQuestions.forEach(q => {
+        const card = document.getElementById(`qcard-col-${q.col}`);
+        if (!card) return;
+        if (!qLower) {
+          card.style.display = "block";
+          return;
+        }
+        const match = q.text.toLowerCase().includes(qLower) || 
+                      q.domain.toLowerCase().includes(qLower) || 
+                      `col ${q.col}`.includes(qLower) || 
+                      (q.notes && q.notes.toLowerCase().includes(qLower));
+        card.style.display = match ? "block" : "none";
+      });
+    }
 
-      let predictedCGPA = 4.0 + (mean / 5.0) * 5.8;
-      predictedCGPA = Math.max(4.2, Math.min(9.8, predictedCGPA));
+    // Fill 103 items with presets
+    function fillTestAnswersPreset(presetType) {
+      if (presetType === 'at_risk') {
+        allQuestions.forEach(q => {
+          if (q.col === 33 || q.col === 34 || q.col === 35) studentAnswers[q.col] = 5; // high coercion/anhedonia
+          else if (q.col >= 76 && q.col <= 85) studentAnswers[q.col] = 5; // high family pressure
+          else if (q.col >= 86 && q.col <= 90) studentAnswers[q.col] = 4; // nocturnal parties
+          else if (q.col >= 94 && q.col <= 103) studentAnswers[q.col] = 5; // high homesickness
+          else if (q.col >= 104 && q.col <= 116) studentAnswers[q.col] = 5; // high phone addiction
+          else if (q.col >= 117 && q.col <= 125) studentAnswers[q.col] = 4; // clinical distress
+          else if (q.col === 75) studentAnswers[q.col] = 3; // suicidal ideation trigger
+          else if (q.col === 72) studentAnswers[q.col] = 5; // broken sleep
+          else if (q.col >= 43 && q.col <= 48) studentAnswers[q.col] = 4; // high procrastination
+          else if (q.is_reverse) studentAnswers[q.col] = 5;
+          else studentAnswers[q.col] = 2; // low positive traits
+        });
+      } else if (presetType === 'scholar') {
+        allQuestions.forEach(q => {
+          if (q.col === 33 || q.col === 34 || q.col === 35) studentAnswers[q.col] = 1; // zero coercion
+          else if (q.col >= 76 && q.col <= 85) studentAnswers[q.col] = 1; // low family pressure
+          else if (q.col >= 86 && q.col <= 90) studentAnswers[q.col] = 1; // low bad habits
+          else if (q.col >= 94 && q.col <= 103) studentAnswers[q.col] = 1; // zero homesickness
+          else if (q.col >= 104 && q.col <= 116) studentAnswers[q.col] = 1; // low phone addiction
+          else if (q.col >= 117 && q.col <= 125) studentAnswers[q.col] = 1; // zero clinical distress
+          else if (q.col === 75) studentAnswers[q.col] = 1;
+          else if (q.col === 72) studentAnswers[q.col] = 1;
+          else if (q.col >= 43 && q.col <= 48) studentAnswers[q.col] = 1; // zero procrastination
+          else if (q.is_reverse) studentAnswers[q.col] = 1;
+          else studentAnswers[q.col] = 5; // high positive traits
+        });
+      } else if (presetType === 'average') {
+        allQuestions.forEach(q => {
+          studentAnswers[q.col] = (q.col % 3) + 2; // realistic 2, 3, 4
+        });
+      } else if (presetType === 'random') {
+        allQuestions.forEach(q => {
+          studentAnswers[q.col] = Math.floor(Math.random() * 5) + 1;
+        });
+      }
 
-      // 4 Quadrants
-      const qCog = ((userScores["Academic Motivation"] || 3) + (userScores["Learning Behaviour"] || 3) + (userScores["Critical Thinking"] || 3) + (userScores["Creativity & Innovation"] || 3)) / 4;
-      const qAff = ((userScores["Emotional Intelligence"] || 3) + (userScores["Resilience & Adaptability"] || 3) + (userScores["Physical Wellness"] || 3)) / 3;
-      const qSelf = ((userScores["Time Management"] || 3) + (userScores["Focus & Attention"] || 3) + (userScores["Teamwork & Leadership"] || 3) + (userScores["Communication Skills"] || 3)) / 4;
-      const qLife = ((userScores["Digital Well-Being"] || 3) + (userScores["Campus Belonging"] || 3) + (userScores["Socioeconomic Stability"] || 3) + (userScores["Career Readiness"] || 3) + (userScores["Digital & AI Literacy"] || 3) + (userScores["LMS Usability"] || 3)) / 6;
-
-      // Populate Dossier
-      const name = document.getElementById("stu-name").value;
-      const roll = document.getElementById("stu-roll").value;
-      const dept = document.getElementById("stu-dept").value;
-
-      document.getElementById("k-name").innerText = name;
-      document.getElementById("k-roll").innerText = roll;
-      document.getElementById("k-branch").innerText = dept;
-      document.getElementById("k-avatar").innerText = name.split(" ").map(w=>w[0]).join("").toUpperCase() || "ST";
-
-      const hazEl = document.getElementById("k-hazard");
-      hazEl.innerText = `${(hazard * 100).toFixed(1)}%`;
-      hazEl.style.color = hazard >= 0.65 ? "#ef4444" : (hazard >= 0.40 ? "#f59e0b" : "#10b981");
-
-      document.getElementById("k-cgpa").innerText = `${predictedCGPA.toFixed(2)} / 10.0`;
-
-      // Top Strengths & Doshas
-      const sorted = Object.entries(userScores).sort((a, b) => b[1] - a[1]);
-      const sContainer = document.getElementById("k-strengths");
-      sContainer.innerHTML = "";
-      sorted.slice(0, 3).forEach(([dom, sc]) => {
-        sContainer.innerHTML += `
-          <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#a7f3d0; background:rgba(16,185,129,0.1); padding:6px 10px; border-radius:6px;">
-            <span>• ${dom} (${sc}/5)</span>
-            <strong style="color:#34d399;">-${Math.round(sc*5)}% Risk</strong>
-          </div>
-        `;
+      // Re-render radio buttons
+      allQuestions.forEach(q => {
+        const currentVal = studentAnswers[q.col];
+        [1, 2, 3, 4, 5].forEach(v => {
+          const lbl = document.getElementById(`lbl-col-${q.col}-val-${v}`);
+          if (lbl) {
+            const radio = lbl.querySelector('input[type="radio"]');
+            if (radio) radio.checked = (v === currentVal);
+            if (v === currentVal) lbl.classList.add('selected');
+            else lbl.classList.remove('selected');
+          }
+        });
       });
 
-      const dContainer = document.getElementById("k-doshas");
-      dContainer.innerHTML = "";
-      sorted.slice(-3).reverse().forEach(([dom, sc]) => {
-        dContainer.innerHTML += `
-          <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#fca5a5; background:rgba(239,68,68,0.1); padding:6px 10px; border-radius:6px;">
-            <span>• ${dom} (${sc}/5)</span>
-            <strong style="color:#ef4444;">+${Math.round((5-sc)*6)}% Risk</strong>
-          </div>
-        `;
+      updateAnswerProgress();
+    }
+
+    // -----------------------------------------------------------------
+    // 3. MATHEMATICAL 17-TRAIT CALCULATION & SUBMISSION
+    // -----------------------------------------------------------------
+    function submitAssessmentAnswers() {
+      // Ensure all questions are answered; default to 3 if missing
+      allQuestions.forEach(q => {
+        if (!studentAnswers[q.col]) studentAnswers[q.col] = 3;
       });
 
-      // Switch View
-      document.getElementById("section-intake-form").style.display = "none";
-      const dossier = document.getElementById("section-kundali-dossier");
-      dossier.classList.add("active");
+      // COMPUTE THE 17 TRAIT SCORES (PLUS CS)
+      // Reverse coding rule: x_recoded = 6 - x_raw for negatively keyed items
+      calculatedTraits = {};
 
-      // Render Radar
-      renderRadar(qCog, qAff, qSelf, qLife);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      for (const [code, tinfo] of Object.entries(traitDefs)) {
+        let sum = 0;
+        let count = 0;
+
+        tinfo.cols.forEach(colNum => {
+          const raw = studentAnswers[colNum] || 3;
+          const q = allQuestions.find(item => item.col === colNum);
+          const isRev = q ? q.is_reverse : false;
+
+          let recoded = raw;
+          if (code === "CS") {
+            // For clinical distress screener, we keep raw distress severity (higher = worse)
+            recoded = raw;
+          } else {
+            // Standard traits: higher = more protective/positive
+            if (isRev) {
+              recoded = 6 - raw;
+            } else {
+              recoded = raw;
+            }
+          }
+
+          sum += recoded;
+          count++;
+        });
+
+        const meanScore = count > 0 ? (sum / count) : 3.0;
+        calculatedTraits[code] = parseFloat(meanScore.toFixed(2));
+      }
+
+      // Compute Multi-Task Deep Neural Predictions
+      // 1. Dropout Hazard (%)
+      let hazardScore = 0.45;
+      for (const [code, val] of Object.entries(calculatedTraits)) {
+        if (code === "CS") continue;
+        const tinfo = traitDefs[code];
+        const w = (tinfo.weightNum || 5.0) / 100.0;
+        // deviation from 3.0
+        const delta = (val - 3.0);
+        hazardScore -= (delta * w * 1.8);
+      }
+
+      // Environmental / Demographic adjustments
+      if (currentStudent.housing === "Hosteler") hazardScore += 0.08;
+      if (currentStudent.firstGen === "Yes") hazardScore += 0.05;
+      if (currentStudent.cgpa < 6.5) hazardScore += 0.12;
+      else if (currentStudent.cgpa > 8.5) hazardScore -= 0.10;
+
+      hazardScore = Math.max(0.06, Math.min(0.96, hazardScore));
+
+      // 2. Predicted Next SGPA
+      let predSGPA = currentStudent.cgpa + ((calculatedTraits["AM"] - 3.0) * 0.22) + 
+                     ((calculatedTraits["TM"] - 3.0) * 0.28) + 
+                     ((calculatedTraits["ASE"] - 3.0) * 0.18) - 
+                     ((5.0 - calculatedTraits["AAR"]) * 0.12);
+      predSGPA = Math.max(4.0, Math.min(10.0, parseFloat(predSGPA.toFixed(2))));
+
+      // 3. Placement Readiness Tier
+      let readinessIndex = (calculatedTraits["AM"] * 0.25) + 
+                           (calculatedTraits["ASE"] * 0.25) + 
+                           (calculatedTraits["EI"] * 0.20) + 
+                           (calculatedTraits["TM"] * 0.15) + 
+                           (calculatedTraits["PCL"] * 0.15);
+      let placementTier = readinessIndex >= 3.8 ? "Tier 1: Core Tech R&D" : (readinessIndex >= 2.8 ? "Tier 2: Engineering Services" : "Tier 3: Skill Remediation");
+
+      // Update student record
+      currentStudent.status = "Completed";
+      currentStudent.calculatedTraits = calculatedTraits;
+      currentStudent.hazard = hazardScore;
+      currentStudent.predSGPA = predSGPA;
+      currentStudent.placementTier = placementTier;
+
+      // Add or update in registry
+      const existingIdx = registeredStudents.findIndex(s => s.id === currentStudent.id || s.roll === currentStudent.roll);
+      if (existingIdx !== -1) {
+        registeredStudents[existingIdx] = { ...currentStudent };
+      } else {
+        registeredStudents.unshift({ ...currentStudent });
+      }
+
+      showView('kundali');
     }
 
-    function retakeTest() {
-      document.getElementById("section-kundali-dossier").classList.remove("active");
-      document.getElementById("section-intake-form").style.display = "flex";
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // -----------------------------------------------------------------
+    // 4. RENDER 17-TRAIT VALUES & KUNDALI DOSSIER
+    // -----------------------------------------------------------------
+    function renderKundaliDossier() {
+      const s = currentStudent;
+      const traits = s.calculatedTraits || calculatedTraits;
+
+      // Update Header
+      document.getElementById("kd-name").innerText = s.name;
+      document.getElementById("kd-roll").innerText = s.roll || s.id;
+      document.getElementById("kd-branch").innerText = s.branch;
+      document.getElementById("kd-sem").innerText = s.sem;
+      document.getElementById("kd-housing").innerText = s.housing;
+      document.getElementById("kd-cgpa").innerText = s.cgpa ? s.cgpa.toFixed(2) : "N/A";
+
+      const initials = s.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+      document.getElementById("kd-avatar").innerText = initials;
+
+      // Risk Badge
+      const hazardPct = ((s.hazard || 0.45) * 100).toFixed(1);
+      const riskEl = document.getElementById("kd-risk-badge");
+      if (s.hazard >= 0.60) {
+        riskEl.className = "badge badge-high";
+        riskEl.innerText = `🚨 Critical Hazard (${hazardPct}%)`;
+      } else if (s.hazard >= 0.35) {
+        riskEl.className = "badge badge-med";
+        riskEl.innerText = `⚖️ Elevated Watch (${hazardPct}%)`;
+      } else {
+        riskEl.className = "badge badge-low";
+        riskEl.innerText = `✅ Low Attrition Risk (${hazardPct}%)`;
+      }
+
+      // Multi-task Heads
+      document.getElementById("kd-hazard-val").innerText = `${hazardPct}%`;
+      document.getElementById("kd-hazard-tier").innerText = s.hazard >= 0.60 ? "Immediate Intervention Required" : (s.hazard >= 0.35 ? "Elevated Watch Tier" : "Low Risk Profile");
+      document.getElementById("kd-pred-sgpa").innerText = s.predSGPA ? s.predSGPA.toFixed(2) : (s.cgpa ? s.cgpa.toFixed(2) : "7.20");
+
+      const delta = (s.predSGPA || 7.20) - (s.cgpa || 7.00);
+      const deltaEl = document.getElementById("kd-sgpa-delta");
+      deltaEl.innerText = `${delta >= 0 ? '+' : ''}${delta.toFixed(2)} vs Current`;
+      deltaEl.style.color = delta >= 0 ? '#34d399' : '#f87171';
+
+      document.getElementById("kd-placement-tier").innerText = (s.placementTier || "Tier 2").split(':')[0];
+
+      // Clinical Alert Banner (Col 75 >= 3 or CS score >= 3.4)
+      const csScore = traits["CS"] || 1.0;
+      const col75Val = studentAnswers[75] || 1;
+      const clinicalBanner = document.getElementById("clinical-alert-banner");
+      if (csScore >= 3.2 || col75Val >= 3) {
+        clinicalBanner.style.display = "block";
+      } else {
+        clinicalBanner.style.display = "none";
+      }
+
+      // Render Trait Cards by Quadrant
+      renderQuadrantGrid("grid-quadrant-1", ["AM", "ASE", "EI", "GM"], traits);
+      renderQuadrantGrid("grid-quadrant-2", ["TM", "SRC", "PRM", "MM"], traits);
+      renderQuadrantGrid("grid-quadrant-3", ["AAR", "SQCR", "SCR", "PAW", "SDA"], traits);
+      renderQuadrantGrid("grid-quadrant-4", ["BEL", "PCL", "FAM", "FSI"], traits);
+      renderQuadrantGrid("grid-quadrant-cs", ["CS"], traits);
+
+      // Render Kundali Radar Chart
+      renderKundaliRadarChart(traits);
+
+      // Render CCRO Counterfactuals
+      renderRecourseItems(traits, s.hazard || 0.45);
     }
 
-    function renderRadar(cog, aff, self, life) {
-      const ctx = document.getElementById("chart-kundali-radar");
-      if (radarChart) radarChart.destroy();
+    function renderQuadrantGrid(gridId, traitCodes, traits) {
+      const grid = document.getElementById(gridId);
+      grid.innerHTML = "";
 
-      radarChart = new Chart(ctx, {
-        type: "radar",
+      traitCodes.forEach(code => {
+        const tinfo = traitDefs[code];
+        if (!tinfo) return;
+
+        const val = traits[code] !== undefined ? traits[code] : 3.0;
+        const pct = Math.round(((val - 1.0) / 4.0) * 100);
+
+        let statusClass = "badge-low";
+        let statusText = "High / Protective";
+        let barColor = "linear-gradient(90deg, #10b981, #34d399)";
+
+        if (code === "CS") {
+          // Clinical Screener: higher = worse
+          if (val >= 3.4) {
+            statusClass = "badge-high"; statusText = "🚨 Critical Distress Flag"; barColor = "linear-gradient(90deg, #ef4444, #b91c1c)";
+          } else if (val >= 2.4) {
+            statusClass = "badge-med"; statusText = "⚖️ Moderate Distress"; barColor = "linear-gradient(90deg, #f59e0b, #d97706)";
+          } else {
+            statusClass = "badge-low"; statusText = "✅ Clinically Stable"; barColor = "linear-gradient(90deg, #10b981, #059669)";
+          }
+        } else {
+          if (val < 2.5) {
+            statusClass = "badge-high"; statusText = "⚠️ High Vulnerability"; barColor = "linear-gradient(90deg, #ef4444, #dc2626)";
+          } else if (val < 3.5) {
+            statusClass = "badge-med"; statusText = "⚖️ Moderate Watch"; barColor = "linear-gradient(90deg, #f59e0b, #fbbf24)";
+          }
+        }
+
+        const card = document.createElement("div");
+        card.className = "trait-card";
+
+        card.innerHTML = `
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+              <div>
+                <span style="font-family: var(--font-mono); font-weight: 800; font-size: 0.85rem; color: #a5b4fc; background: rgba(99, 102, 241, 0.2); padding: 2px 6px; border-radius: 4px;">
+                  ${tinfo.code}
+                </span>
+                <strong style="color: #fff; font-size: 0.95rem; margin-left: 6px;">${tinfo.name}</strong>
+              </div>
+              <span class="badge ${statusClass}">${statusText}</span>
+            </div>
+
+            <!-- Score Display -->
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px;">
+              <div style="font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); color: #fff;">
+                ${val.toFixed(2)} <span style="font-size: 0.85rem; color: #94a3b8; font-weight: 500;">/ 5.00</span>
+              </div>
+              <div style="font-size: 0.85rem; font-family: var(--font-mono); color: #38bdf8; font-weight: 700;">
+                ${pct}% Standardized
+              </div>
+            </div>
+
+            <!-- Animated Progress Bar -->
+            <div class="trait-progress-bar-bg">
+              <div class="trait-progress-bar-fill" style="width: ${pct}%; background: ${barColor};"></div>
+            </div>
+          </div>
+
+          <div style="margin-top: 6px;">
+            <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.35;">
+              ${tinfo.desc}
+            </p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 0.72rem; color: #64748b;">
+              <span>Model Weight: <strong style="color: #cbd5e1;">${tinfo.weight}</strong></span>
+              <span title="Survey columns: ${tinfo.cols.join(', ')}">Derived from ${tinfo.cols.length} Items</span>
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // Render Chart.js Kundali Radar
+    function renderKundaliRadarChart(traits) {
+      const ctx = document.getElementById("kdRadarChart");
+      if (!ctx) return;
+
+      const labels = ["AM", "ASE", "EI", "GM", "TM", "SRC", "PRM", "MM", "AAR", "SQCR", "SCR", "PAW", "SDA", "BEL", "PCL", "FAM", "FSI"];
+      const studentVals = labels.map(l => traits[l] || 3.0);
+      const cohortVals = [3.2, 3.4, 3.1, 3.0, 3.3, 3.2, 3.1, 3.3, 3.2, 3.4, 3.3, 3.2, 3.1, 3.4, 3.3, 3.2, 3.3]; // Benchmark
+
+      if (kdRadarChartInstance) {
+        kdRadarChartInstance.destroy();
+      }
+
+      kdRadarChartInstance = new Chart(ctx, {
+        type: 'radar',
         data: {
-          labels: [
-            "Cognitive (बौद्धिक)",
-            "Affective (भावनात्मक)",
-            "Self-Regulation (अनुशासन)",
-            "Lifestyle (जीवनशैली)"
-          ],
+          labels: labels,
           datasets: [
             {
-              label: "Student Profile (कुंडली)",
-              data: [cog, aff, self, life],
-              backgroundColor: "rgba(168, 85, 247, 0.3)",
-              borderColor: "#c084fc",
-              borderWidth: 2.5,
-              pointBackgroundColor: "#a855f7",
-              pointRadius: 5
+              label: `${currentStudent.name} (Calculated)`,
+              data: studentVals,
+              borderColor: '#818cf8',
+              backgroundColor: 'rgba(99, 102, 241, 0.25)',
+              pointBackgroundColor: '#818cf8',
+              pointBorderColor: '#fff',
+              borderWidth: 2,
             },
             {
-              label: "Cohort Normal (मानक)",
-              data: [3, 3, 3, 3],
-              backgroundColor: "rgba(99, 102, 241, 0.08)",
-              borderColor: "rgba(99, 102, 241, 0.5)",
-              borderWidth: 1.5,
+              label: 'Cohort Benchmark (Mean: 3.25)',
+              data: cohortVals,
+              borderColor: 'rgba(255, 255, 255, 0.3)',
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
               borderDash: [4, 4],
-              pointRadius: 3
+              borderWidth: 1,
+              pointRadius: 0
             }
           ]
         },
@@ -819,22 +1805,195 @@
           maintainAspectRatio: false,
           scales: {
             r: {
-              min: 1,
-              max: 5,
-              ticks: { stepSize: 1, color: "#64748b", backdropColor: "transparent" },
-              grid: { color: "rgba(255, 255, 255, 0.08)" },
-              angleLines: { color: "rgba(255, 255, 255, 0.08)" },
-              pointLabels: { color: "#cbd5e1", font: { size: 12, weight: "bold" } }
+              min: 1.0,
+              max: 5.0,
+              ticks: { stepSize: 1, color: '#64748b', backdropColor: 'transparent', font: { size: 9 } },
+              grid: { color: 'rgba(255, 255, 255, 0.08)' },
+              angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+              pointLabels: { color: '#cbd5e1', font: { family: 'JetBrains Mono', size: 10, weight: 'bold' } }
             }
           },
           plugins: {
-            legend: { position: "top", labels: { boxWidth: 12, color: "#cbd5e1" } }
+            legend: { position: 'top', labels: { color: '#e2e8f0', boxWidth: 12 } }
           }
         }
       });
     }
 
-    window.addEventListener("load", initQuestions);
+    // Render Counterfactual Recourse
+    function renderRecourseItems(traits, hazard) {
+      const container = document.getElementById("kd-recourse-container");
+      container.innerHTML = "";
+
+      // Identify lowest 3 protective traits
+      const candidates = ["TM", "AM", "SRC", "SQCR", "ASE", "SDA", "BEL"];
+      const sorted = candidates.map(code => ({ code, val: traits[code] || 3.0, weight: traitDefs[code].weightNum }))
+                               .sort((a, b) => a.val - b.val);
+
+      const top3 = sorted.slice(0, 3);
+
+      top3.forEach((item, idx) => {
+        const targetVal = Math.min(4.5, item.val + 1.3).toFixed(1);
+        const riskDrop = (item.weight * 1.5).toFixed(1);
+
+        const row = document.createElement("div");
+        row.style.background = "rgba(0, 0, 0, 0.35)";
+        row.style.border = "1px solid rgba(255, 255, 255, 0.08)";
+        row.style.borderRadius = "10px";
+        row.style.padding = "10px 14px";
+        row.style.display = "flex";
+        row.style.justifyContent = "space-between";
+        row.style.alignItems = "center";
+        row.style.gap = "10px";
+
+        row.innerHTML = `
+          <div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: #fff;">
+              Target ${idx + 1}: Boost <strong style="color: #38bdf8;">${traitDefs[item.code].name} (${item.code})</strong>
+            </div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 2px;">
+              Current: <span style="font-family: var(--font-mono); color: #f87171;">${item.val.toFixed(2)}</span> ➔ Goal: <span style="font-family: var(--font-mono); color: #34d399;">${targetVal}</span>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <span class="badge badge-low">-${riskDrop}% Hazard</span>
+          </div>
+        `;
+
+        container.appendChild(row);
+      });
+    }
+
+    function exportKundaliJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentStudent, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `Kundali_${currentStudent.roll || currentStudent.id}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    // -----------------------------------------------------------------
+    // 5. ADMIN AUDIT ROSTER & CREDENTIALS
+    // -----------------------------------------------------------------
+    function renderAdminTable(filterQuery = "") {
+      const tbody = document.getElementById("admin-users-tbody");
+      tbody.innerHTML = "";
+
+      let filtered = registeredStudents;
+      if (filterQuery) {
+        const q = filterQuery.toLowerCase();
+        filtered = registeredStudents.filter(s => 
+          (s.name && s.name.toLowerCase().includes(q)) || 
+          (s.id && s.id.toLowerCase().includes(q)) || 
+          (s.branch && s.branch.toLowerCase().includes(q)) || 
+          (s.email && s.email.toLowerCase().includes(q))
+        );
+      }
+
+      filtered.forEach((s, idx) => {
+        const tr = document.createElement("tr");
+
+        const hazardPct = ((s.hazard || 0.45) * 100).toFixed(1);
+        const riskBadge = (s.hazard >= 0.60) 
+          ? `<span class="badge badge-high">🚨 ${hazardPct}%</span>` 
+          : (s.hazard >= 0.35 ? `<span class="badge badge-med">⚖️ ${hazardPct}%</span>` : `<span class="badge badge-low">✅ ${hazardPct}%</span>`);
+
+        const topTraits = s.calculatedTraits 
+          ? `TM: ${s.calculatedTraits['TM'] || 3.0} &bull; AM: ${s.calculatedTraits['AM'] || 3.0}`
+          : 'N/A';
+
+        tr.innerHTML = `
+          <td>
+            <div style="font-family: var(--font-mono); font-weight: 800; color: #a5b4fc;">${s.id || s.roll}</div>
+            <div style="font-size: 0.72rem; color: #64748b;">${s.timestamp || '2026-11-18'}</div>
+          </td>
+          <td>
+            <div style="font-weight: 700; color: #fff;">${s.name}</div>
+            <div style="font-size: 0.75rem; color: #94a3b8;">${s.email}</div>
+          </td>
+          <td>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span id="pwd-${idx}" style="font-family: var(--font-mono); color: #38bdf8; font-weight: bold;">${s.password || '••••••••'}</span>
+              <button onclick="togglePasswordVisibility('${idx}')" class="btn btn-secondary" style="padding: 2px 6px; font-size: 0.7rem;">👁️</button>
+            </div>
+          </td>
+          <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">${s.branch}</div>
+            <div style="font-size: 0.75rem; color: #64748b;">${s.sem}</div>
+          </td>
+          <td>
+            <div style="font-size: 0.8rem; color: ${s.housing === 'Hosteler' ? '#fbbf24' : '#94a3b8'};">${s.housing}</div>
+            <div style="font-size: 0.72rem; color: #64748b;">FirstGen: ${s.firstGen || 'No'}</div>
+          </td>
+          <td>
+            <div style="font-family: var(--font-mono); font-weight: 800; color: #67e8f9;">${s.cgpa ? s.cgpa.toFixed(2) : 'N/A'}</div>
+          </td>
+          <td>
+            <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #cbd5e1;">${topTraits}</div>
+          </td>
+          <td>
+            ${riskBadge}
+          </td>
+          <td>
+            <button class="btn btn-primary" onclick="viewKundaliFromAdmin('${s.id || s.roll}')" style="padding: 4px 10px; font-size: 0.75rem;">
+              🔮 Kundali
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function togglePasswordVisibility(idx) {
+      const el = document.getElementById(`pwd-${idx}`);
+      if (el.getAttribute('data-hidden') === 'true') {
+        el.innerText = registeredStudents[idx].password;
+        el.setAttribute('data-hidden', 'false');
+      } else {
+        el.innerText = '••••••••';
+        el.setAttribute('data-hidden', 'true');
+      }
+    }
+
+    function filterAdminTable(val) {
+      renderAdminTable(val);
+    }
+
+    function viewKundaliFromAdmin(studentId) {
+      const match = registeredStudents.find(s => (s.id === studentId || s.roll === studentId));
+      if (match) {
+        currentStudent = { ...match };
+        calculatedTraits = { ...(match.calculatedTraits || {}) };
+        showView('kundali');
+      }
+    }
+
+    function exportAdminCSV() {
+      let csv = "Student_ID,Roll,Name,Email,Password,Branch,Semester,Housing,FirstGen,CGPA,Dropout_Hazard,Predicted_SGPA,AM,ASE,EI,GM,TM,SRC,PRM,MM,AAR,SQCR,SCR,PAW,SDA,BEL,PCL,FAM,FSI,CS\n";
+      registeredStudents.forEach(s => {
+        const t = s.calculatedTraits || {};
+        csv += `"${s.id}","${s.roll}","${s.name}","${s.email}","${s.password}","${s.branch}","${s.sem}","${s.housing}","${s.firstGen}","${s.cgpa}","${s.hazard}","${s.predSGPA}","${t.AM||''}","${t.ASE||''}","${t.EI||''}","${t.GM||''}","${t.TM||''}","${t.SRC||''}","${t.PRM||''}","${t.MM||''}","${t.AAR||''}","${t.SQCR||''}","${t.SCR||''}","${t.PAW||''}","${t.SDA||''}","${t.BEL||''}","${t.PCL||''}","${t.FAM||''}","${t.FSI||''}","${t.CS||''}"\n`;
+      });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Registered_Students_17_Traits_Master_Registry.csv";
+      link.click();
+    }
+
+    // Initialization on page load
+    window.addEventListener("load", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const viewParam = urlParams.get('view');
+      if (viewParam) {
+        showView(viewParam);
+      } else {
+        showView('register');
+      }
+    });
   </script>
 
 </body>

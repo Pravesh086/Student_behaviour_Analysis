@@ -40,7 +40,7 @@
       </div>
 
       <div class="header-actions">
-        <a href="student_test_portal.html" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: #fff; font-weight: 800;">
+        <a href="student_portal.html" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: #fff; font-weight: 800;">
           🎓 Open Student 1–5 Test & Kundali
         </a>
         <button id="btn-export-csv" class="btn btn-secondary">
@@ -126,6 +126,22 @@
             <p class="card-subtitle">
               Rate each statement on a scale of <strong>1 (Strongly Disagree)</strong> to <strong>5 (Strongly Agree)</strong>. The Multi-Task Deep Neural Network will calculate your multi-task predictions and generate your <strong>Holistic Psychological Kundali & AI Counseling Dossier</strong>.
             </p>
+            
+            <!-- Launch Master 125-Item Battery Banner -->
+            <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.25) 100%); border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 12px; padding: 12px 18px; margin-top: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <div style="font-weight: 800; color: #fff; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 1.1rem;">🚀</span> Complete 125-Item Master Psychometric & Demographics Battery
+                </div>
+                <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 2px;">
+                  Includes all 22 Demographics/Academic Background fields (Cols 1–22) + 103 Diagnostic Survey Items (Cols 23–125) with real-time 17 Non-Cognitive Trait Valuation.
+                </div>
+              </div>
+              <a href="student_portal.html" target="_blank" class="btn btn-primary" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: #fff; font-weight: 800; padding: 8px 18px; font-size: 0.85rem; border-radius: 8px; text-decoration: none;">
+                Launch Dedicated 125-Item Portal ➔
+              </a>
+            </div>
+
           </div>
 
           <!-- Quick Presets -->
@@ -708,8 +724,8 @@
         <div class="glass-card">
           <div class="card-title-row">
             <div>
-              <h2 class="card-title">Socioeconomic Tier & Part-Time Job Impact</h2>
-              <p class="card-subtitle">Retention and overall score distribution across income and working hours</p>
+              <h2 class="card-title">Socioeconomic Tier & Scholarship Impact</h2>
+              <p class="card-subtitle">Academic performance and retention distribution across family income tiers</p>
             </div>
           </div>
           <div class="chart-wrapper chart-wrapper-tall">
@@ -720,14 +736,14 @@
 
       <div class="grid-3col">
         <div class="glass-card">
-          <h3 class="card-title" style="font-size: 0.95rem;">First-Gen Student Retention</h3>
+          <h3 class="card-title" style="font-size: 0.95rem;">Admission Category (Reservation Quota)</h3>
           <div class="chart-wrapper" style="min-height: 240px; max-height: 270px;">
             <canvas id="chart-demo-firstgen"></canvas>
           </div>
         </div>
 
         <div class="glass-card">
-          <h3 class="card-title" style="font-size: 0.95rem;">Housing Type vs. Wellness</h3>
+          <h3 class="card-title" style="font-size: 0.95rem;">Hostel Status vs. Wellness</h3>
           <div class="chart-wrapper" style="min-height: 240px; max-height: 270px;">
             <canvas id="chart-demo-housing"></canvas>
           </div>
@@ -1090,17 +1106,20 @@
 
           <select id="select-filter-year" class="select-control">
             <option value="ALL">All Academic Years</option>
-            <option value="Freshman">Freshman</option>
-            <option value="Sophomore">Sophomore</option>
-            <option value="Junior">Junior</option>
-            <option value="Senior">Senior</option>
-            <option value="Graduate">Graduate</option>
+            <option value="First Year">First Year (1st Year)</option>
+            <option value="Second Year">Second Year (2nd Year)</option>
+            <option value="Third Year">Third Year (3rd Year)</option>
+            <option value="Final Year">Final Year (4th Year)</option>
+            <option value="Postgraduate">Postgraduate</option>
           </select>
 
           <select id="select-filter-firstgen" class="select-control">
-            <option value="ALL">First-Gen: All</option>
-            <option value="Yes">First-Gen: Yes</option>
-            <option value="No">First-Gen: No</option>
+            <option value="ALL">Admission Category: All</option>
+            <option value="General (OPEN)">General (OPEN)</option>
+            <option value="OBC-NCL">OBC-NCL</option>
+            <option value="SC">SC</option>
+            <option value="EWS">EWS</option>
+            <option value="ST">ST</option>
           </select>
 
           <select id="select-filter-success" class="select-control">

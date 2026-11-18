@@ -1,0 +1,1662 @@
+{
+  "demographics": [
+    {
+      "col": 1,
+      "text": "Student_ID",
+      "domain": "Administrative",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Anonymized primary key ensuring research pseudonymization."
+    },
+    {
+      "col": 2,
+      "text": "University",
+      "domain": "Administrative",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Institution name (MNIT Jaipur) establishing multi-campus provenance."
+    },
+    {
+      "col": 3,
+      "text": "Timestamp",
+      "domain": "Administrative",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Time-tracking feature used to identify survey speed-traps (<8 min)."
+    },
+    {
+      "col": 4,
+      "text": "Username",
+      "domain": "Administrative",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Portal username, decoupled before model ingestion."
+    },
+    {
+      "col": 5,
+      "text": "Total score",
+      "domain": "Administrative",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Raw platform intake verification score."
+    },
+    {
+      "col": 6,
+      "text": "Name of the student",
+      "domain": "Administrative",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Student legal name, stripped via SHA-256 for DPDP Act 2023 compliance."
+    },
+    {
+      "col": 7,
+      "text": "University Roll number",
+      "domain": "Administrative",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Institutional roll number, decoupled into cryptographic research ID."
+    },
+    {
+      "col": 8,
+      "text": "Student Type",
+      "domain": "Demographics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Programme tier verifying undergraduate engineering population."
+    },
+    {
+      "col": 9,
+      "text": "Gender",
+      "domain": "Demographics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Gender balance verification and multi-group fairness auditing."
+    },
+    {
+      "col": 10,
+      "text": "Family Income",
+      "domain": "Demographics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Family economic capital; indicates financial distress vulnerability."
+    },
+    {
+      "col": 11,
+      "text": "Father Occupation",
+      "domain": "Demographics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Paternal professional stability and parental occupation background."
+    },
+    {
+      "col": 12,
+      "text": "Residential city and State",
+      "domain": "Demographics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Hometown location; measures geographic displacement and relocation shock."
+    },
+    {
+      "col": 13,
+      "text": "Fathers Highest Education",
+      "domain": "Demographics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "First-generation college status indicator (Bean & Metzner model)."
+    },
+    {
+      "col": 14,
+      "text": "Branch",
+      "domain": "Academic History",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Engineering branch; benchmarks discipline-specific workload pressures."
+    },
+    {
+      "col": 15,
+      "text": "Current Semester",
+      "domain": "Academic History",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Longitudinal stage; distinguishes freshman transition from senior stress."
+    },
+    {
+      "col": 16,
+      "text": "Current CGPA",
+      "domain": "Academic History",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Current CGPA ground truth for continuous trajectory prediction."
+    },
+    {
+      "col": 17,
+      "text": "Emailid",
+      "domain": "Administrative",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Student contact channel for voluntary opt-in counseling alerts."
+    },
+    {
+      "col": 18,
+      "text": "Contact Number",
+      "domain": "Administrative",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Emergency counselor escalation contact, strictly access-controlled."
+    },
+    {
+      "col": 19,
+      "text": "Age",
+      "domain": "Demographics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Chronological age; controls for gap years and coaching repetitions."
+    },
+    {
+      "col": 20,
+      "text": "Are you Hosteler or not?",
+      "domain": "Transition",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "CRITICAL: Hosteler vs Day Scholar. Captures residential shock and mess diet."
+    },
+    {
+      "col": 21,
+      "text": "Highschool (10th) percentage",
+      "domain": "Academic History",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Secondary school academic foundation and baseline aptitude."
+    },
+    {
+      "col": 22,
+      "text": "12th percentage",
+      "domain": "Academic History",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Senior secondary PCM board marks (shows weak r=0.14 correlation with retention)."
+    }
+  ],
+  "likert": [
+    {
+      "col": 23,
+      "text": "Sports is equally important as academic subjects.",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Somatic belief: measures valuation of physical balance alongside academics.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 24,
+      "text": "Sports should be a part of evaluation of grades in your academic result.",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Institutional alignment: support for holistic grading vs pure rote tests.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 25,
+      "text": "You feel that if your favorite game is part of exam then you will top this exam?",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Playfulness & passion: captures intrinsic energy and recreational drive.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 26,
+      "text": "You can play your favorite sports without any time bound?",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Autonomous recreation: willingness to play without rigid schedule constraints.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 27,
+      "text": "You cannot assume your life without sports?",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Recreational identity: sports as an essential non-negotiable life pillar.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 28,
+      "text": "Do you plan to continue participating in sports activities in the future?",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Future somatic commitment: intent to sustain exercise throughout college.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 29,
+      "text": "Have you ever received encouragement or support from your peers or instructors to participate in sports activities?",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Peer/faculty sports encouragement: social support for physical wellness.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 30,
+      "text": "How important do you think promoting sports culture is in educational institutions?",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Institutional sports climate: perceived institutional focus on health.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 31,
+      "text": "rate your interest in participating in sports activities.",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Self-rated sports enthusiasm: baseline recreational motivation level.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 32,
+      "text": "How often do you engage in sports activities?",
+      "domain": "Sports & Vitality",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Physical exercise frequency: concrete behavioral manifestation of fitness.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 33,
+      "text": "Your parents forcefully admitted you in the engineering?",
+      "domain": "Academic Motivation",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "CRITICAL: Parental coercion in engineering choice. Strongest early-dropout driver!",
+      "traits": [
+        "AM"
+      ]
+    },
+    {
+      "col": 34,
+      "text": "You don\u2019t know why you are studying all these things and didn\u2019t enjoy?",
+      "domain": "Academic Motivation",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Academic anhedonia: lack of conceptual enjoyment and perceived study futility.",
+      "traits": [
+        "AM"
+      ]
+    },
+    {
+      "col": 35,
+      "text": "You want to get a job so that you can go in some another interest course?",
+      "domain": "Academic Motivation",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Escapist career intent: viewing degree merely as a bridge to unrelated courses.",
+      "traits": [
+        "AM"
+      ]
+    },
+    {
+      "col": 36,
+      "text": "This course is your favorite.",
+      "domain": "Academic Motivation",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Intrinsic passion: genuine interest in the engineering curriculum.",
+      "traits": [
+        "AM",
+        "EI"
+      ]
+    },
+    {
+      "col": 37,
+      "text": "You see your career in this field only?",
+      "domain": "Academic Motivation",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Long-term professional vision: commitment to engineering career trajectory.",
+      "traits": [
+        "AM",
+        "EI"
+      ]
+    },
+    {
+      "col": 38,
+      "text": "The resources (labs, equipment, software) required for your engineering studies are easily accessible",
+      "domain": "Academic Motivation",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Perceived resource adequacy: lab equipment, computing, and software accessibility.",
+      "traits": [
+        "AM"
+      ]
+    },
+    {
+      "col": 39,
+      "text": "How often do you collaborate with peers on engineering projects or studies?",
+      "domain": "Academic Motivation",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Peer technical collaboration: active engagement in engineering project teams.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 40,
+      "text": "your instructors are supportive in guiding and encouraging your interest in engineering?",
+      "domain": "Academic Motivation",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Faculty mentorship support: accessibility of instructors for technical guidance.",
+      "traits": [
+        "FSI"
+      ]
+    },
+    {
+      "col": 41,
+      "text": "You plan to pursue a career in engineering after graduation?",
+      "domain": "Academic Motivation",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Post-graduation engineering aspiration: persistence into technical industry.",
+      "traits": [
+        "AM",
+        "EI"
+      ]
+    },
+    {
+      "col": 42,
+      "text": "You feel confident in identifying engineering problems and developing effective solutions?",
+      "domain": "Academic Motivation",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Engineering problem-solving self-efficacy: confidence in designing solutions.",
+      "traits": [
+        "ASE"
+      ]
+    },
+    {
+      "col": 43,
+      "text": "You want to study but you don\u2019t know where to start?",
+      "domain": "Study Habits",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Executive dysfunction: cognitive paralysis on where to initiate study.",
+      "traits": [
+        "SRC",
+        "PRM"
+      ]
+    },
+    {
+      "col": 44,
+      "text": "You don\u2019t get interest in study because you think that whenever new semester will start then only you will study?",
+      "domain": "Study Habits",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Chronic semester-delay rationalization: postponing study until next semester.",
+      "traits": [
+        "GM",
+        "SRC",
+        "PRM"
+      ]
+    },
+    {
+      "col": 45,
+      "text": "You feel that other students are very intelligent?",
+      "domain": "Study Habits",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Imposter Syndrome: feeling peers are inherently superior/more intelligent.",
+      "traits": [
+        "GM",
+        "AAR"
+      ]
+    },
+    {
+      "col": 46,
+      "text": "In a semester so many times you make your schedule of study.",
+      "domain": "Study Habits",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Intention-action gap: repeated attempts to formulate study timetables.",
+      "traits": [
+        "TM",
+        "MM"
+      ]
+    },
+    {
+      "col": 47,
+      "text": "After each semester you feel very guilty that you didn\u2019t gave your 100%?",
+      "domain": "Study Habits",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Post-semester guilt cycle: chronic regret over suboptimal effort investment.",
+      "traits": [
+        "SRC",
+        "MM"
+      ]
+    },
+    {
+      "col": 48,
+      "text": "You are confident in setting and achieving your personal and academic goals?",
+      "domain": "Study Habits",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Goal self-efficacy: confidence in setting and executing academic milestones.",
+      "traits": [
+        "PRM"
+      ]
+    },
+    {
+      "col": 49,
+      "text": "You are   confident in social interactions with peers and instructors?",
+      "domain": "Self-Esteem",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Social self-efficacy: ease in interacting with professors and peer classmates.",
+      "traits": [
+        "ASE"
+      ]
+    },
+    {
+      "col": 50,
+      "text": "rate your agreement with the statement: \"I have high self-esteem.\"",
+      "domain": "Self-Esteem",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Global self-esteem: Rosenburg-style self-worth and intellectual confidence.",
+      "traits": [
+        "ASE"
+      ]
+    },
+    {
+      "col": 51,
+      "text": "You have some past experiences (failures or successes) that influenced your current level of self-confidence?",
+      "domain": "Self-Esteem",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Attributional resilience: learning from past setbacks without ego collapse.",
+      "traits": [
+        "ASE",
+        "GM",
+        "SCR"
+      ]
+    },
+    {
+      "col": 52,
+      "text": "you are comfortable with trying new activities or taking on new challenges.",
+      "domain": "Self-Esteem",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Novelty challenge tolerance: comfort with new, open-ended technical tasks.",
+      "traits": [
+        "ASE",
+        "MM",
+        "FSI"
+      ]
+    },
+    {
+      "col": 53,
+      "text": "You believe in friendship very much?",
+      "domain": "Peer Dynamics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Relational valuation: importance placed on collegiate peer friendships.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 54,
+      "text": "Your friends are same as you in each manner either in study or other things?",
+      "domain": "Peer Dynamics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Peer homophily: perceived similarity with peer circle in study and values.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 55,
+      "text": "Your most of the time is spend with your friends?",
+      "domain": "Peer Dynamics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Social immersion: volume of daily waking hours spent with friend group.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 56,
+      "text": "You want to spend your time with your friends only in vacations also?",
+      "domain": "Peer Dynamics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Peer dependency: desire to remain with college friends during vacation.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 57,
+      "text": "Rate your agreement with the statement: \"My friends have a positive influence on my academic and personal life.\"",
+      "domain": "Peer Dynamics",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Positive peer scaffolding: constructive influence on academic discipline.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 58,
+      "text": "How often do your friends distract you from your studies?",
+      "domain": "Peer Dynamics",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Toxic peer distraction: friends actively pulling student away from study.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 59,
+      "text": "you feel pressured by your friends to engage in activities that you are uncomfortable with?",
+      "domain": "Peer Dynamics",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Coercive peer pressure: feeling compelled to engage in uncomfortable acts.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 60,
+      "text": "the approval of your friends is important   in your decision-making process.",
+      "domain": "Peer Dynamics",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "External social approval dependency: inability to make independent choices.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 61,
+      "text": "do you participate in risky behaviors due to influence from friends?",
+      "domain": "Peer Dynamics",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Peer-induced risk-taking: reckless behavior driven by social conformity.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 62,
+      "text": "you feel your friends impact your mental health?",
+      "domain": "Peer Dynamics",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Relational mental strain: emotional distress and toxicity in peer group.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 63,
+      "text": "rate your agreement with the statement: \"I am generally in good health.\"",
+      "domain": "Physical Health",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "General physical health status: self-rated biological vitality baseline.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 64,
+      "text": "How does the quality and variety of food available to you impact your overall well-being in college?",
+      "domain": "Physical Health",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Campus nutritional adequacy: impact of mess food variety on well-being.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 65,
+      "text": "How often do you eat meals in the campus dining halls or other food facilities?",
+      "domain": "Physical Health",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Campus dining regularity: consistency of eating meals in hostel mess.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 66,
+      "text": "How often do you engage in physical activity or exercise?",
+      "domain": "Physical Health",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Routine physical exercise: frequency of cardiovascular workout/sports.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 67,
+      "text": "How would you rate your overall physical and mental health?",
+      "domain": "Physical Health",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Holistic health perception: combined physical and mental vitality score.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 68,
+      "text": "do you experience health-related issues that affect your daily activities?",
+      "domain": "Physical Health",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Somatic disability: health ailments directly interfering with daily routine.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 69,
+      "text": "do health issues affect your academic performance?",
+      "domain": "Physical Health",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Health-induced academic decline: medical issues causing low exam scores.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 70,
+      "text": "do you feel supported by friends, family, and instructors when dealing with health issues?",
+      "domain": "Physical Health",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Health support network: perceived care from family/friends during sickness.",
+      "traits": [
+        "PAW"
+      ]
+    },
+    {
+      "col": 71,
+      "text": "You never like mess food?",
+      "domain": "Hostel Life",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Mess food aversion: chronic dissatisfaction with campus residential dining.",
+      "traits": [
+        "SCR",
+        "BEL"
+      ]
+    },
+    {
+      "col": 72,
+      "text": "All the time you feel very tired and lazy.",
+      "domain": "Hostel Life",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Chronic fatigue syndrome: feeling lethargic, unrefreshed, and exhausted.",
+      "traits": [
+        "AAR",
+        "SQCR"
+      ]
+    },
+    {
+      "col": 73,
+      "text": "This environment doesn\u2019t suit you.",
+      "domain": "Hostel Life",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Environmental mismatch: feeling the collegiate institutional climate is toxic.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 74,
+      "text": "At home you are very energetic but not in college?",
+      "domain": "Hostel Life",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Home-campus energy divergence: energetic at home but depleted at college.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 75,
+      "text": "You don\u2019t get good sleep?",
+      "domain": "Hostel Life",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Nocturnal sleep deficiency: inability to attain deep, restorative sleep.",
+      "traits": [
+        "CS"
+      ]
+    },
+    {
+      "col": 76,
+      "text": "Your parents always want you to improve more and never satisfies with your performance?",
+      "domain": "Family Pressure",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Parental perfectionism: parents never satisfied with academic marks.",
+      "traits": [
+        "FAM"
+      ]
+    },
+    {
+      "col": 77,
+      "text": "How satisfied are you with the resources available on campus for managing and coping with family pressure?",
+      "domain": "Family Pressure",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Campus coping resources: awareness of institutional counseling for stress.",
+      "traits": [
+        "FAM"
+      ]
+    },
+    {
+      "col": 78,
+      "text": "How does Family stress or difficulty impact your academic performance and well-being?",
+      "domain": "Family Pressure",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Family conflict spillover: domestic problems impairing concentration.",
+      "traits": [
+        "FAM"
+      ]
+    },
+    {
+      "col": 79,
+      "text": "Your parents never motivate you like other parents?",
+      "domain": "Family Pressure",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Comparative parental criticism: feeling parents compare student unfavorably.",
+      "traits": [
+        "FAM"
+      ]
+    },
+    {
+      "col": 80,
+      "text": "Have you ever discussed this pressure with your family or anyone else for support?",
+      "domain": "Family Pressure",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Family emotional dialogue: willingness to discuss stress openly with parents.",
+      "traits": [
+        "FAM"
+      ]
+    },
+    {
+      "col": 81,
+      "text": "You never achieve the expectations of your parents?",
+      "domain": "Family Pressure",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Chronic failure feeling: perceived permanent inability to meet expectations.",
+      "traits": [
+        "FAM"
+      ]
+    },
+    {
+      "col": 82,
+      "text": "You don\u2019t want to talk your parents?",
+      "domain": "Family Pressure",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "CRITICAL: Parental emotional estrangement. Reluctance to speak to parents.",
+      "traits": [
+        "FAM"
+      ]
+    },
+    {
+      "col": 83,
+      "text": "You think that your parents don\u2019t support you like other parents do?",
+      "domain": "Family Pressure",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Perceived lack of parental support: feeling isolated compared to peers.",
+      "traits": [
+        "FAM"
+      ]
+    },
+    {
+      "col": 84,
+      "text": "do you feel your parents' aspirations influence your own life goals and ambitions?",
+      "domain": "Family Pressure",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Parental vicarious ambition: parental goals substituting personal drive.",
+      "traits": [
+        "FAM"
+      ]
+    },
+    {
+      "col": 85,
+      "text": "rate your agreement with the statement: \"I feel pressure from my family to meet certain expectations.\"",
+      "domain": "Family Pressure",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Family expectation burden: acute pressure to attain high-paying placements.",
+      "traits": [
+        "AAR",
+        "FAM"
+      ]
+    },
+    {
+      "col": 86,
+      "text": "rate your agreement with the statement: \"I frequently engage in activities that I consider to be bad habits.\"",
+      "domain": "Maladaptive Habits",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Self-acknowledged bad habits: engaging in addictive or harmful routines.",
+      "traits": [
+        "SCR"
+      ]
+    },
+    {
+      "col": 87,
+      "text": "How effective have interventions (counseling, support groups, therapy) been in helping you manage or quit your bad habits?",
+      "domain": "Maladaptive Habits",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Therapeutic intervention efficacy: responsiveness to past counseling.",
+      "traits": [
+        "SCR",
+        "FSI"
+      ]
+    },
+    {
+      "col": 88,
+      "text": "You enjoy the late-night parties with your friends?",
+      "domain": "Maladaptive Habits",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Nocturnal partying: late-night escapism disrupting circadian rhythms.",
+      "traits": [
+        "SCR"
+      ]
+    },
+    {
+      "col": 89,
+      "text": "How do you feel about the resources available on campus for addressing bad habits or addiction?",
+      "domain": "Maladaptive Habits",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Campus de-addiction awareness: perception of university counseling support.",
+      "traits": [
+        "SCR"
+      ]
+    },
+    {
+      "col": 90,
+      "text": "How has your academic performance been impacted by any bad habits or addiction?",
+      "domain": "Maladaptive Habits",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Habit-induced academic damage: performance collapse due to addictions.",
+      "traits": [
+        "SCR"
+      ]
+    },
+    {
+      "col": 91,
+      "text": "Study is your first priority in exams.",
+      "domain": "Study Priorities",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Exam priority focus: placing academic study above social distractions.",
+      "traits": [
+        "TM",
+        "SRC"
+      ]
+    },
+    {
+      "col": 92,
+      "text": "If you get less score in exams, your friends are the main reason of your less score?",
+      "domain": "Study Priorities",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "External locus of control: blaming peer group for personal low marks.",
+      "traits": [
+        "PCL"
+      ]
+    },
+    {
+      "col": 93,
+      "text": "Your daily routine is not fix?",
+      "domain": "Study Priorities",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Circadian chaos: complete lack of structured daily study/sleep schedule.",
+      "traits": [
+        "TM",
+        "SQCR"
+      ]
+    },
+    {
+      "col": 94,
+      "text": "rate your agreement with the statement: \"I frequently feel homesick.\"",
+      "domain": "Homesickness",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Acute homesickness frequency: persistent emotional pull toward home.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 95,
+      "text": "You visit home as often as you can?",
+      "domain": "Homesickness",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Frequent home transit: fleeing campus on weekends, hurting study groups.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 96,
+      "text": "How satisfied are you with the resources available on campus for addressing homesickness?",
+      "domain": "Homesickness",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Campus transition support: satisfaction with institutional orientation.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 97,
+      "text": "How often do you stay in touch with family and friends from home?",
+      "domain": "Homesickness",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Home contact frequency: healthy communication with family support system.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 98,
+      "text": "You hardly ever think about home?",
+      "domain": "Homesickness",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Campus independence: emotional stability without compulsive home longing.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 99,
+      "text": "You call your family so many times during a day?",
+      "domain": "Homesickness",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Compulsive parental calling: calling home multiple times daily due to anxiety.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 100,
+      "text": "You hate this place?",
+      "domain": "Homesickness",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "CRITICAL: Acute institutional rejection. Stating 'You hate this place'.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 101,
+      "text": "You are very excited when vocation is there?",
+      "domain": "Homesickness",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Vacation fixation: mental disengagement from campus during semester.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 102,
+      "text": "How significantly does homesickness affect your mental health?",
+      "domain": "Homesickness",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Homesickness psychological toll: homesickness inducing depressive affect.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 103,
+      "text": "How actively do you participate in campus activities to feel more connected?",
+      "domain": "Homesickness",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Campus activity engagement: participating in clubs to build belonging.",
+      "traits": [
+        "BEL"
+      ]
+    },
+    {
+      "col": 104,
+      "text": "You spend so much time on your mobile?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Excessive screen time: compulsive hours spent on mobile devices.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 105,
+      "text": "your academic performance has been impacted by any Social media addiction?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Social media academic impairment: grades declining due to online apps.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 106,
+      "text": "Without any message also you scroll down the screen of your mobile for social media.",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Phantom scrolling: mindlessly scrolling feeds even without notifications.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 107,
+      "text": "You cannot assume your life without social media sites or apps?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Digital dependency: expressing life is unimaginable without social apps.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 108,
+      "text": "Your friends comment on your photo or story matter for you a lot?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Social validation addiction: excessive anxiety over post likes/comments.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 109,
+      "text": "You share every happy and sad moment with your friends by posting?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Compulsive life broadcasting: sharing every emotional event online.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 110,
+      "text": "How significantly does your use of mobile phones or social media affect your physical health (e.g., eye strain, posture problems)?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Digital somatic toll: eye strain, neck posture, and physical discomfort.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 111,
+      "text": "rate your agreement with the statement: \"My use of mobile phones or social media disrupts my daily life and activities.\"",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Daily routine disruption: screen time delaying meals, study, and sleep.",
+      "traits": [
+        "SQCR",
+        "SDA"
+      ]
+    },
+    {
+      "col": 112,
+      "text": "How often does your use of mobile phones or social media negatively impact your academic performance?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Study distraction: social media interrupts homework and revision.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 113,
+      "text": "How significantly does your use of mobile phones or social media affect your productivity in academic or personal tasks?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Cognitive productivity decline: inability to sustain deep focused work.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 114,
+      "text": "Have you ever tried to reduce your use of mobile phones or social media?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Failed digital detox: attempted reduction of phone usage and failed.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 115,
+      "text": "How anxious do you feel when you are unable to access your mobile phone or social media?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Nomophobia & withdrawal: severe anxiety when mobile access is denied.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 116,
+      "text": "How often do you use your mobile phone or social media during classes or study sessions?",
+      "domain": "Digital Addiction",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "In-class digital distraction: using smartphone apps during live lectures.",
+      "traits": [
+        "SDA"
+      ]
+    },
+    {
+      "col": 117,
+      "text": "Are you sleeping more or less then you normally sleep?",
+      "domain": "Clinical Screening",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Sleep architecture disruption: insomnia or excessive vegetative hypersomnia.",
+      "traits": [
+        "SQCR",
+        "CS"
+      ]
+    },
+    {
+      "col": 118,
+      "text": "Do you feel tired, no matter how much you sleep?",
+      "domain": "Clinical Screening",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Unrefreshing sleep: persistent exhaustion regardless of sleep duration.",
+      "traits": [
+        "SQCR",
+        "CS"
+      ]
+    },
+    {
+      "col": 119,
+      "text": "Are you enjoying the things right now happening in your life?",
+      "domain": "Clinical Screening",
+      "polarity": "Direct Scored",
+      "is_reverse": false,
+      "notes": "Anhedonia marker: ability to experience joy in current daily events.",
+      "traits": [
+        "CS"
+      ]
+    },
+    {
+      "col": 120,
+      "text": "You don\u2019t like interaction with anybody?",
+      "domain": "Clinical Screening",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Social withdrawal & isolation: aversion to interacting with all humans.",
+      "traits": [
+        "CS"
+      ]
+    },
+    {
+      "col": 121,
+      "text": "Have you noticed any changes in your physical appearance, such as bloodshot eyes, unusual odors, or sudden weight loss or gain in the past month?",
+      "domain": "Clinical Screening",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Somatic physical breakdown: bloodshot eyes, drastic weight fluctuations.",
+      "traits": [
+        "CS"
+      ]
+    },
+    {
+      "col": 122,
+      "text": "It is difficult for you to talk with your friends also.",
+      "domain": "Clinical Screening",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Relational shutdown: inability to converse even with closest friends.",
+      "traits": [
+        "CS"
+      ]
+    },
+    {
+      "col": 123,
+      "text": "Have you noticed any changes in your sleeping patterns or appetite recently?",
+      "domain": "Clinical Screening",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Vegetative somatic shifts: acute appetite loss or erratic circadian shifts.",
+      "traits": [
+        "CS"
+      ]
+    },
+    {
+      "col": 124,
+      "text": "Have you noticed any changes in your academic performance or behavior, such as missing classes or assignments, arriving late, or engaging in disruptive behavior in the past month?",
+      "domain": "Clinical Screening",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "Behavioral disinhibition: unexcused absenteeism, chronic late arrivals.",
+      "traits": [
+        "CS"
+      ]
+    },
+    {
+      "col": 125,
+      "text": "How often have you felt disoriented or confused in the past month?",
+      "domain": "Clinical Screening",
+      "polarity": "Reverse Scored",
+      "is_reverse": true,
+      "notes": "CRITICAL: Cognitive disorientation, severe confusion, and acute crisis.",
+      "traits": [
+        "CS"
+      ]
+    }
+  ],
+  "traits": {
+    "AM": {
+      "code": "AM",
+      "name": "Academic Motivation",
+      "weight": "8.8%",
+      "weightNum": 8.8,
+      "quadrant": "Mindset & Autonomous Drive",
+      "effect": "Protective",
+      "cols": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        41
+      ],
+      "desc": "Autonomous academic purpose, intrinsic drive, and rejection of forced enrollment."
+    },
+    "ASE": {
+      "code": "ASE",
+      "name": "Academic Self-Efficacy",
+      "weight": "7.6%",
+      "weightNum": 7.6,
+      "quadrant": "Mindset & Autonomous Drive",
+      "effect": "Protective",
+      "cols": [
+        42,
+        49,
+        50,
+        51,
+        52
+      ],
+      "desc": "Confidence in mastering complex technical coursework and solving engineering challenges."
+    },
+    "EI": {
+      "code": "EI",
+      "name": "Engineering Identity",
+      "weight": "6.2%",
+      "weightNum": 6.2,
+      "quadrant": "Mindset & Autonomous Drive",
+      "effect": "Protective",
+      "cols": [
+        36,
+        37,
+        41
+      ],
+      "desc": "Intrinsic alignment with the engineering profession and seeing long-term career in tech."
+    },
+    "GM": {
+      "code": "GM",
+      "name": "Growth Mindset",
+      "weight": "5.8%",
+      "weightNum": 5.8,
+      "quadrant": "Mindset & Autonomous Drive",
+      "effect": "Protective",
+      "cols": [
+        44,
+        45,
+        51
+      ],
+      "desc": "Perception of intelligence as expandable, viewing academic setbacks as learning inputs."
+    },
+    "TM": {
+      "code": "TM",
+      "name": "Time Management",
+      "weight": "10.4%",
+      "weightNum": 10.4,
+      "quadrant": "Executive Regulation & Study Routine",
+      "effect": "Protective",
+      "cols": [
+        46,
+        91,
+        93
+      ],
+      "desc": "Deliberate scheduling, proactive milestone tracking, and resisting nocturnal study chaos."
+    },
+    "SRC": {
+      "code": "SRC",
+      "name": "Study Consistency",
+      "weight": "8.6%",
+      "weightNum": 8.6,
+      "quadrant": "Executive Regulation & Study Routine",
+      "effect": "Protective",
+      "cols": [
+        43,
+        44,
+        47,
+        91
+      ],
+      "desc": "Daily revision discipline, absence of start-stop cycles, and sustained study momentum."
+    },
+    "PRM": {
+      "code": "PRM",
+      "name": "Procrastination Management",
+      "weight": "6.4%",
+      "weightNum": 6.4,
+      "quadrant": "Executive Regulation & Study Routine",
+      "effect": "Protective",
+      "cols": [
+        43,
+        44,
+        48
+      ],
+      "desc": "Overcoming assignment delays, task paralysis, and post-exam regret."
+    },
+    "MM": {
+      "code": "MM",
+      "name": "Metacognitive Regulation",
+      "weight": "5.8%",
+      "weightNum": 5.8,
+      "quadrant": "Executive Regulation & Study Routine",
+      "effect": "Protective",
+      "cols": [
+        46,
+        47,
+        52
+      ],
+      "desc": "Self-monitoring of learning comprehension and calibrating study effort to performance."
+    },
+    "AAR": {
+      "code": "AAR",
+      "name": "Academic Test Anxiety",
+      "weight": "8.2%",
+      "weightNum": 8.2,
+      "quadrant": "Emotional & Somatic Stability",
+      "effect": "Risk Factor",
+      "cols": [
+        45,
+        72,
+        85
+      ],
+      "desc": "Tolerance of timed high-stakes exams and cognitive calm during assessments."
+    },
+    "SQCR": {
+      "code": "SQCR",
+      "name": "Sleep Quality & Circadian Rhythm",
+      "weight": "7.1%",
+      "weightNum": 7.1,
+      "quadrant": "Emotional & Somatic Stability",
+      "effect": "Protective",
+      "cols": [
+        72,
+        93,
+        111,
+        117,
+        118
+      ],
+      "desc": "Consistent 7+ hour circadian schedule, nocturnal rhythm regularity, and low fatigue."
+    },
+    "SCR": {
+      "code": "SCR",
+      "name": "Stress Coping Resilience",
+      "weight": "4.8%",
+      "weightNum": 4.8,
+      "quadrant": "Emotional & Somatic Stability",
+      "effect": "Protective",
+      "cols": [
+        51,
+        71,
+        86,
+        87,
+        88,
+        89,
+        90
+      ],
+      "desc": "Adaptive coping under engineering workload, low substance reliance, and emotional recovery."
+    },
+    "PAW": {
+      "code": "PAW",
+      "name": "Physical Activity & Somatics",
+      "weight": "3.5%",
+      "weightNum": 3.5,
+      "quadrant": "Emotional & Somatic Stability",
+      "effect": "Protective",
+      "cols": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70
+      ],
+      "desc": "Sports engagement, somatic energy, physical fitness, and mess food adaptation."
+    },
+    "SDA": {
+      "code": "SDA",
+      "name": "Screen Time & Digital Focus",
+      "weight": "3.0%",
+      "weightNum": 3.0,
+      "quadrant": "Emotional & Somatic Stability",
+      "effect": "Protective",
+      "cols": [
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116
+      ],
+      "desc": "Controlled mobile screen time, resistance to in-class phone distraction and doomscrolling."
+    },
+    "BEL": {
+      "code": "BEL",
+      "name": "Campus Belonging & Transition",
+      "weight": "5.4%",
+      "weightNum": 5.4,
+      "quadrant": "Social Capital & Relational Environment",
+      "effect": "Protective",
+      "cols": [
+        71,
+        73,
+        74,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103
+      ],
+      "desc": "Hostel community adjustment, overcoming homesickness and relocation shock."
+    },
+    "PCL": {
+      "code": "PCL",
+      "name": "Peer Group Collaboration",
+      "weight": "4.6%",
+      "weightNum": 4.6,
+      "quadrant": "Social Capital & Relational Environment",
+      "effect": "Protective",
+      "cols": [
+        39,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        92
+      ],
+      "desc": "Study group participation, collaborative homework, and resilience to negative peer influence."
+    },
+    "FAM": {
+      "code": "FAM",
+      "name": "Family Autonomy & Low Coercion",
+      "weight": "4.2%",
+      "weightNum": 4.2,
+      "quadrant": "Social Capital & Relational Environment",
+      "effect": "Risk Factor",
+      "cols": [
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85
+      ],
+      "desc": "Freedom from hyper-critical parental perfectionism, comparative pressure, and guilt."
+    },
+    "FSI": {
+      "code": "FSI",
+      "name": "Faculty Seeking & Guidance",
+      "weight": "2.6%",
+      "weightNum": 2.6,
+      "quadrant": "Social Capital & Relational Environment",
+      "effect": "Protective",
+      "cols": [
+        40,
+        52,
+        87
+      ],
+      "desc": "Proactive instructor consultation, attending office hours, and counseling openness."
+    },
+    "CS": {
+      "code": "CS",
+      "name": "Clinical Distress Safety Screener",
+      "weight": "Gate",
+      "weightNum": 0.0,
+      "quadrant": "Clinical Safety Gate",
+      "effect": "Emergency",
+      "cols": [
+        75,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125
+      ],
+      "desc": "Screening for severe somatic exhaustion, vegetative disruption, disorientation, and acute crisis."
+    }
+  }
+}

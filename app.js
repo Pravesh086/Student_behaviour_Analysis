@@ -91,6 +91,12 @@
         }, 50);
       });
     });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get('tab');
+    if (tabParam) {
+      setTimeout(() => switchTab(tabParam), 50);
+    }
   }
 
   function switchTab(tabId) {
@@ -379,18 +385,19 @@
       });
     }
 
-    // First Gen Retention
+    // Admission Category Breakdown (Indian Reservation Quota)
     const ctxFirstGen = document.getElementById("chart-demo-firstgen");
-    if (ctxFirstGen && demographics.byFirstGen) {
+    const categoryData = demographics.byCategory || demographics.byFirstGen;
+    if (ctxFirstGen && categoryData) {
       if (chartInstances.demoFirstGen) chartInstances.demoFirstGen.destroy();
 
       chartInstances.demoFirstGen = new Chart(ctxFirstGen, {
         type: "doughnut",
         data: {
-          labels: demographics.byFirstGen.map(f => `First-Gen: ${f.category} (${f.count})`),
+          labels: categoryData.map(f => `${f.category} (${f.count})`),
           datasets: [{
-            data: demographics.byFirstGen.map(f => f.count),
-            backgroundColor: ["#8b5cf6", "#06b6d4"],
+            data: categoryData.map(f => f.count),
+            backgroundColor: ["#6366f1", "#06b6d4", "#f59e0b", "#10b981", "#ec4899"],
             borderWidth: 2,
             borderColor: "#111827"
           }]
@@ -1094,7 +1101,7 @@ ${c.dailyHabits.join("\n")}
         const matchesQuery = !query || s.id.toLowerCase().includes(query) || (dm.major && dm.major.toLowerCase().includes(query));
         const matchesMaj = majF === "ALL" || dm.major === majF;
         const matchesYear = yearF === "ALL" || dm.academicYear === yearF;
-        const matchesFg = fgF === "ALL" || dm.firstGen === fgF;
+        const matchesFg = fgF === "ALL" || dm.admissionCategory === fgF || dm.firstGen === fgF;
         const matchesSucc = succ === "ALL" || s.success === succ;
         const matchesRisk = risk === "ALL" || s.risk === risk;
         
