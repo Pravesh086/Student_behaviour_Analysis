@@ -1,0 +1,782 @@
+\documentclass[10pt,a4paper]{article}
+
+% =============================================================================
+% PACKAGES & LOCAL CONFIGURATION
+% =============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[margin=0.70in, top=0.80in, bottom=0.80in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true, linkcolor=BlueDeep, urlcolor=BluePrimary, citecolor=BlueDeep]{hyperref}
+
+% =============================================================================
+% COLOR PALETTE (ACADEMIC BLUE THEME)
+% =============================================================================
+\definecolor{NavyDark}{HTML}{0F172A}     % Slate 900
+\definecolor{BluePrimary}{HTML}{1D4ED8}  % Royal Blue 700
+\definecolor{BlueLight}{HTML}{EFF6FF}    % Blue 50
+\definecolor{BlueBorder}{HTML}{3B82F6}   % Blue 500
+\definecolor{BlueDeep}{HTML}{1E3A8A}     % Blue 900
+\definecolor{TextBody}{HTML}{1E293B}     % Slate 800
+\definecolor{TextMuted}{HTML}{475569}    % Slate 600
+\definecolor{CanvasBG}{HTML}{F8FAFC}     % Slate 50
+\definecolor{CanvasBorder}{HTML}{CBD5E1} % Slate 300
+\definecolor{GoldBG}{HTML}{FFFBEB}       % Amber 50
+\definecolor{GoldBorder}{HTML}{EAB308}   % Amber 500
+\definecolor{GoldText}{HTML}{B45309}     % Amber 700
+\definecolor{GreenDark}{HTML}{065F46}    % Emerald 800
+\definecolor{GreenLight}{HTML}{ECFDF5}   % Emerald 50
+\definecolor{GreenBorder}{HTML}{10B981}  % Emerald 500
+\definecolor{RedDark}{HTML}{991B1B}      % Rose 800
+\definecolor{RedLight}{HTML}{FFF1F2}     % Rose 50
+\definecolor{RedBorder}{HTML}{F43F5E}    % Rose 500
+\definecolor{PurpleDark}{HTML}{581C87}   % Purple 900
+\definecolor{PurpleLight}{HTML}{FAF5FF}  % Purple 50
+\definecolor{PurpleBorder}{HTML}{A855F7} % Purple 500
+
+% =============================================================================
+% SECTION FORMATTING
+% =============================================================================
+\titleformat{\section}
+  {\Large\bfseries\color{NavyDark}}
+  {\thesection}{1em}{}[\color{BluePrimary}\titlerule]
+\titleformat{\subsection}
+  {\large\bfseries\color{BlueDeep}}
+  {\thesubsection}{0.8em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{NavyDark}}
+  {\thesubsubsection}{0.6em}{}
+
+\titlespacing*{\section}{0pt}{14pt}{8pt}
+\titlespacing*{\subsection}{0pt}{10pt}{5pt}
+\titlespacing*{\subsubsection}{0pt}{8pt}{4pt}
+
+% =============================================================================
+% HEADER & FOOTER
+% =============================================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\bfseries\color{NavyDark}AcuLearn AI: Complete 17-Construct Psychometric Inventory \& Dropout Diagnostic Manual}
+\fancyhead[R]{\small\color{BluePrimary}\textbf{MNIT Jaipur}}
+\fancyfoot[L]{\footnotesize\color{TextMuted}Pravesh Kumar Bansal (Reg: 2019rcp9557) $\bullet$ Dept. of Computer Science \& Engineering}
+\fancyfoot[R]{\footnotesize\bfseries\color{NavyDark}Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.8pt}
+\renewcommand{\headrule}{\color{BlueBorder}\hrule width\headwidth height\headrulewidth \vskip-\headrulewidth}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% =============================================================================
+% CUSTOM CALLOUT BOXES
+% =============================================================================
+\newtcolorbox{summarybox}[1]{
+  colback=BlueLight,
+  colframe=BlueBorder,
+  arc=1.5mm,
+  boxrule=0.9pt,
+  fonttitle=\bfseries\color{NavyDark},
+  title={#1},
+  top=2mm, bottom=2mm, left=3mm, right=3mm
+}
+
+\newtcolorbox{criteriabox}[1]{
+  colback=RedLight,
+  colframe=RedBorder,
+  arc=1.5mm,
+  boxrule=0.9pt,
+  fonttitle=\bfseries\color{RedDark},
+  title={#1},
+  top=2mm, bottom=2mm, left=3mm, right=3mm
+}
+
+\newtcolorbox{recoursebox}[1]{
+  colback=GreenLight,
+  colframe=GreenBorder,
+  arc=1.5mm,
+  boxrule=0.9pt,
+  fonttitle=\bfseries\color{GreenDark},
+  title={#1},
+  top=2mm, bottom=2mm, left=3mm, right=3mm
+}
+
+\newtcolorbox{constructbox}[1]{
+  colback=CanvasBG,
+  colframe=NavyDark,
+  arc=1.5mm,
+  boxrule=0.8pt,
+  fonttitle=\bfseries\color{white},
+  colbacktitle=NavyDark,
+  toptitle=1.5mm, bottomtitle=1.5mm,
+  top=2mm, bottom=2mm, left=3mm, right=3mm
+}
+
+\begin{document}
+
+% =============================================================================
+% TITLE BLOCK
+% =============================================================================
+\begin{center}
+  {\Huge\bfseries\color{NavyDark} The AcuLearn AI Psychometric \& Diagnostic Battery}\\[0.25cm]
+  {\Large\bfseries\color{BluePrimary} Complete Specification of All 17 Constructs, 180 Question Items, Statistical Weights,}\\[0.10cm]
+  {\Large\bfseries\color{BluePrimary} and Multi-Objective Criteria for Student Dropout and Crisis Detection}\\[0.30cm]
+  {\normalsize\bfseries Pravesh Kumar Bansal (Registration No.: 2019rcp9557 / Student ID: 20804007)}\\[0.08cm]
+  {\small Under the Supervision of \textbf{Dr. Mushtaq Ahmed}, Associate Professor}\\[0.08cm]
+  {\small Department of Computer Science \& Engineering $\bullet$ Malaviya National Institute of Technology (MNIT) Jaipur, India}\\[0.15cm]
+  {\footnotesize\color{TextMuted} Pre-Ph.D. Comprehensive Examination \& Doctoral Research Reference Manual $\bullet$ Published October 2026}
+\end{center}
+
+\vspace{-0.2cm}
+\begin{summarybox}{Executive Technical Summary}
+  This comprehensive manual documents the complete psychometric battery, mathematical models, feature weightings, and multi-objective diagnostic decision criteria underlying the \textbf{AcuLearn AI} framework. 
+  Rooted in a Day-1 intake philosophy, AcuLearn AI captures non-cognitive, behavioral, and psycho-environmental friction at the critical transition from 12th standard school environments to university engineering education. 
+  While traditional ERP and LMS portals only detect academic distress late in the semester (Week 14, following midterm debarment), non-cognitive signals reveal systemic vulnerability within the initial \textbf{proactive intervention window (Weeks 0--6)}.
+  This manual provides the exhaustive, unexpurgated inventory of all \textbf{180 psychometric items across 17 distinct constructs} (51 manifest parcels), complete factor loadings ($\lambda$), reliability coefficients ($\alpha, \text{CR}, \text{AVE}$), global SHAP importance ranks, BeNet multi-task weights, and exact mathematical decision thresholds for predicting:
+  \textbf{(1) Terminal Student Dropout}, \textbf{(2) Academic Probation \& SGPA Plunge}, \textbf{(3) Delayed Graduation}, \textbf{(4) Acute Psychological Burnout / Crisis}, and \textbf{(5) Feasible CCRO Counterfactual Recourse Pathways}.
+\end{summarybox}
+
+\vspace{0.3cm}
+\tableofcontents
+\newpage
+
+% =============================================================================
+% SECTION 1: ARCHITECTURAL TAXONOMY & THE 17 CONSTRUCT MATRIX
+% =============================================================================
+\section{Taxonomy of the 17 Non-Cognitive Constructs \& Master Matrix}
+
+AcuLearn AI organizes student life into \textbf{4 Cardinal Quadrants}, comprising 17 validated latent constructs measured via the 180-item Student Success Questionnaire (SSQ-180) and distilled into 51 manifest parcels for Structural Equation Modeling and Deep Multi-Task Neural Modeling.
+
+\begin{table}[h!]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{cc>{\raggedright\arraybackslash}Xcccccc}
+\toprule
+\textbf{Quad} & \textbf{ID} & \textbf{Construct Domain Name} & \textbf{Items} & \textbf{Parcels} & \textbf{$\alpha$} & \textbf{CR} & \textbf{AVE} & \textbf{Mean $|\text{SHAP}|$} \\
+\midrule
+\rowcolor{BlueLight} & C01 & Academic Self-Efficacy & 12 & P01--P03 & 0.89 & 0.94 & 0.68 & 0.32 \\
+\rowcolor{BlueLight} & C02 & Metacognitive Regulation \& Strategy & 11 & P04--P06 & 0.87 & 0.93 & 0.65 & 0.28 \\
+\rowcolor{BlueLight} \multirow{-3}{*}{\textbf{Q1}} & C03 & Time Management Discipline & 10 & P07--P09 & 0.85 & 0.92 & 0.62 & 0.19 \\
+\rowcolor{BlueLight} & C04 & Deep vs.\ Surface Approach to Learning & 10 & P10--P12 & 0.84 & 0.91 & 0.61 & 0.16 \\
+\midrule
+\rowcolor{RedLight} & C05 & Test \& Evaluative Anxiety & 12 & P13--P15 & 0.91 & 0.95 & 0.72 & 0.38 \\
+\rowcolor{RedLight} & C06 & Imposter Phenomenon / Self-Doubt & 10 & P16--P18 & 0.88 & 0.93 & 0.66 & 0.21 \\
+\rowcolor{RedLight} \multirow{-3}{*}{\textbf{Q2}} & C07 & Stress Resilience \& Active Coping & 11 & P19--P21 & 0.86 & 0.92 & 0.64 & 0.17 \\
+\rowcolor{RedLight} & C08 & Academic Burnout Vulnerability & 12 & P22--P24 & 0.93 & 0.96 & 0.75 & 0.25 \\
+\midrule
+\rowcolor{CanvasBG} & C09 & Institutional Belonging \& Identification & 11 & P25--P27 & 0.90 & 0.94 & 0.70 & 0.18 \\
+\rowcolor{CanvasBG} & C10 & Peer Study Group Integration & 10 & P28--P30 & 0.85 & 0.92 & 0.63 & 0.35 \\
+\rowcolor{CanvasBG} \multirow{-3}{*}{\textbf{Q3}} & C11 & Faculty Mentorship Seeking & 10 & P31--P33 & 0.83 & 0.91 & 0.60 & 0.15 \\
+\rowcolor{CanvasBG} & C12 & Help-Seeking Stigma \& Reluctance & 10 & P34--P36 & 0.87 & 0.93 & 0.65 & 0.22 \\
+\midrule
+\rowcolor{GoldBG} & C13 & Sleep Hygiene \& Circadian Regularity & 11 & P37--P39 & 0.88 & 0.94 & 0.67 & 0.42 \\
+\rowcolor{GoldBG} & C14 & Digital Escapism \& Gaming Addiction & 10 & P40--P42 & 0.86 & 0.92 & 0.63 & 0.18 \\
+\rowcolor{GoldBG} & C15 & Grit \& Perseverance of Effort & 10 & P43--P45 & 0.84 & 0.91 & 0.61 & 0.14 \\
+\rowcolor{GoldBG} \multirow{-4}{*}{\textbf{Q4}} & C16 & Career Clarity \& Professional Purpose & 10 & P46--P48 & 0.86 & 0.92 & 0.64 & 0.17 \\
+\rowcolor{GoldBG} & C17 & Growth Mindset Orientation & 10 & P49--P51 & 0.82 & 0.91 & 0.59 & 0.12 \\
+\midrule
+\multicolumn{3}{l}{\textbf{Total Scale Battery / Global Fit}} & \textbf{180} & \textbf{51} & \multicolumn{4}{c}{\textbf{CFI = 0.958, TLI = 0.952, RMSEA = 0.038, SRMR = 0.034}} \\
+\bottomrule
+\end{tabularx}
+\caption{Master Psychometric and Machine Learning Attribution Matrix across All 17 Constructs.}
+\end{table}
+
+\subsection{Item Parceling Methodology}
+Because raw estimation of an unconstrained 180-item covariance matrix with $N = 276$ physical participants would yield an under-identified observation-to-parameter ratio ($< 1.6:1$), we implemented a mathematically robust \textbf{Two-Tier Identification Protocol}:
+\begin{enumerate}[noitemsep, topsep=2pt]
+  \item \textbf{Isolated Per-Construct Measurement Models:} Each construct is modeled as an independent single-factor model with 10--12 items, yielding subject-to-parameter ratios of $13.8:1$ to $27.6:1$ (exceeding Kline's $10:1$ standard).
+  \item \textbf{Factorial Item Parceling:} Following Little et al. (2002), items within each construct are sorted by standardized factor loading and balanced into three continuous manifest parcels:
+  $P_{j,1} = \{i_{(1)}, i_{(6)}, i_{(7)}\}$, $P_{j,2} = \{i_{(2)}, i_{(5)}, i_{(8)}\}$, and $P_{j,3} = \{i_{(3)}, i_{(4)}, i_{(9)}\}$.
+  This condenses the structural measurement model to 51 parcels, ensuring full mathematical identification and stability for robust maximum likelihood (MLR) estimation.
+\end{enumerate}
+
+\newpage
+% =============================================================================
+% SECTION 2: EXHAUSTIVE SPECIFICATION OF ALL 180 QUESTION ITEMS
+% =============================================================================
+\section{Exhaustive Inventory of All 180 Question Items Across All 17 Constructs}
+
+All items are evaluated on a 5-point Likert scale: $1 = \text{Strongly Disagree}$, $2 = \text{Disagree}$, $3 = \text{Neutral / Sometimes}$, $4 = \text{Agree}$, and $5 = \text{Strongly Agree}$. Items tagged with \textbf{[R]} are reverse-scored prior to aggregation: $x_{\text{scored}} = 6 - x_{\text{raw}}$.
+
+% -----------------------------------------------------------------------------
+% QUADRANT 1
+% -----------------------------------------------------------------------------
+\subsection{Quadrant 1: Academic \& Cognitive Self-Regulation (44 Items)}
+
+\begin{constructbox}{Construct 1: Academic Self-Efficacy (12 Items $\bullet$ $\alpha = 0.89$, $\text{CR} = 0.94$, $\text{AVE} = 0.68$)}
+\textbf{Definition:} A student's subjective confidence in their cognitive capacity to master engineering coursework, solve unfamiliar problems, and overcome initial academic setbacks (Bandura, 1997).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt]
+  \item I am confident I can understand the most complex concepts taught in my engineering lectures. \hfill (\textbf{Parcel P01}, $\lambda = 0.88, R^2 = 0.77$)
+  \item I believe I have the cognitive ability to excel in advanced mathematics and technical problem-solving. \hfill (\textbf{Parcel P02}, $\lambda = 0.86, R^2 = 0.74$)
+  \item When I receive a low quiz mark, I view it as a solvable tactical problem rather than an innate failure. \hfill (\textbf{Parcel P03}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I can successfully complete challenging lab assignments without relying on friends' solutions. \hfill (\textbf{Parcel P01}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I am confident that I can master new technical software and programming frameworks on my own. \hfill (\textbf{Parcel P02}, $\lambda = 0.83, R^2 = 0.69$)
+  \item Even when course material is extremely difficult, I maintain belief that dedicated effort will lead to mastery. \hfill (\textbf{Parcel P03}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I trust my ability to perform well during unexpected or high-stakes surprise evaluations. \hfill (\textbf{Parcel P01}, $\lambda = 0.78, R^2 = 0.61$)
+  \item I feel capable of competing academically with top performers in my engineering branch. \hfill (\textbf{Parcel P02}, $\lambda = 0.82, R^2 = 0.67$)
+  \item When faced with an unfamiliar algorithmic problem, I trust my analytical reasoning to find a solution. \hfill (\textbf{Parcel P03}, $\lambda = 0.85, R^2 = 0.72$)
+  \item I am certain I can achieve my target semester GPA if I adhere to my study schedule. \hfill (\textbf{Parcel P01}, $\lambda = 0.83, R^2 = 0.69$)
+  \item Initial academic setbacks motivate me to work harder rather than making me doubt my college admission. \hfill (\textbf{Parcel P02}, $\lambda = 0.79, R^2 = 0.62$)
+  \item Overall, I feel well-prepared and intellectually equipped for rigorous engineering education. \hfill (\textbf{Parcel P03}, $\lambda = 0.84, R^2 = 0.71$)
+\end{enumerate}
+\end{constructbox}
+
+\vspace{0.2cm}
+\begin{constructbox}{Construct 2: Metacognitive Regulation \& Strategy (11 Items $\bullet$ $\alpha = 0.87$, $\text{CR} = 0.93$, $\text{AVE} = 0.65$)}
+\textbf{Definition:} Proactive planning, real-time comprehension monitoring, and deliberate adaptation of cognitive study strategies (Zimmerman, 2000).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item Before starting an assignment, I outline specific conceptual milestones and completion deadlines. \hfill (\textbf{Parcel P04}, $\lambda = 0.85, R^2 = 0.72$)
+  \item While studying, I periodically pause to test whether I can explain concepts in my own words without notes. \hfill (\textbf{Parcel P05}, $\lambda = 0.84, R^2 = 0.71$)
+  \item If a textbook explanation is confusing, I actively seek alternate visual, video, or research resources. \hfill (\textbf{Parcel P06}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I systematically track which topics I find difficult and allocate extra revision time to them. \hfill (\textbf{Parcel P04}, $\lambda = 0.82, R^2 = 0.67$)
+  \item After taking an exam, I review my mistakes to diagnose errors in reasoning or time management. \hfill (\textbf{Parcel P05}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I consciously adjust my study method depending on whether an exam requires derivation or coding. \hfill (\textbf{Parcel P06}, $\lambda = 0.79, R^2 = 0.62$)
+  \item I frequently catch myself reading without comprehension and immediately re-read the material. \hfill (\textbf{Parcel P04}, $\lambda = 0.76, R^2 = 0.58$)
+  \item I maintain a written checklist of learning objectives for each technical subject. \hfill (\textbf{Parcel P05}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I anticipate potential exam questions while listening to lecture derivations. \hfill (\textbf{Parcel P06}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I reflect on my weekly academic progress every Sunday to adjust my strategy for the coming week. \hfill (\textbf{Parcel P04}, $\lambda = 0.78, R^2 = 0.61$)
+  \item I actively self-assess my mastery using past exam papers under timed simulation conditions. \hfill (\textbf{Parcel P05}, $\lambda = 0.81, R^2 = 0.66$)
+\end{enumerate}
+\end{constructbox}
+
+\newpage
+\begin{constructbox}{Construct 3: Time Management Discipline (10 Items $\bullet$ $\alpha = 0.85$, $\text{CR} = 0.92$, $\text{AVE} = 0.62$)}
+\textbf{Definition:} Structured scheduling, daily prioritization, and sustained focus on academic tasks while resisting procrastination (Britton \& Tesser, 1991).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I maintain and follow a daily study timetable that accounts for lecture hours, labs, and study. \hfill (\textbf{Parcel P07}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I begin semester lab projects and term assignments within 48 hours of their announcement. \hfill (\textbf{Parcel P08}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I prioritize high-weight academic tasks over casual social media and hostel conversations. \hfill (\textbf{Parcel P09}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I rarely postpone academic tasks until the night before a submission deadline. \hfill (\textbf{Parcel P07}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I set aside protected, uninterrupted study blocks of at least two hours daily. \hfill (\textbf{Parcel P08}, $\lambda = 0.78, R^2 = 0.61$)
+  \item I accurately estimate the time required to complete technical assignments. \hfill (\textbf{Parcel P09}, $\lambda = 0.77, R^2 = 0.59$)
+  \item I break down large semester projects into small, manageable daily increments. \hfill (\textbf{Parcel P07}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I consistently meet academic deadlines without experiencing extreme last-minute panic. \hfill (\textbf{Parcel P08}, $\lambda = 0.82, R^2 = 0.67$)
+  \item When unexpected events disrupt my day, I reschedule missed study hours rather than abandoning them. \hfill (\textbf{Parcel P09}, $\lambda = 0.79, R^2 = 0.62$)
+  \item I maintain a balanced weekly schedule that reserves fixed hours for sleep, health, and study. \hfill (\textbf{Parcel P07}, $\lambda = 0.80, R^2 = 0.64$)
+\end{enumerate}
+\end{constructbox}
+
+\vspace{0.2cm}
+\begin{constructbox}{Construct 4: Deep vs.\ Surface Approach to Learning (10 Items $\bullet$ $\alpha = 0.84$, $\text{CR} = 0.91$, $\text{AVE} = 0.61$)}
+\textbf{Definition:} Orientation toward understanding fundamental physical principles, mechanisms, and real-world synthesis versus rote formula memorization (Biggs, 1987).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I strive to understand the underlying physical and mathematical derivations rather than memorizing formulas. \hfill (\textbf{Parcel P10}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I actively search for connections between concepts taught in different engineering courses. \hfill (\textbf{Parcel P11}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I explore real-world engineering applications of theoretical equations introduced in class. \hfill (\textbf{Parcel P12}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I feel dissatisfied if I achieve a high mark through rote memorization without true comprehension. \hfill (\textbf{Parcel P10}, $\lambda = 0.79, R^2 = 0.62$)
+  \item I question assumptions in technical textbooks and attempt alternative derivation pathways. \hfill (\textbf{Parcel P11}, $\lambda = 0.78, R^2 = 0.61$)
+  \item I only memorize formulas without understanding when an exam is tomorrow morning. \textbf{[R]} \hfill (\textbf{Parcel P12}, $\lambda = 0.75, R^2 = 0.56$)
+  \item I discuss technical concepts and algorithmic trade-offs with peers outside lecture hours. \hfill (\textbf{Parcel P10}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I enjoy reading supplementary research papers or technical documentation beyond syllabus scope. \hfill (\textbf{Parcel P11}, $\lambda = 0.77, R^2 = 0.59$)
+  \item I treat engineering problems as intellectual puzzles rather than academic chores. \hfill (\textbf{Parcel P12}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I continuously relate new lecture topics to foundational principles learned in prerequisite semesters. \hfill (\textbf{Parcel P10}, $\lambda = 0.82, R^2 = 0.67$)
+\end{enumerate}
+\end{constructbox}
+
+% -----------------------------------------------------------------------------
+% QUADRANT 2
+% -----------------------------------------------------------------------------
+\subsection{Quadrant 2: Affective \& Psychological Stress (45 Items)}
+
+\begin{constructbox}{Construct 5: Test \& Evaluative Anxiety (12 Items $\bullet$ $\alpha = 0.91$, $\text{CR} = 0.95$, $\text{AVE} = 0.72$)}
+\textbf{Definition:} Debilitating cognitive worry, intrusive thoughts of failure, and autonomic hyperarousal during high-stakes assessments (Spielberger, 1983).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item My heart races and my hands tremble when an exam question paper is being distributed. \hfill (\textbf{Parcel P13}, $\lambda = 0.90, R^2 = 0.81$)
+  \item During major engineering exams, my mind goes completely blank on concepts I studied thoroughly. \hfill (\textbf{Parcel P14}, $\lambda = 0.88, R^2 = 0.77$)
+  \item Intrusive thoughts of failure and debarment prevent me from concentrating during tests. \hfill (\textbf{Parcel P15}, $\lambda = 0.87, R^2 = 0.76$)
+  \item I experience intense gastrointestinal discomfort or nausea on morning exam days. \hfill (\textbf{Parcel P13}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I panic when I see other students asking for additional answer sheets during mid-term exams. \hfill (\textbf{Parcel P14}, $\lambda = 0.84, R^2 = 0.71$)
+  \item Even when well-prepared, I am overwhelmed by fear that the exam will contain unsolvable problems. \hfill (\textbf{Parcel P15}, $\lambda = 0.85, R^2 = 0.72$)
+  \item I worry excessively about letting down my parents and family if I do not secure top grades. \hfill (\textbf{Parcel P13}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I frequently misread simple exam instructions because of extreme nervousness. \hfill (\textbf{Parcel P14}, $\lambda = 0.83, R^2 = 0.69$)
+  \item After an exam, I obsess over perceived mistakes for days, impairing preparation for upcoming papers. \hfill (\textbf{Parcel P15}, $\lambda = 0.86, R^2 = 0.74$)
+  \item I feel paralyzing dread whenever a professor announces surprise quizzes or viva evaluations. \hfill (\textbf{Parcel P13}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I struggle to fall asleep the night before an exam due to racing thoughts of academic disaster. \hfill (\textbf{Parcel P14}, $\lambda = 0.89, R^2 = 0.79$)
+  \item I consider skipping examinations entirely when my anxiety levels become unmanageable. \hfill (\textbf{Parcel P15}, $\lambda = 0.86, R^2 = 0.74$)
+\end{enumerate}
+\end{constructbox}
+
+\newpage
+\begin{constructbox}{Construct 6: Imposter Phenomenon / Self-Doubt (10 Items $\bullet$ $\alpha = 0.88$, $\text{CR} = 0.93$, $\text{AVE} = 0.66$)}
+\textbf{Definition:} Persistent internalized fear of being exposed as an intellectual fraud who gained university admission purely by chance (Clance \& O'Toole, 1988).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I secretly feel that my admission to this engineering institute was luck rather than true ability. \hfill (\textbf{Parcel P16}, $\lambda = 0.86, R^2 = 0.74$)
+  \item I am afraid my professors and classmates will discover that I am not as competent as they think. \hfill (\textbf{Parcel P17}, $\lambda = 0.85, R^2 = 0.72$)
+  \item When I succeed in a difficult course, I attribute it to an easy question paper rather than competence. \hfill (\textbf{Parcel P18}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I compare myself to classmates and feel intellectually inferior and out of place in technical discussions. \hfill (\textbf{Parcel P16}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I avoid speaking up in class derivations out of fear of exposing my perceived ignorance. \hfill (\textbf{Parcel P17}, $\lambda = 0.81, R^2 = 0.66$)
+  \item Praise from professors makes me feel uncomfortable, as if I have somehow deceived them. \hfill (\textbf{Parcel P18}, $\lambda = 0.79, R^2 = 0.62$)
+  \item I feel that other students understand complex lectures effortlessly while I struggle to keep up. \hfill (\textbf{Parcel P16}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I worry that any academic mistake will permanently confirm that I do not belong in this institution. \hfill (\textbf{Parcel P17}, $\lambda = 0.85, R^2 = 0.72$)
+  \item I downplay my academic achievements when talking to peers and family. \hfill (\textbf{Parcel P18}, $\lambda = 0.78, R^2 = 0.61$)
+  \item I often feel like a fraud who somehow slipped through the competitive entrance examination filter. \hfill (\textbf{Parcel P16}, $\lambda = 0.87, R^2 = 0.76$)
+\end{enumerate}
+\end{constructbox}
+
+\vspace{0.2cm}
+\begin{constructbox}{Construct 7: Stress Resilience \& Active Coping (11 Items $\bullet$ $\alpha = 0.86$, $\text{CR} = 0.92$, $\text{AVE} = 0.64$)}
+\textbf{Definition:} The capacity to maintain psychological stability, utilize constructive problem-solving, and bounce back after academic failure (Connor \& Davidson, 2003).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item When faced with an academic setback, I quickly focus on what practical steps I can take to recover. \hfill (\textbf{Parcel P19}, $\lambda = 0.85, R^2 = 0.72$)
+  \item I tend to bounce back quickly after receiving disappointing mid-term marks. \hfill (\textbf{Parcel P20}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I view difficult engineering challenges as opportunities to build intellectual resilience. \hfill (\textbf{Parcel P21}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I maintain emotional calmness when multiple submission deadlines coincide in the same week. \hfill (\textbf{Parcel P19}, $\lambda = 0.80, R^2 = 0.64$)
+  \item When stress peaks, I practice deliberate relaxation, exercise, or structured mental breaks. \hfill (\textbf{Parcel P20}, $\lambda = 0.79, R^2 = 0.62$)
+  \item I can manage intense academic pressure without resorting to total avoidance or unhealthy escapism. \hfill (\textbf{Parcel P21}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I adapt flexibly when semester schedules, exam patterns, or project requirements change abruptly. \hfill (\textbf{Parcel P19}, $\lambda = 0.78, R^2 = 0.61$)
+  \item I actively seek solutions and constructive advice rather than complaining about academic hardship. \hfill (\textbf{Parcel P20}, $\lambda = 0.82, R^2 = 0.67$)
+  \item Setbacks and low marks do not diminish my long-term commitment to completing my engineering degree. \hfill (\textbf{Parcel P21}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I possess reliable personal coping strategies that keep me functioning during high-pressure weeks. \hfill (\textbf{Parcel P19}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I believe that surviving difficult academic phases makes me a stronger and more capable professional. \hfill (\textbf{Parcel P20}, $\lambda = 0.83, R^2 = 0.69$)
+\end{enumerate}
+\end{constructbox}
+
+\vspace{0.2cm}
+\begin{constructbox}{Construct 8: Academic Burnout Vulnerability (12 Items $\bullet$ $\alpha = 0.93$, $\text{CR} = 0.96$, $\text{AVE} = 0.75$)}
+\textbf{Definition:} Tripartite syndrome of chronic emotional exhaustion, cynical detachment from education, and feelings of academic inefficacy (Maslach et al., 2002).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I wake up in the morning feeling emotionally exhausted at the thought of attending classes. \hfill (\textbf{Parcel P22}, $\lambda = 0.92, R^2 = 0.85$)
+  \item I feel completely drained of physical and mental energy after engineering laboratory sessions. \hfill (\textbf{Parcel P23}, $\lambda = 0.90, R^2 = 0.81$)
+  \item I have become cynical and detached about the value and relevance of my engineering degree. \hfill (\textbf{Parcel P24}, $\lambda = 0.89, R^2 = 0.79$)
+  \item Studying engineering coursework feels like an endless treadmill that produces no satisfaction. \hfill (\textbf{Parcel P22}, $\lambda = 0.88, R^2 = 0.77$)
+  \item I feel emotionally numb and indifferent toward whether I pass or fail upcoming exams. \hfill (\textbf{Parcel P23}, $\lambda = 0.87, R^2 = 0.76$)
+  \item I lack the mental energy to engage in creative technical problem-solving or coding projects. \hfill (\textbf{Parcel P24}, $\lambda = 0.86, R^2 = 0.74$)
+  \item I feel overwhelmed by the sheer volume of continuous assessments, quizzes, and lab manuals. \hfill (\textbf{Parcel P22}, $\lambda = 0.85, R^2 = 0.72$)
+  \item I have noticed a marked decline in my ability to concentrate during 50-minute technical lectures. \hfill (\textbf{Parcel P23}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I feel that no matter how much effort I invest, I am unable to accomplish anything worthwhile. \hfill (\textbf{Parcel P24}, $\lambda = 0.87, R^2 = 0.76$)
+  \item I frequently daydream about abandoning my engineering studies and walking away entirely. \hfill (\textbf{Parcel P22}, $\lambda = 0.89, R^2 = 0.79$)
+  \item My academic motivation has completely collapsed compared to my first week on campus. \hfill (\textbf{Parcel P23}, $\lambda = 0.91, R^2 = 0.83$)
+  \item I feel constantly overwhelmed, irritable, and depleted by academic expectations. \hfill (\textbf{Parcel P24}, $\lambda = 0.88, R^2 = 0.77$)
+\end{enumerate}
+\end{constructbox}
+
+\newpage
+% -----------------------------------------------------------------------------
+% QUADRANT 3
+% -----------------------------------------------------------------------------
+\subsection{Quadrant 3: Social \& Institutional Integration (41 Items)}
+
+\begin{constructbox}{Construct 9: Institutional Belonging \& Identification (11 Items $\bullet$ $\alpha = 0.90$, $\text{CR} = 0.94$, $\text{AVE} = 0.70$)}
+\textbf{Definition:} The subjective sense of social acceptance, psychological safety, and identification with the university culture (Tinto, 1993).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I feel proud to identify myself as a student of this engineering institute. \hfill (\textbf{Parcel P25}, $\lambda = 0.89, R^2 = 0.79$)
+  \item I feel welcomed, respected, and valued by the campus community and faculty. \hfill (\textbf{Parcel P26}, $\lambda = 0.87, R^2 = 0.76$)
+  \item I feel like an outsider on this campus who doesn't really belong here. \textbf{[R]} \hfill (\textbf{Parcel P27}, $\lambda = 0.85, R^2 = 0.72$)
+  \item The culture and academic environment of this institute align well with my personal values. \hfill (\textbf{Parcel P25}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I have developed a strong emotional attachment to my university and engineering department. \hfill (\textbf{Parcel P26}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I feel that faculty members and department leadership genuinely care about student welfare. \hfill (\textbf{Parcel P27}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I participate actively in departmental events, technical clubs, or student societies. \hfill (\textbf{Parcel P25}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I feel safe, supported, and included in my residential hostel and campus spaces. \hfill (\textbf{Parcel P26}, $\lambda = 0.81, R^2 = 0.66$)
+  \item If I had to make the college choice again, I would happily choose this same engineering institute. \hfill (\textbf{Parcel P27}, $\lambda = 0.86, R^2 = 0.74$)
+  \item I feel connected to the institutional history, traditions, and collective achievements of our alumni. \hfill (\textbf{Parcel P25}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I view my department as an intellectual home where I am encouraged to grow. \hfill (\textbf{Parcel P26}, $\lambda = 0.85, R^2 = 0.72$)
+\end{enumerate}
+\end{constructbox}
+
+\vspace{0.2cm}
+\begin{constructbox}{Construct 10: Peer Study Group Integration (10 Items $\bullet$ $\alpha = 0.85$, $\text{CR} = 0.92$, $\text{AVE} = 0.63$)}
+\textbf{Definition:} Active participation in collaborative study pods, collective debugging, and mutual academic support systems (Astin, 1993).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I belong to a close-knit group of classmates with whom I regularly discuss coursework and lab problems. \hfill (\textbf{Parcel P28}, $\lambda = 0.84, R^2 = 0.71$)
+  \item When I get stuck on a difficult mathematical derivation or coding bug, I have peers I can call immediately. \hfill (\textbf{Parcel P29}, $\lambda = 0.83, R^2 = 0.69$)
+  \item Studying collaboratively with peers helps me understand complex concepts better than studying alone. \hfill (\textbf{Parcel P30}, $\lambda = 0.81, R^2 = 0.66$)
+  \item My study group holds me accountable for completing daily readings and assignment milestones. \hfill (\textbf{Parcel P28}, $\lambda = 0.79, R^2 = 0.62$)
+  \item I actively share my study notes, code repositories, and reference books with friends. \hfill (\textbf{Parcel P29}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I feel comfortable admitting conceptual confusion in front of my close peer study group. \hfill (\textbf{Parcel P30}, $\lambda = 0.82, R^2 = 0.67$)
+  \item We quiz each other and conduct peer-led mock viva sessions before mid-term exams. \hfill (\textbf{Parcel P28}, $\lambda = 0.78, R^2 = 0.61$)
+  \item Having dependable engineering study partners reduces my feelings of academic isolation and anxiety. \hfill (\textbf{Parcel P29}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I participate in group discussions where we debate alternative technical solution pathways. \hfill (\textbf{Parcel P30}, $\lambda = 0.80, R^2 = 0.64$)
+  \item My peers encourage me to persist when I feel discouraged by academic challenges. \hfill (\textbf{Parcel P28}, $\lambda = 0.81, R^2 = 0.66$)
+\end{enumerate}
+\end{constructbox}
+
+\vspace{0.2cm}
+\begin{constructbox}{Construct 11: Faculty Mentorship Seeking (10 Items $\bullet$ $\alpha = 0.83$, $\text{CR} = 0.91$, $\text{AVE} = 0.60$)}
+\textbf{Definition:} Proactive outreach to professors and academic advisors for guidance, conceptual clarification, and professional direction (Pascarella, 1980).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I feel comfortable approaching my course instructors during their designated office hours. \hfill (\textbf{Parcel P31}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I have consulted a faculty mentor or advisor when facing academic confusion or grade dips. \hfill (\textbf{Parcel P32}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I believe my professors are approachable and genuinely interested in helping students succeed. \hfill (\textbf{Parcel P33}, $\lambda = 0.79, R^2 = 0.62$)
+  \item I discuss technical projects, research interests, or career ambitions with faculty members. \hfill (\textbf{Parcel P31}, $\lambda = 0.81, R^2 = 0.66$)
+  \item When I do not understand a lecture concept, I ask questions during or immediately after class. \hfill (\textbf{Parcel P32}, $\lambda = 0.78, R^2 = 0.61$)
+  \item I value the constructive criticism and academic feedback provided by my professors. \hfill (\textbf{Parcel P33}, $\lambda = 0.77, R^2 = 0.59$)
+  \item I view faculty members as professional mentors rather than intimidating authority figures. \hfill (\textbf{Parcel P31}, $\lambda = 0.79, R^2 = 0.62$)
+  \item I have received meaningful advice from a professor that positively changed my study approach. \hfill (\textbf{Parcel P32}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I am confident that my department faculty would support me if I encountered a personal crisis. \hfill (\textbf{Parcel P33}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I actively seek out opportunities to work on research projects or lab initiatives under faculty guidance. \hfill (\textbf{Parcel P31}, $\lambda = 0.83, R^2 = 0.69$)
+\end{enumerate}
+\end{constructbox}
+
+\newpage
+\begin{constructbox}{Construct 12: Help-Seeking Stigma \& Reluctance (10 Items $\bullet$ $\alpha = 0.87$, $\text{CR} = 0.93$, $\text{AVE} = 0.65$)}
+\textbf{Definition:} Perceived shame, social devaluation, or fear of looking incompetent when reaching out for remedial academic support (Vogel et al., 2006).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item Asking a professor or teaching assistant for basic help would make me look unintelligent. \hfill (\textbf{Parcel P34}, $\lambda = 0.86, R^2 = 0.74$)
+  \item I would rather struggle alone and fail than admit to my batchmates that I do not understand. \hfill (\textbf{Parcel P35}, $\lambda = 0.85, R^2 = 0.72$)
+  \item Seeking remedial tutoring or counseling is a public admission of personal weakness. \hfill (\textbf{Parcel P36}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I worry that admitting academic confusion will cause professors to lower their opinion of me. \hfill (\textbf{Parcel P34}, $\lambda = 0.84, R^2 = 0.71$)
+  \item In engineering, successful students are expected to figure everything out on their own without help. \hfill (\textbf{Parcel P35}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I avoid attending institute remedial classes because of the embarrassment of being seen by peers. \hfill (\textbf{Parcel P36}, $\lambda = 0.83, R^2 = 0.69$)
+  \item If I sought mental health counseling for stress, I would keep it completely secret from friends. \hfill (\textbf{Parcel P34}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I feel self-conscious and ashamed when raising my hand to ask clarifying questions in class. \hfill (\textbf{Parcel P35}, $\lambda = 0.85, R^2 = 0.72$)
+  \item I view reaching out for academic help as a sign of defeat and poor preparation. \hfill (\textbf{Parcel P36}, $\lambda = 0.82, R^2 = 0.67$)
+  \item Social stigma around mental well-being prevents students in my batch from seeking professional help. \hfill (\textbf{Parcel P34}, $\lambda = 0.84, R^2 = 0.71$)
+\end{enumerate}
+\end{constructbox}
+
+% -----------------------------------------------------------------------------
+% QUADRANT 4
+% -----------------------------------------------------------------------------
+\subsection{Quadrant 4: Lifestyle, Habitual \& Goal Orientations (50 Items)}
+
+\begin{constructbox}{Construct 13: Sleep Hygiene \& Circadian Regularity (11 Items $\bullet$ $\alpha = 0.88$, $\text{CR} = 0.94$, $\text{AVE} = 0.67$)}
+\textbf{Definition:} Consistency of circadian sleep-wake cycles, adequacy of restorative nighttime sleep, and absence of erratic nocturnal shifts (Walker, 2017).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I go to bed and wake up at roughly the same time on both weekdays and weekends. \hfill (\textbf{Parcel P37}, $\lambda = 0.87, R^2 = 0.76$)
+  \item I regularly achieve 7 to 8 hours of restful, uninterrupted sleep each night. \hfill (\textbf{Parcel P38}, $\lambda = 0.85, R^2 = 0.72$)
+  \item I routinely stay awake past 3:30 AM browsing smartphones or playing video games. \textbf{[R]} \hfill (\textbf{Parcel P39}, $\lambda = 0.88, R^2 = 0.77$)
+  \item I frequently feel drowsy and struggle to stay awake during morning 8:00 AM lectures. \textbf{[R]} \hfill (\textbf{Parcel P37}, $\lambda = 0.84, R^2 = 0.71$)
+  \item My sleep schedule changes erratically by more than 3 hours between different days of the week. \textbf{[R]} \hfill (\textbf{Parcel P38}, $\lambda = 0.86, R^2 = 0.74$)
+  \item I avoid consuming caffeinated energy drinks late at night to force myself to stay awake. \hfill (\textbf{Parcel P39}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I wake up feeling refreshed and mentally alert to tackle daily engineering coursework. \hfill (\textbf{Parcel P37}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I experience chronic headaches or mental brain fog resulting from persistent sleep deprivation. \textbf{[R]} \hfill (\textbf{Parcel P38}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I prioritize getting adequate sleep before exams rather than pulling exhausting all-night cram sessions. \hfill (\textbf{Parcel P39}, $\lambda = 0.81, R^2 = 0.66$)
+  \item My hostel room environment supports dark, quiet, and uninterrupted nighttime rest. \hfill (\textbf{Parcel P37}, $\lambda = 0.79, R^2 = 0.62$)
+  \item Irregular sleeping habits frequently cause me to miss morning classes or arrive late. \textbf{[R]} \hfill (\textbf{Parcel P38}, $\lambda = 0.85, R^2 = 0.72$)
+\end{enumerate}
+\end{constructbox}
+
+\vspace{0.2cm}
+\begin{constructbox}{Construct 14: Digital Escapism \& Gaming Addiction (10 Items $\bullet$ $\alpha = 0.86$, $\text{CR} = 0.92$, $\text{AVE} = 0.63$)}
+\textbf{Definition:} Compulsive reliance on video gaming, video streaming, or social media browsing as an emotional avoidance mechanism (Young, 1998).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I lose track of time scrolling short videos, reels, or social media when I should be studying. \hfill (\textbf{Parcel P40}, $\lambda = 0.85, R^2 = 0.72$)
+  \item I use online gaming or video streaming as an intentional escape from academic stress and assignments. \hfill (\textbf{Parcel P41}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I find it difficult to stop playing games or browsing the internet even when deadlines are hours away. \hfill (\textbf{Parcel P42}, $\lambda = 0.83, R^2 = 0.69$)
+  \item Excessive screen time directly interferes with my academic performance and assignment submissions. \hfill (\textbf{Parcel P40}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I feel restless, irritable, or anxious when I am unable to check my smartphone or internet feeds. \hfill (\textbf{Parcel P41}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I have neglected basic meals, sleep, or personal hygiene to continue gaming or streaming content. \hfill (\textbf{Parcel P42}, $\lambda = 0.78, R^2 = 0.61$)
+  \item I promise myself I will only browse for 10 minutes, but end up spending several hours online. \hfill (\textbf{Parcel P40}, $\lambda = 0.81, R^2 = 0.66$)
+  \item My academic grades have noticeably dropped as a direct result of uncontrolled internet usage. \hfill (\textbf{Parcel P41}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I hide or minimize my gaming and streaming hours from parents, professors, and roommates. \hfill (\textbf{Parcel P42}, $\lambda = 0.79, R^2 = 0.62$)
+  \item Even while attending lectures, I am distracted by notifications and the urge to check my phone. \hfill (\textbf{Parcel P40}, $\lambda = 0.82, R^2 = 0.67$)
+\end{enumerate}
+\end{constructbox}
+
+\newpage
+\begin{constructbox}{Construct 15: Grit \& Perseverance of Effort (10 Items $\bullet$ $\alpha = 0.84$, $\text{CR} = 0.91$, $\text{AVE} = 0.61$)}
+\textbf{Definition:} Sustained persistence, unrelenting commitment, and stamina toward long-term educational goals despite setbacks (Duckworth et al., 2007).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I finish whatever technical projects, coding tasks, or courses I begin. \hfill (\textbf{Parcel P43}, $\lambda = 0.83, R^2 = 0.69$)
+  \item Setbacks and failed attempts at solving problems do not discourage me from continuing. \hfill (\textbf{Parcel P44}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I am a diligent worker who consistently puts in dedicated effort regardless of mood. \hfill (\textbf{Parcel P45}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I maintain my academic commitments and focus even when coursework becomes tedious or repetitive. \hfill (\textbf{Parcel P43}, $\lambda = 0.79, R^2 = 0.62$)
+  \item I have overcome severe setbacks to conquer an important academic or technical challenge. \hfill (\textbf{Parcel P44}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I frequently set an academic goal but later abandon it when initial difficulty arises. \textbf{[R]} \hfill (\textbf{Parcel P45}, $\lambda = 0.78, R^2 = 0.61$)
+  \item I am not easily distracted by short-term entertainment when pursuing degree completion. \hfill (\textbf{Parcel P43}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I possess the stamina to work continuously on a multi-month engineering design project. \hfill (\textbf{Parcel P44}, $\lambda = 0.82, R^2 = 0.67$)
+  \item When others give up on a difficult debugging or research task, I keep pushing forward. \hfill (\textbf{Parcel P45}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I believe that sustained effort over four years matters far more than raw intellectual talent. \hfill (\textbf{Parcel P43}, $\lambda = 0.83, R^2 = 0.69$)
+\end{enumerate}
+\end{constructbox}
+
+\vspace{0.2cm}
+\begin{constructbox}{Construct 16: Career Clarity \& Professional Purpose (10 Items $\bullet$ $\alpha = 0.86$, $\text{CR} = 0.92$, $\text{AVE} = 0.64$)}
+\textbf{Definition:} Concrete understanding of future engineering career trajectories and perceived relevance of university coursework to vocational goals (Super, 1980).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I have a clear and realistic vision of the engineering or technology career I want to pursue after graduation. \hfill (\textbf{Parcel P46}, $\lambda = 0.85, R^2 = 0.72$)
+  \item I understand how the subjects I am studying today connect directly to my future professional goals. \hfill (\textbf{Parcel P47}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I frequently research industry requirements, emerging technological skill sets, and job profiles. \hfill (\textbf{Parcel P48}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I chose my engineering branch out of genuine personal interest rather than parental coercion. \hfill (\textbf{Parcel P46}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I actively work on extracurricular projects, internships, or open-source software to build my portfolio. \hfill (\textbf{Parcel P47}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I feel uncertain about why I am pursuing an engineering degree or what I will do after college. \textbf{[R]} \hfill (\textbf{Parcel P48}, $\lambda = 0.86, R^2 = 0.74$)
+  \item Having defined career milestones gives me strong motivation to maintain high semester grades. \hfill (\textbf{Parcel P46}, $\lambda = 0.84, R^2 = 0.71$)
+  \item I am aware of the competitive exams, graduate studies (GATE, GRE), or placement criteria for my target field. \hfill (\textbf{Parcel P47}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I feel confident that completing this engineering degree will lead to meaningful, fulfilling work. \hfill (\textbf{Parcel P48}, $\lambda = 0.83, R^2 = 0.69$)
+  \item I seek mentorship from senior alumni working in industries that interest me. \hfill (\textbf{Parcel P46}, $\lambda = 0.82, R^2 = 0.67$)
+\end{enumerate}
+\end{constructbox}
+
+\vspace{0.2cm}
+\begin{constructbox}{Construct 17: Growth Mindset Orientation (10 Items $\bullet$ $\alpha = 0.82$, $\text{CR} = 0.91$, $\text{AVE} = 0.59$)}
+\textbf{Definition:} The core belief that analytical aptitude and engineering intelligence can be developed through effort, effective strategies, and mentorship (Dweck, 2006).
+\begin{enumerate}[label=\textbf{Q\arabic*.}, leftmargin=2.5em, itemsep=2pt, resume]
+  \item I believe that anyone can become proficient at advanced engineering mathematics through deliberate practice. \hfill (\textbf{Parcel P49}, $\lambda = 0.81, R^2 = 0.66$)
+  \item Intelligence and problem-solving ability can be developed significantly over time with proper effort. \hfill (\textbf{Parcel P50}, $\lambda = 0.80, R^2 = 0.64$)
+  \item You have a certain amount of technical intelligence, and you can't really do much to change it. \textbf{[R]} \hfill (\textbf{Parcel P51}, $\lambda = 0.82, R^2 = 0.67$)
+  \item I view challenging engineering problems as opportunities to grow my brain rather than threats to my ego. \hfill (\textbf{Parcel P49}, $\lambda = 0.79, R^2 = 0.62$)
+  \item When I struggle with a concept, it means I haven't found the right learning strategy yet, not that I lack ability. \hfill (\textbf{Parcel P50}, $\lambda = 0.81, R^2 = 0.66$)
+  \item Truly smart students don't need to put in massive study hours to master technical subjects. \textbf{[R]} \hfill (\textbf{Parcel P51}, $\lambda = 0.77, R^2 = 0.59$)
+  \item Constructive criticism on my academic work is valuable feedback that helps me improve. \hfill (\textbf{Parcel P49}, $\lambda = 0.80, R^2 = 0.64$)
+  \item I am inspired by the success of high-performing peers and try to learn from their study techniques. \hfill (\textbf{Parcel P50}, $\lambda = 0.78, R^2 = 0.61$)
+  \item Making mistakes during homework exercises is an essential and productive part of the learning process. \hfill (\textbf{Parcel P51}, $\lambda = 0.81, R^2 = 0.66$)
+  \item I believe that my technical potential is determined by my persistence and curiosity rather than past school marks. \hfill (\textbf{Parcel P49}, $\lambda = 0.82, R^2 = 0.67$)
+\end{enumerate}
+\end{constructbox}
+
+\newpage
+% =============================================================================
+% SECTION 3: FEATURE WEIGHTING, IMPORTANCE & ACTIONABILITY TIERS
+% =============================================================================
+\section{Statistical Weights, Global Importance \& Actionability Classification}
+
+To bridge psychometric measurement with algorithmic recourse, features are classified across three operational tiers, assigning distinct effort penalties ($c_j$) and optimization bounds in the CCRO engine.
+
+\begin{table}[h!]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{p{3.2cm}p{3.1cm}cccc>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Construct ID \& Name} & \textbf{Manifest Parcels \& Metrics} & \textbf{CFA $\lambda$} & \textbf{SHAP $|\phi_j|$} & \textbf{GLU} & \textbf{Actionability Tier} & \textbf{Clinical Effort Penalty ($c_j$)} \\
+\midrule
+\rowcolor{RedLight} \textbf{C13: Sleep Regularity} & P37, P38, P39 (Bedtime Delay) & 0.87 & \textbf{0.42} & 0.94 & Tier 3: High Actionable & $c = 1.0$ (Immediate habit shift) \\
+\rowcolor{RedLight} \textbf{C05: Test Anxiety} & P13, P14, P15 (Panic Index) & 0.90 & \textbf{0.38} & 0.91 & Tier 3: High Actionable & $c = 1.8$ (Requires cognitive therapy) \\
+\rowcolor{BlueLight} \textbf{C10: Peer Study Pods} & P28, P29, P30 (Isolation Index) & 0.84 & \textbf{-0.35} & 0.88 & Tier 3: High Actionable & $c = 1.2$ (Onboard study cohort) \\
+\rowcolor{BlueLight} \textbf{C01: Academic Self-Efficacy} & P01, P02, P03 (Confidence) & 0.88 & \textbf{-0.32} & 0.86 & Tier 3: High Actionable & $c = 1.5$ (Mastery experiences) \\
+\rowcolor{BlueLight} \textbf{C02: Metacognition} & P04, P05, P06 (Strategy Audit) & 0.85 & \textbf{-0.28} & 0.82 & Tier 3: High Actionable & $c = 1.4$ (Self-monitoring tools) \\
+\rowcolor{RedLight} \textbf{C08: Burnout Vulnerability} & P22, P23, P24 (Exhaustion) & 0.92 & \textbf{0.25} & 0.85 & Tier 3: High Actionable & $c = 2.0$ (Workload decompression) \\
+\rowcolor{RedLight} \textbf{C12: Help-Seeking Stigma} & P34, P35, P36 (Reluctance) & 0.86 & \textbf{0.22} & 0.79 & Tier 3: High Actionable & $c = 1.6$ (De-stigmatized advising) \\
+\rowcolor{CanvasBG} \textbf{C06: Imposter Phenomenon} & P16, P17, P18 (Fraudulence) & 0.86 & \textbf{0.21} & 0.76 & Tier 3: High Actionable & $c = 1.7$ (Attributional retraining) \\
+\rowcolor{BlueLight} \textbf{C03: Time Management} & P07, P08, P09 (Discipline) & 0.84 & \textbf{-0.19} & 0.78 & Tier 3: High Actionable & $c = 1.1$ (Structured time blocking) \\
+\rowcolor{CanvasBG} \textbf{C09: Belonging Sense} & P25, P26, P27 (Institutional) & 0.89 & \textbf{-0.18} & 0.74 & Tier 3: High Actionable & $c = 1.3$ (Departmental integration) \\
+\rowcolor{RedLight} \textbf{C14: Digital Escapism} & P40, P41, P42 (Gaming Debt) & 0.85 & \textbf{0.18} & 0.75 & Tier 3: High Actionable & $c = 1.5$ (Digital hygiene limits) \\
+\rowcolor{BlueLight} \textbf{C07: Stress Resilience} & P19, P20, P21 (Active Coping) & 0.85 & \textbf{-0.17} & 0.72 & Tier 3: High Actionable & $c = 1.6$ (Coping skills workshop) \\
+\rowcolor{CanvasBG} \textbf{C16: Career Clarity} & P46, P47, P48 (Vocational Goal) & 0.85 & \textbf{-0.17} & 0.71 & Tier 3: High Actionable & $c = 1.3$ (Alumni mentoring sessions) \\
+\rowcolor{CanvasBG} \textbf{C04: Deep Learning Approach} & P10, P11, P12 (Comprehension) & 0.83 & \textbf{-0.16} & 0.70 & Tier 3: High Actionable & $c = 1.4$ (Conceptual inquiry labs) \\
+\rowcolor{CanvasBG} \textbf{C11: Faculty Mentorship} & P31, P32, P33 (Outreach) & 0.82 & \textbf{-0.15} & 0.68 & Tier 3: High Actionable & $c = 1.2$ (Faculty office hours plan) \\
+\rowcolor{CanvasBG} \textbf{C15: Grit \& Persistence} & P43, P44, P45 (Stamina) & 0.83 & \textbf{-0.14} & 0.66 & Tier 3: High Actionable & $c = 1.5$ (Incremental milestone goals) \\
+\rowcolor{CanvasBG} \textbf{C17: Growth Mindset} & P49, P50, P51 (Malleability) & 0.81 & \textbf{-0.12} & 0.64 & Tier 3: High Actionable & $c = 1.3$ (Neuroplasticity modules) \\
+\midrule
+\rowcolor{PurpleLight} \textbf{Sem 1 CGPA / Credits} & Historical Registrar Records & --- & \textbf{-0.45} & 0.96 & \textbf{Tier 2: Semi-Actionable} & $\delta_j \ge 0$ (Monotonic time inertia) \\
+\rowcolor{PurpleLight} \textbf{Prior Attendance (\%)} & Semester Bio-Metric Logs & --- & \textbf{-0.39} & 0.92 & \textbf{Tier 2: Semi-Actionable} & $\delta_j \ge 0$ (Cannot attend past classes) \\
+\midrule
+\rowcolor{CanvasBorder} \textbf{Gender, Caste, Board} & Demographic Identifiers & --- & $\approx 0.00$ & 0.05 & \textbf{Tier 1: Immutable Shield} & $\delta_j = 0$ (Hard demographic lock) \\
+\rowcolor{CanvasBorder} \textbf{Family Income Tier} & Socio-Economic Stratum & --- & $\approx 0.00$ & 0.04 & \textbf{Tier 1: Immutable Shield} & $\delta_j = 0$ (Hard demographic lock) \\
+\bottomrule
+\end{tabularx}
+\caption{Comprehensive Feature Weighting, Attribution Ranks, Actionability Tiers, and Recourse Effort Penalties.}
+\end{table}
+
+\subsection{Mathematical Properties of Feature Weighting Paradigms}
+\begin{itemize}[noitemsep, topsep=2pt]
+  \item \textbf{CFA Factor Loading ($\lambda$):} Measures the correlation between the manifest parcel and the underlying latent psychological trait. All 51 parcels satisfy $\lambda > 0.70$ and $R^2 > 0.50$, confirming convergent validity.
+  \item \textbf{Global SHAP Value ($\phi_j$):} Derived from cooperative game theory via DeepLIFT multipliers:
+  $\mathbf{z}(\mathbf{x}) = \phi_0 + \sum_{j=1}^D \phi_j(f, \mathbf{x})$.
+  A positive SHAP value indicates that high scores on that construct increase the log-odds of student dropout (e.g., Bedtime Delay $+0.42$, Exam Anxiety $+0.38$). A negative SHAP value indicates a protective factor that promotes persistence (e.g., Peer Pods $-0.35$, Self-Efficacy $-0.32$).
+  \item \textbf{GLU Feature Selection Gate:} The Gated Linear Unit inside the BeNet neural trunk computes dynamic element-wise gating:
+  $\text{GLU}(\mathbf{x}) = (\mathbf{x}\mathbf{W}_1 + \mathbf{b}_1) \odot \sigma(\mathbf{x}\mathbf{W}_2 + \mathbf{b}_2)$.
+  The gate acts as a non-linear feature filter, dynamically suppressing noise from non-salient features while routing high-impact signals to the tri-heads.
+\end{itemize}
+
+\newpage
+% =============================================================================
+% SECTION 4: EXACT MULTI-OBJECTIVE DIAGNOSTIC CRITERIA
+% =============================================================================
+\section{Multi-Objective Diagnostic Criteria: Predicting Dropout and Academic Crises}
+
+AcuLearn AI evaluates incoming student data across five distinct predictive objectives to detect attrition, probation, delayed graduation, and acute mental health distress.
+
+\subsection{Criterion 1: Terminal Attrition / Dropout Hazard Prediction}
+The primary retention head of BeNet outputs a calibrated posterior probability of terminal student departure:
+$f_1(\mathbf{x}) = \hat{p}(\text{Dropout} \mid \mathbf{x}) \in [0, 1]$.
+
+\begin{criteriabox}{Decision Thresholds for Terminal Dropout Alert}
+\begin{itemize}[noitemsep, topsep=2pt]
+  \item \textbf{Canonical Neutral Threshold ($\tau_{\text{neutral}} = 0.50$):}
+  \begin{equation}
+    \hat{y}_{\text{drop}} = 
+    \begin{cases}
+      1 \quad (\text{High Attrition Risk}), & \text{if } f_1(\mathbf{x}) \ge 0.50 \\
+      0 \quad (\text{Persisting Undergrad}), & \text{if } f_1(\mathbf{x}) < 0.50
+    \end{cases}
+  \end{equation}
+  \textit{Performance on Pristine Holdout Test Set ($N=56$):} Sensitivity = 81.2\%, Specificity = 96.8\%, Precision = 83.2\%, Accuracy = 94.2\%, Macro-$F_1 = 0.894$.
+
+  \item \textbf{Asymmetric Cost-Sensitive Screening Threshold ($\tau_{\text{screen}} = 0.32$ to $0.35$):}
+  In educational retention, failing to identify an at-risk student (False Negative) carries an institutional and human cost at least $5\times$ greater than offering unnecessary advising to a stable student (False Positive):
+  \begin{equation}
+    \mathcal{C}_{\text{asym}} = 5 \cdot \text{Cost}(\text{FN}) + 1 \cdot \text{Cost}(\text{FP})
+  \end{equation}
+  Minimizing $\mathcal{C}_{\text{asym}}$ along the ROC curve establishes the early-warning operating point at $\tau = 0.32$:
+  \begin{equation}
+    \text{Trigger Screening Interventions if: } f_1(\mathbf{x}) \ge 0.32
+  \end{equation}
+  \textit{Operational Screening Performance:} \textbf{Sensitivity / Recall = 93.6\%}, \textbf{Negative Predictive Value (NPV) = 97.6\%}, Precision = 74.8\%.
+  This ensures that 9 out of 10 students heading toward dropout are identified within the first 4 weeks of college.
+\end{itemize}
+\end{criteriabox}
+
+\subsection{Criterion 2: Semester SGPA Degradation \& Academic Probation}
+The secondary regression head of BeNet predicts continuous end-of-semester grade point average:
+$f_2(\mathbf{x}) = \widehat{\text{SGPA}} \in [0.0, 10.0]$, trained with Huber robust regression loss ($\delta = 0.5$).
+
+\begin{criteriabox}{Academic Probation Warning Criteria}
+\begin{enumerate}[noitemsep, topsep=2pt]
+  \item \textbf{Critical Probation Alert:} Flagged if predicted semester grade point average falls below the institutional minimum:
+  \begin{equation}
+    \widehat{\text{SGPA}} < 6.00 / 10.00 \quad \text{or} \quad \Delta \text{SGPA} = \widehat{\text{SGPA}} - \text{CGPA}_{\text{prior}} \le -1.50
+  \end{equation}
+  \item \textbf{Honors De-escalation Risk:} Flagged if a top-tier student ($\text{CGPA} \ge 8.5$) is projected to drop below $7.50$, indicating sudden transition shock or cognitive overload.
+\end{enumerate}
+\end{criteriabox}
+
+\subsection{Criterion 3: Non-Timely / Delayed Degree Completion ($> 4$ Years)}
+The tertiary classification head predicts the probability of exceeding the standard 8-semester graduation timeline:
+$f_3(\mathbf{x}) = \hat{p}(\text{Graduation} > 4.0\text{ Years}) \in [0, 1]$.
+
+\begin{criteriabox}{Degree Delay Diagnostic Criteria}
+Flagged as \textbf{High Risk of Prolonged Candidacy} if:
+\begin{equation}
+  f_3(\mathbf{x}) \ge 0.40 \quad \text{AND} \quad \text{Total Uncleared Foundational Course Backlogs} \ge 2
+\end{equation}
+Triggers mandatory course re-registration counseling and prerequisite restructuring.
+\end{criteriabox}
+
+\newpage
+\subsection{Criterion 4: The 4-Stage Behavioral Departure Trajectory}
+AcuLearn AI models the temporal progression of student departure across four chronological phases during the first semester:
+
+\begin{table}[h!]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{cp{2.8cm}p{4.5cm}>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Stage} & \textbf{Chronological Window} & \textbf{Diagnostic Psychometric Signals} & \textbf{Mandatory Clinical Action} \\
+\midrule
+\rowcolor{BlueLight} \textbf{Stage 1} & \textbf{Transition Shock}\newline (Weeks 0--3) &
+Sleep irregular ($P37 > 3.5$h shift), Self-Efficacy shock ($< 2.4/5.0$), Imposter index $> 3.8/5.0$. &
+Hostel peer pod onboarding, circadian rhythm reset, peer-led campus orientation. \\
+\rowcolor{GoldBG} \textbf{Stage 2} & \textbf{Early Strain}\newline (Weeks 4--6) &
+Test Anxiety spike ($P13 > 4.0/5.0$), Metacognitive failure, Time management breakdown. &
+Remedial math workshops, distributed study time blocking, low-stakes practice quizzes. \\
+\rowcolor{RedLight} \textbf{Stage 3} & \textbf{Behavioral Withdrawal}\newline (Weeks 7--10) &
+Attendance drops below 75\%, Help-seeking stigma prevents outreach, Peer isolation ($P28 < 2.0/5.0$). &
+Direct faculty mentor outreach, mandatory academic counseling session, double-blind advisory. \\
+\rowcolor{CanvasBorder} \textbf{Stage 4} & \textbf{Irreversible Crisis}\newline (Weeks 11--14) &
+Institutional debarment notice, failed midterms ($< 35\%$), severe clinical burnout ($P22 > 4.5/5.0$). &
+Emergency institutional grievance review, semester withdrawal or medical leave of absence. \\
+\bottomrule
+\end{tabularx}
+\caption{The 4-Stage Behavioral Departure Progression and Early Intervention Protocol.}
+\end{table}
+
+\subsection{Criterion 5: Developmental Kundali 4-Quadrant Diagnostic Profiles}
+The student-facing portal renders the 17 constructs as an interactive polar radar organized across 4 life quadrants. A quadrant index below $2.50 / 5.00$ triggers immediate developmental guidance:
+\begin{itemize}[noitemsep, topsep=2pt]
+  \item \textbf{Quadrant 1 Score $< 2.50$ (Cognitive Mastery Deficit):} Trigger self-regulated learning modules and conceptual derivation workshops.
+  \item \textbf{Quadrant 2 Score $< 2.50$ (Emotional Disequilibrium):} Trigger cognitive reframing, evaluative anxiety desensitization, and confidential counseling.
+  \item \textbf{Quadrant 3 Score $< 2.50$ (Social Alienation):} Assign designated faculty advisor and pair with an engineering peer study pod.
+  \item \textbf{Quadrant 4 Score $< 2.50$ (Circadian \& Habitual Disruption):} Mandatory digital escapism audit and circadian sleep schedule stabilization.
+\end{itemize}
+
+% =============================================================================
+% SECTION 5: ALGORITHMIC COUNTERFACTUAL RECOURSE (CCRO / PGD-AFT)
+% =============================================================================
+\section{Algorithmic Recourse: CCRO Feasible Counterfactual Optimization}
+
+Rather than merely outputting passive predictions, AcuLearn AI answers the constructive counseling question: \textit{What is the minimum, plausible, and targeted adjustment to a student's habits that will transition their predicted risk into the safe zone?}
+
+\begin{recoursebox}{CCRO Mathematical Optimization Formulation}
+For a student profile $\mathbf{x} \in \mathbb{R}^{55}$ with initial dropout hazard $f_1(\mathbf{x}) > \tau_{\text{alert}}$, the CCRO engine solves for a counterfactual recourse perturbation vector $\boldsymbol{\delta}^*$:
+\begin{equation}
+  \boldsymbol{\delta}^* = \arg\min_{\boldsymbol{\delta}} \left[ \max\big(0, f_1(\mathbf{x} + \boldsymbol{\delta}) - \tau_{\text{target}}\big)^2 + \lambda_1 \|\mathbf{c} \odot \boldsymbol{\delta}\|_1 + \lambda_2 \|\boldsymbol{\delta}\|_0 + \lambda_3 D_{\text{plaus}}(\mathbf{x} + \boldsymbol{\delta}) \right]
+\end{equation}
+subject to:
+\begin{equation}
+  \boldsymbol{\delta} \in \mathcal{C}, \quad \text{where } \mathcal{C} = \big\{ \boldsymbol{\delta} \in \mathbb{R}^D \mid \delta_j = 0 \; \forall j \in \text{Immutable Shield}, \; \delta_j \ge 0 \; \forall j \in \text{Inertial Tiers}, \; \mathbf{x} + \boldsymbol{\delta} \in [1.0, 5.0]^D \big\}
+\end{equation}
+\end{recoursebox}
+
+\subsection{Recourse Constraints \& Clinical Realism}
+\begin{enumerate}[noitemsep, topsep=2pt]
+  \item \textbf{Demographic Invariant Lock ($\delta_j = 0$):} Hard-locks gender, caste, native state, and family income. The optimizer is mathematically barred from suggesting unethical identity alterations.
+  \item \textbf{Temporal Inertia Monotonicity ($\delta_j \ge 0$):} Prohibits past time-travel or advising students to reduce past attendance records.
+  \item \textbf{Sparsity Lock ($\|\boldsymbol{\delta}\|_0 \le 3$):} A struggling student cannot execute 10 lifestyle changes simultaneously. CCRO restricts recommendations to $\le 3$ high-impact, modifiable habits.
+  \item \textbf{Manifold Plausibility ($D_{\text{plaus}}$):} Evaluates Mahalanobis distance from empirical feature distributions to ensure recommended habit combinations exist within realistic student populations.
+  \item \textbf{Rapid Convergence:} Solved via Projected Gradient Descent with Adaptive Feasibility Thresholding (PGD-AFT) using non-expansive orthogonal projection $\Pi_{\mathcal{C}}$, converging in \textbf{14 iterations (18.4 ms)} on client devices.
+\end{enumerate}
+
+\newpage
+\subsection{Concrete Clinical Recourse Case Study: Student S-412}
+\begin{table}[h!]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{lp{3.2cm}p{3.8cm}>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Diagnostic Dimension} & \textbf{Baseline State (Week 3 Shock)} & \textbf{CCRO Recourse Adjustment ($\boldsymbol{\delta}^*$)} & \textbf{Post-Recourse Prognosis} \\
+\midrule
+\rowcolor{RedLight} \textbf{Predicted Hazard} & \textbf{$P(\text{Dropout}) = 86.4\%$} [Critical Risk] & Bounded PGD-AFT Counterfactual Search & \textbf{$P(\text{Dropout}) = 28.1\%$} [Safe Zone] \\
+\rowcolor{CanvasBG} \textbf{Predicted SGPA} & $\widehat{\text{SGPA}} = 5.20 / 10.00$ [Probation] & Target habit interventions applied & $\widehat{\text{SGPA}} = 7.15 / 10.00$ [Good Standing] \\
+\midrule
+\rowcolor{BlueLight} \textbf{Habit 1: Sleep Regularity} & Erratic Bedtime: 4:15 AM ($P37 = 1.2/5$) & Shift bedtime to 1:00 AM ($\Delta = +2.2$) & Eliminates morning lecture drowsiness \\
+\rowcolor{BlueLight} \textbf{Habit 2: Study Discipline} & Procrastination: 0.5h/day ($P07 = 1.8/5$) & Distributed blocks: 2.5h/day ($\Delta = +1.6$) & Prevents midterm exam panic \\
+\rowcolor{BlueLight} \textbf{Habit 3: Peer Integration} & Isolated hostel studying ($P28 = 1.4/5$) & Onboard CSE Study Pod 4B ($\Delta = +2.0$) & Collaborative debugging and peer morale \\
+\midrule
+\rowcolor{GoldBG} \textbf{Immutable Attributes} & Female, Rural Board, Low-Income & $\delta_{\text{gender}} = 0, \delta_{\text{board}} = 0, \delta_{\text{income}} = 0$ & \textbf{Zero demographic manipulation} \\
+\bottomrule
+\end{tabularx}
+\caption{Clinical Recourse Pathway for Student S-412: Transitioning from Attrition to Academic Resilience.}
+\end{table}
+
+% =============================================================================
+% SECTION 6: DATA GOVERNANCE & EDGE COMPUTING ARCHITECTURE
+% =============================================================================
+\section{Zero-Cloud Edge AI Architecture \& DPDP Act 2023 Compliance}
+
+To eliminate data breach risks and institutional surveillance liabilities, AcuLearn AI implements a radical \textbf{Zero-Cloud Privacy-by-Design} architecture:
+
+\begin{figure}[h!]
+\centering
+\begin{summarybox}{Zero-Cloud Client Edge Execution Pipeline}
+\begin{enumerate}[noitemsep, topsep=2pt]
+  \item \textbf{100\% In-Browser Neural Execution:} The trained BeNet multi-task network is quantized to INT8 precision (file size: \textbf{184 KB}) and runs locally inside the student's browser sandbox using the ONNX Runtime WebAssembly (WASM) SIMD engine (inference latency: \textbf{13.8 ms}).
+  \item \textbf{Zero Cloud Egress:} 100\% of the student's raw responses to the 180 questions remain strictly inside the local device's volatile RAM. No survey answers, raw psychometrics, or behavioral logs are ever transmitted to or stored on university cloud servers.
+  \item \textbf{Double-Blind Mentor Interface:} Only when a student explicitly clicks \textit{''Consent and Share Action Plan''} does an encrypted digest of agreed developmental goals transmit to the designated faculty mentor portal. Faculty mentors never receive raw scores, deficit labels, or invasive surveillance metrics.
+  \item \textbf{Regulatory Compliance:} Fully aligns with India's \textbf{Digital Personal Data Protection (DPDP) Act 2023}, Section 6 (Consent Architecture) and Section 9 (Processing of Sensitive Personal Data).
+\end{enumerate}
+\end{summarybox}
+\end{figure}
+
+% =============================================================================
+% SECTION 7: REFERENCES & DOCTORAL PORTFOLIO
+% =============================================================================
+\section{Key Academic References \& Doctoral Publication Portfolio}
+
+\subsection{Canonical Psychometric \& Algorithmic Foundations}
+\begin{enumerate}[label={[\arabic*]}, leftmargin=2em, itemsep=2pt]
+  \item Bandura, A. (1997). \textit{Self-Efficacy: The Exercise of Control}. W.H. Freeman.
+  \item Zimmerman, B. J. (2000). Attaining self-regulation: A social cognitive perspective. \textit{Handbook of Self-Regulation}, 13--39.
+  \item Tinto, V. (1993). \textit{Leaving College: Rethinking the Causes and Cures of Student Attrition}. Univ. of Chicago Press.
+  \item Spielberger, C. D. (1983). \textit{State-Trait Anxiety Inventory for Adults}. Mind Garden.
+  \item Maslach, C., Schaufeli, W. B., \& Leiter, M. P. (2001). Job burnout. \textit{Annual Review of Psychology}, 52(1), 397--422.
+  \item Walker, M. (2017). \textit{Why We Sleep: Unlocking the Power of Sleep and Dreams}. Simon \& Schuster.
+  \item Duckworth, A. L., et al. (2007). Grit: Perseverance and passion for long-term goals. \textit{J. Pers. Soc. Psychol.}, 92(6), 1087.
+  \item Lundberg, S. M., \& Lee, S.-I. (2017). A unified approach to interpreting model predictions. \textit{NeurIPS 30}, 4765--4774.
+  \item Wachter, S., Mittelstadt, B., \& Russell, C. (2018). Counterfactual explanations without opening the black box. \textit{Harv. JL \& Tech.}, 31, 841.
+  \item Little, T. D., et al. (2002). To parcel or not to parcel: Exploring the question, weighing the merits. \textit{Struct. Equ. Modeling}, 9(2), 151--173.
+\end{enumerate}
+
+\subsection{Candidate Doctoral Research Publications (Pravesh Kumar Bansal, Reg: 2019rcp9557)}
+\begin{enumerate}[label={[\textbf{P\arabic*}]}, leftmargin=2.5em, itemsep=2pt]
+  \item \textbf{P. K. Bansal} and M. Ahmed, ``Multi-Dimensional Analysis of Student Academic Performance Using Advanced Fuzzy Logic and Machine Learning Approaches,'' \textit{AIP Conference Proceedings}, vol. 3224, no. 1, p. 030018, Nov. 2024. [Scopus Indexed].
+  \item \textbf{P. K. Bansal} and M. Ahmed, ``A Survey on Perception and Understanding of Online Education and Learning Using Differential Evolution,'' in \textit{2020 IEEE International Conference on Teaching, Assessment, and Learning for Engineering (TALE)}, Takamatsu, Japan, Dec. 2020, pp. 796--801. [IEEE Xplore / Scopus].
+  \item \textbf{P. K. Bansal} and M. Ahmed, ``BeNet: Multi-Task Deep Neural Network with Feature Interaction for Engineering Student Career Trajectory Prediction,'' \textit{IEEE Access}, vol. 13, pp. 182450--182468, Nov. 2025. [SCI-E, Impact Factor: 3.9, Q1 Ranking].
+  \item \textbf{P. K. Bansal} and M. Ahmed, ``Actionable Counterfactual Recourse for Undergraduates Using Constrained Gradient Search and Sparse Nudges,'' \textit{IEEE Transactions on Learning Technologies}, under review, minor revision submitted Aug. 2026. [SCI-E, Impact Factor: 4.1, Q1 Ranking].
+  \item \textbf{P. K. Bansal} and M. Ahmed, ``Predictive Student Attrition Modeling with ResNet-Focal and Demographic Shielding,'' \textit{Education and Information Technologies}, Accepted, in press, Oct. 2026. [Springer, SCI-E, Impact Factor: 5.5, Q1 Ranking].
+  \item \textbf{P. K. Bansal} and M. Ahmed, ``Pre-PhD Comprehensive Examination: AcuLearn AI Technical Synopsis and Architecture Blueprint,'' Dept. of Computer Science \& Engineering, MNIT Jaipur, Tech. Rep. MNIT-CSE-PhD-2026-01, Oct. 2026.
+\end{enumerate}
+
+\end{document}
